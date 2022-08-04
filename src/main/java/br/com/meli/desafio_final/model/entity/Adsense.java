@@ -4,5 +4,5 @@ public class Adsense {
     long id;
     Seller seller;
     Product product;
-    double price;
+    float price;
 }
