@@ -17,6 +17,12 @@ public class Item {
     private int quantity;
 
     @ManyToOne
+    @JoinColumn(name = "purchaseOrder_id")
+    @JsonIgnoreProperties("item")
+    private PurchaseOrder purchaseOrder;
+
+
+    @ManyToOne
     @JoinColumn(name = "adsense_id")
     @JsonIgnoreProperties("item")
     private Adsense adsense;

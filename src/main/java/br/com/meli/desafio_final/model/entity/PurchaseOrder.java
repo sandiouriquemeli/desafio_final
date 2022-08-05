@@ -25,6 +25,7 @@ public class PurchaseOrder {
     @JsonIgnoreProperties("purchaseOrder")
     private Buyer buyer;
 
+
     @OneToMany(mappedBy = "purchaseOrder")
     @JsonIgnoreProperties("purchaseOrder")
     private List<Item> itemList;
