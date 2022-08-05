@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Batch {
-    long id;
+    Long id;
     Adsense adsense;
     float currentTemperature;
     float minimunTemperature;

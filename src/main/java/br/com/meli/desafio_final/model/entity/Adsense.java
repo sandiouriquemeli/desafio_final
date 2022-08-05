@@ -1,8 +1,10 @@
 package br.com.meli.desafio_final.model.entity;
 
 public class Adsense {
-    long id;
+
+    Long id;
     Seller seller;
     Product product;
     float price;
+    
 }

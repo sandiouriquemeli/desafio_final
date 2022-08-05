@@ -4,9 +4,9 @@ import br.com.meli.desafio_final.model.enums.Type;
 
 public class Product {
 
-    long id;
+    Long id;
     String name;
-    double volumen;
+    Double volumen;
     Type type;
 
 }
