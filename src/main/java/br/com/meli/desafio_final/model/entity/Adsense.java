@@ -1,10 +1,36 @@
 package br.com.meli.desafio_final.model.entity;
 
-public class Adsense {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 
-    Long id;
-    Seller seller;
-    Product product;
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Setter @Getter
+public class Adsense {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne()
+    @JoinColumn(name = "seller_id")
+    @JsonIgnoreProperties("adsense")
+    private Seller seller;
+
+    @ManyToOne()
+    @JoinColumn(name = "product_id")
+    @JsonIgnoreProperties("adsense")
+    private Product product;
+
     float price;
-    
+
+    @OneToMany(mappedBy = "adsense")
+    @JsonIgnoreProperties("adsense")
+    private List<Batch> batchList;
+
+    @OneToMany(mappedBy = "adsense")
+    @JsonIgnoreProperties("adsense")
+    private List<Item> itemList;
 }
