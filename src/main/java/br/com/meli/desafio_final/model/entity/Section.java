@@ -9,7 +9,7 @@ import javax.validation.constraints.DecimalMax;
 
 @Entity
 @Setter @Getter
-public class Sector {
+public class Section {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
