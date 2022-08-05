@@ -1,7 +1,6 @@
 package br.com.meli.desafio_final.model.entity;
 
-import br.com.meli.desafio_final.model.enums.Type;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import br.com.meli.desafio_final.model.enums.Category;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,5 +15,5 @@ public class Product {
 
     private String name;
     private Double volumen;
-    private Type type;
+    private Category category;
 }
