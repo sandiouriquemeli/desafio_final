@@ -15,5 +15,7 @@ public class Product {
 
     private String name;
     private Double volumen;
+
+    @Enumerated(EnumType.STRING)
     private Category category;
 }
