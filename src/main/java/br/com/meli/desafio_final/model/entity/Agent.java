@@ -7,7 +7,14 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-public class Agent extends Person{
+public class Agent{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String name;
+
     @OneToOne
     @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
