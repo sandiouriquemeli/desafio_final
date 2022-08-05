@@ -18,7 +18,8 @@ public class PurchaseOrder {
 
     private Status status;
 
-    private LocalDate date;
+    //Setando valor atual
+    private LocalDate date = LocalDate.now();
 
     @ManyToOne()
     @JoinColumn(name = "buyer_id")
