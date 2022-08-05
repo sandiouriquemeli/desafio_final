@@ -16,9 +16,9 @@ public class PurchaseOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     private Status status;
 
-    //Setando valor atual
     private LocalDate date = LocalDate.now();
 
     @ManyToOne()
@@ -27,7 +27,8 @@ public class PurchaseOrder {
     private Buyer buyer;
 
 
-    @OneToMany(mappedBy = "purchaseOrder")
+    @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.PERSIST)
     @JsonIgnoreProperties("purchaseOrder")
     private List<Item> itemList;
+
 }
