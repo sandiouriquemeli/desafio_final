@@ -18,7 +18,7 @@ public class InBoundOrderService implements IInBoundOrderService {
 
     @Override
     public InBoundOrder create(InBoundOrder inBoundOrder) {
-        return null;
+        return repository.save(inBoundOrder);
     }
 
     @Override

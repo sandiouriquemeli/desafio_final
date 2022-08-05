@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/fresh-products/inboundorder/")
+@RequestMapping("/api/v1/fresh-products/inboundorder")
 public class InBoundOrderController {
 
 
@@ -20,10 +20,11 @@ public class InBoundOrderController {
             return ResponseEntity.ok(service.getAll());
         }
 
-       // @PostMapping
-        //public ResponseEntity<Author> novoAuthor(@RequestBody Author author) {
-        //    return ResponseEntity.ok(service.save(author));
-       // }
+        @PostMapping
+        public ResponseEntity<InBoundOrder> novoAuthor(@RequestBody InBoundOrder inBoundOrder) {
+            return ResponseEntity.ok(service.create(inBoundOrder));
+        }
+}
 
-    }
+
 

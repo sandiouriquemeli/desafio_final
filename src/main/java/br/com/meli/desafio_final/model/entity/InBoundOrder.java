@@ -19,9 +19,15 @@ public class InBoundOrder {
     @JoinColumn(name = "section_id")
     private Section section;
 
-    LocalDate date;
+ //   @Column(name = "date")
+    LocalDate date = LocalDate.now();
 
     @OneToMany(mappedBy = "inBoundOrder")
     @JsonIgnoreProperties("inBoundOrder")
     private List<Batch> batchStock;
+
+   // @PrePersist
+ //   protected void onCreate() {
+ //       this.date = LocalDate.now();
+  //  }
 }
