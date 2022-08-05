@@ -12,10 +12,18 @@ import java.util.List;
 public class Adsense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    Seller seller;
-    Product product;
+    @ManyToOne()
+    @JoinColumn(name = "seller_id")
+    @JsonIgnoreProperties("adsense")
+    private Seller seller;
+
+    @ManyToOne()
+    @JoinColumn(name = "product_id")
+    @JsonIgnoreProperties("adsense")
+    private Product product;
+
     float price;
 
     @OneToMany(mappedBy = "adsense")
