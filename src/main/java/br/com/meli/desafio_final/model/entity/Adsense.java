@@ -29,4 +29,8 @@ public class Adsense {
     @OneToMany(mappedBy = "adsense")
     @JsonIgnoreProperties("adsense")
     private List<Batch> batchList;
+
+    @OneToMany(mappedBy = "adsense")
+    @JsonIgnoreProperties("adsense")
+    private List<Item> itemList;
 }
