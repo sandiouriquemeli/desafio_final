@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -17,14 +18,17 @@ public class Adsense {
     @ManyToOne()
     @JoinColumn(name = "seller_id")
     @JsonIgnoreProperties("adsense")
+    @NotBlank(message = "O 'id' do seller precisa ser informado.")
     private Seller seller;
 
     @ManyToOne()
     @JoinColumn(name = "product_id")
     @JsonIgnoreProperties("adsense")
+    @NotBlank(message = "O 'id' do produto precisa ser informado.")
     private Product product;
 
-    float price;
+    @NotBlank(message = "O Preço do produto precisa ser informado.")
+    private double price;
 
     @OneToMany(mappedBy = "adsense")
     @JsonIgnoreProperties("adsense")
