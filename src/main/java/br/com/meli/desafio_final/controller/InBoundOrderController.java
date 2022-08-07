@@ -1,5 +1,6 @@
 package br.com.meli.desafio_final.controller;
 
+import br.com.meli.desafio_final.dto.InBoundOrderDto;
 import br.com.meli.desafio_final.model.entity.InBoundOrder;
 import br.com.meli.desafio_final.service.IInBoundOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class InBoundOrderController {
         }
 
         @PostMapping
-        public ResponseEntity<InBoundOrder> novoAuthor(@RequestBody InBoundOrder inBoundOrder) {
+        public ResponseEntity<List<InBoundOrderDto>> novoAuthor(@RequestBody InBoundOrder inBoundOrder) {
             return ResponseEntity.ok(service.create(inBoundOrder));
         }
 }
