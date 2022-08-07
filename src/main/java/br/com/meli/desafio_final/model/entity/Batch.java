@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @Setter @Getter
 public class Batch {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long batchNumber;
 
     @ManyToOne
     @JoinColumn(name = "adsense_id")
@@ -32,4 +32,5 @@ public class Batch {
     @JoinColumn(name = "inBoundOrder_id")
     @JsonIgnoreProperties("batch")
     private InBoundOrder inBoundOrder;
+
 }
