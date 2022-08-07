@@ -15,5 +15,8 @@ public class Product {
 
     private String name;
     private Double volumen;
+
+    //Setando Enum como String
+    @Enumerated(EnumType.STRING)
     private Category category;
 }
