@@ -1,5 +1,6 @@
 package br.com.meli.desafio_final.service;
 
+import br.com.meli.desafio_final.dto.AdsenseDto;
 import br.com.meli.desafio_final.model.entity.Adsense;
 import br.com.meli.desafio_final.model.entity.Buyer;
 import br.com.meli.desafio_final.model.entity.Item;
@@ -70,12 +71,12 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     }
 
     @Override
-    public List<Adsense> findAdsensesByPurchaseOrderId(Long id) {
+    public List<AdsenseDto> findAdsensesByPurchaseOrderId(Long id) {
         List<Adsense> adsenseList = new ArrayList<>();
         itemService.findItemsByPurchaseOrderId(id).forEach(item -> {
             adsenseList.add(item.getAdsense());
         });
-        return adsenseList;
+        return AdsenseDto.convertDto(adsenseList);
     }
 
 }

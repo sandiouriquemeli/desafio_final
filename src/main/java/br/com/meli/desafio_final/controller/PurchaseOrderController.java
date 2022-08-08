@@ -1,6 +1,6 @@
 package br.com.meli.desafio_final.controller;
 
-import br.com.meli.desafio_final.model.entity.Adsense;
+import br.com.meli.desafio_final.dto.AdsenseDto;
 import br.com.meli.desafio_final.model.entity.PurchaseOrder;
 import br.com.meli.desafio_final.service.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +22,8 @@ public class PurchaseOrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(purchaseOrderService.save(purchaseOrder));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PurchaseOrder> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(purchaseOrderService.findById(id));
-    }
-
     @GetMapping("/orders/{id}")
-    public ResponseEntity<List<Adsense>> findAdsensesByPurchaseOrderId(@PathVariable Long id) {
+    public ResponseEntity<List<AdsenseDto>> findAdsensesByPurchaseOrderId(@PathVariable Long id) {
         return ResponseEntity.ok(purchaseOrderService.findAdsensesByPurchaseOrderId(id));
     }
 
