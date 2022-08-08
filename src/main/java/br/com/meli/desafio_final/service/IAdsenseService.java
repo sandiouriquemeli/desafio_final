@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface IAdsenseService {
 
-    //Necessário POST requisito 2!
     Adsense findById(long id);
 
     List<Adsense> findAll();

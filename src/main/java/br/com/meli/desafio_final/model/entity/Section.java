@@ -8,8 +8,10 @@ import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
 
 @Entity
-@Setter @Getter
+@Setter
+@Getter
 public class Section {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

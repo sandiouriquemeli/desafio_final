@@ -9,8 +9,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Setter @Getter
+@Setter
+@Getter
 public class Batch {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

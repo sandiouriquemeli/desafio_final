@@ -8,8 +8,10 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Setter @Getter
+@Setter
+@Getter
 public class Adsense {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,8 +26,6 @@ public class Adsense {
     @JsonIgnoreProperties("adsense")
     private Product product;
 
-
-    //Alterando tipo para Double para calcular total price e adicionando private.
     private Double price;
 
     @OneToMany(mappedBy = "adsense")

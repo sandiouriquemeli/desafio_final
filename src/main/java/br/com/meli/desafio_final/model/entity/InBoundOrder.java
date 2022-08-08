@@ -9,8 +9,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Setter @Getter
+@Setter
+@Getter
 public class InBoundOrder {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

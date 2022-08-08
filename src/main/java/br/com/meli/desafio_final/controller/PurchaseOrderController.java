@@ -11,16 +11,25 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v2/fresh-products") //adicionando endpoint v2 -> requisito 2
+@RequestMapping("/api/v2/fresh-products")
 public class PurchaseOrderController {
 
     @Autowired
     private PurchaseOrderService purchaseOrderService;
 
-    //Método necessário POST requisito 2
     @PostMapping("/orders")
     public ResponseEntity<Double> save(@RequestBody PurchaseOrder purchaseOrder) {
         return ResponseEntity.status(HttpStatus.CREATED).body(purchaseOrderService.save(purchaseOrder));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PurchaseOrder> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(purchaseOrderService.findById(id));
+    }
+
+    @GetMapping("/orders/{id}")
+    public ResponseEntity<List<Adsense>> findAdsensesByPurchaseOrderId(@PathVariable Long id) {
+        return ResponseEntity.ok(purchaseOrderService.findAdsensesByPurchaseOrderId(id));
     }
 
 }
