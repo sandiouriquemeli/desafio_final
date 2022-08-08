@@ -23,4 +23,8 @@ public class PurchaseOrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(purchaseOrderService.save(purchaseOrder));
     }
 
+    @PutMapping("/orders/")
+    public ResponseEntity<PurchaseOrder> update(@RequestParam Long queryParam) {
+        return ResponseEntity.ok(purchaseOrderService.updateToFinished(queryParam));
+    }
 }
