@@ -32,6 +32,33 @@ public class InBoundOrderService implements IInBoundOrderService {
         return repository.findAll();
     }
 
+    private List<InBoundOrderDto> saveOrUpdate(InBoundOrder inBoundOrder, long agentId) {
+        List<Batch> batchList = this.validateInboundOrder(inBoundOrder, agentId);
+        InBoundOrder newInboundOrder = repository.save(inBoundOrder);
+
+        return batchList.stream().map((batch -> {
+            batch.setInBoundOrder(newInboundOrder);
+            return new InBoundOrderDto(batchService.saveBatch(batch));
+        })).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<InBoundOrderDto> create(InBoundOrder inBoundOrder, long agentId) {
+        if(inBoundOrder.getId() != null) {
+            throw new RuntimeException("InboundOrder já cadastrada");
+        }
+        return saveOrUpdate(inBoundOrder, agentId);
+    }
+
+    @Override
+    public List<InBoundOrderDto> update(InBoundOrder inBoundOrder, long agentId) {
+        repository.findById(inBoundOrder.getId()).orElseThrow(() -> {
+            throw new RuntimeException("InboundOrder não encontrada");
+        });
+
+        return saveOrUpdate(inBoundOrder, agentId);
+    }
+
     //TODO: Fazer exceptions para Seller, Section e Product notFound
     // TODO: lembrar de criar um service pra cada ou um service validations
 
@@ -42,14 +69,7 @@ public class InBoundOrderService implements IInBoundOrderService {
      */
     private List<Batch> validateInboundOrder(InBoundOrder inBoundOrder, long agentId) {
         Agent agent = validationService.validateAgent(agentId);
-
-        Section section = validationService.validateSection(inBoundOrder.getSection());
-        if(agent.getWarehouse().getId().equals(section.getWarehouse().getId())){
-            inBoundOrder.setAgent(agent);
-        }else{
-            throw new RuntimeException("Esse represente não está vinculado a esse armazen");
-        }
-
+        Section section = validateSection(inBoundOrder, agent);
         List<Batch>batchList = inBoundOrder.getBatchStock();
         batchList.forEach((batch) -> {
             Adsense adsense = adsenseService.findById(batch.getAdsense().getId());
@@ -70,35 +90,16 @@ public class InBoundOrderService implements IInBoundOrderService {
         return quantity * volumen;
     }
 
-    private List<InBoundOrderDto> saveOrUpdate(InBoundOrder inBoundOrder, long agentId) {
-        List<Batch> batchList = this.validateInboundOrder(inBoundOrder, agentId);
-        InBoundOrder newInboundOrder = repository.save(inBoundOrder);
+    private Section validateSection(InBoundOrder inBoundOrder, Agent agent){
 
-        return batchList.stream().map((batch -> {
-            batch.setInBoundOrder(newInboundOrder);
-            return new InBoundOrderDto(batchService.saveBatch(batch));
-        })).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<InBoundOrderDto> create(InBoundOrder inBoundOrder, long agentId) {
-       if(inBoundOrder.getId() != null) {
-               throw new RuntimeException("InboundOrder já cadastrada");
-       }
-      return saveOrUpdate(inBoundOrder, agentId);
-    }
-
-    @Override
-    public List<InBoundOrderDto> update(InBoundOrder inBoundOrder, long agentId) {
-        repository.findById(inBoundOrder.getId()).orElseThrow(() -> {
-            throw new RuntimeException("InboundOrder não encontrada");
-        });
-
-        return saveOrUpdate(inBoundOrder, agentId);
+        Section section = validationService.validateSection(inBoundOrder.getSection());
+        if(agent.getWarehouse().getId().equals(section.getWarehouse().getId())){
+            inBoundOrder.setAgent(agent);
+        }else{
+            throw new RuntimeException("Esse represente não está vinculado a esse armazen");
+        }
+        return section;
     }
 
     // TODO: fazer exception pra update e create
-    // TODO: Registrar o representante junto com o inboundOrder
-    // TODO: validar que o setor corresponde ao tipo de produto
-    // TODO: validar que o setor tem espaço disponível
 }
