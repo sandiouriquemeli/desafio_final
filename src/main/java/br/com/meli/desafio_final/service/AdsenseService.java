@@ -1,11 +1,14 @@
 package br.com.meli.desafio_final.service;
 
+import br.com.meli.desafio_final.exception.CategoryNotFoundException;
 import br.com.meli.desafio_final.model.entity.Adsense;
+import br.com.meli.desafio_final.model.enums.Category;
 import br.com.meli.desafio_final.repository.AdsenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AdsenseService implements IAdsenseService {
@@ -28,6 +31,17 @@ public class AdsenseService implements IAdsenseService {
     //Implementando findAll para verificar existencia produtos do carrinho!
     @Override
     public List<Adsense> findAll() {
-        return (List<Adsense>) adsenseRepository.findAll();
+        return (List<Adsense>) adsenseRepository.findAll(); //warning de redundancia, casting nao é necessario
+    }
+
+    @Override
+    public List<Adsense> findByCategory(Category category) {
+        List<Adsense> response = findAll().stream().filter(a -> a.getProduct().getCategory().equals(category))
+                .collect(Collectors.toList());
+        if (response.isEmpty()) {
+            throw new CategoryNotFoundException("Nenhum produto com essa categoria foi encontrado");
+            // verificar a exception
+        }
+        return response;
     }
 }
