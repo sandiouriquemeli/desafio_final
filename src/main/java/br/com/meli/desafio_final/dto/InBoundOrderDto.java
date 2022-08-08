@@ -26,7 +26,7 @@ public class InBoundOrderDto {
         setBatchNumber(batch.getBatchNumber());
         setAdsense_id(batch.getAdsense().getId());
         setCurrentTemperature(batch.getCurrentTemperature());
-        setMinimumTemperature(batch.getMinimunTemperature());
+        setMinimumTemperature(batch.getMinimumTemperature());
         setInitialQuantity(batch.getInitialQuantity());
         setCurrentQuantity(batch.getCurrentQuantity());
         setManufacturingDate(batch.getManufacturingDate());
