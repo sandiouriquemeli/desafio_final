@@ -9,14 +9,18 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProductService {
+public class ProductService implements IProductService {
 
     @Autowired
-    ProductRepository repository;
+    private ProductRepository repository;
 
+    @Override
     public List<Product> getAllProducts() {
         List<Product> products = (List<Product>) repository.findAll();
-        if (products.size() == 0) throw new ExProductNotFound("Lista não encotrada");
+
+        if (products.size() == 0) throw new ExProductNotFound("Lista de produtos não encontrada");
+
         return products;
     }
+
 }
