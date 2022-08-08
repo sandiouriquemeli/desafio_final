@@ -31,7 +31,7 @@ public class AdsenseService implements IAdsenseService {
     //Implementando findAll para verificar existencia produtos do carrinho!
     @Override
     public List<Adsense> findAll() {
-        return (List<Adsense>) adsenseRepository.findAll(); //warning de redundancia, casting nao é necessario
+        return adsenseRepository.findAll();
     }
 
     @Override
