@@ -16,8 +16,11 @@ public class PurchaseOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //Setando Enum como String
+    @Enumerated(EnumType.STRING)
     private Status status;
 
+    //Removendo set LocalDate.now() -> não está funcionando
     private LocalDate date;
 
     @ManyToOne()
@@ -26,7 +29,9 @@ public class PurchaseOrder {
     private Buyer buyer;
 
 
-    @OneToMany(mappedBy = "purchaseOrder")
+    //Adicionando Cascade para persistir ids item no banco
+    @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.PERSIST)
     @JsonIgnoreProperties("purchaseOrder")
     private List<Item> itemList;
+
 }

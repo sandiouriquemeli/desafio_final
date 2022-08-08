@@ -24,7 +24,7 @@ public class Adsense {
     @JsonIgnoreProperties("adsense")
     private Product product;
 
-    float price;
+    private Double price;
 
     @OneToMany(mappedBy = "adsense")
     @JsonIgnoreProperties("adsense")
