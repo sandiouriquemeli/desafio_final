@@ -1,5 +1,6 @@
 package br.com.meli.desafio_final.service;
 
+import br.com.meli.desafio_final.exception.NotFound;
 import br.com.meli.desafio_final.model.entity.Adsense;
 import br.com.meli.desafio_final.repository.AdsenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ public class AdsenseService implements IAdsenseService{
     @Override
     public Adsense findById(long id) {
         return adsenseRepository.findById(id)
-                .orElseThrow(() -> { throw new RuntimeException("deu ruim"); } );
+                .orElseThrow(() -> { throw new NotFound("Adsense não cadastrada."); } );
     }
 }
-    // TODO: Tratar Exception
