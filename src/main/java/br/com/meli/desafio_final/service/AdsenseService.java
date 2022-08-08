@@ -21,17 +21,16 @@ public class AdsenseService implements IAdsenseService {
     public Adsense findById(long id) {
         return adsenseRepository.findById(id)
                 .orElseThrow(() -> {
-                    throw new RuntimeException("deu ruim");
+                    throw new ExNotFound("💢 Anúncio não encontrado!");
                 });
     }
-    // TODO: Tratar Exception
 
     //Implementando findAll para verificar existencia produtos do carrinho!
     @Override
     public List<Adsense> findAll() {
         List<Adsense> adsenses = (List<Adsense>) adsenseRepository.findAll();
 
-        if (adsenses.size() == 0) throw new ExNotFound("Lista de anúncios não encontrada");
+        if (adsenses.size() == 0) throw new ExNotFound("💢 Lista de anúncios não encontrada");
 
         return adsenses;
 
