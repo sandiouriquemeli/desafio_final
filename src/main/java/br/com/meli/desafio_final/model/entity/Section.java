@@ -18,9 +18,11 @@ public class Section {
     @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
 
-    @DecimalMax(value = "300")
-    private Double capacity;
+    private Double totalCapacity;
 
+    @Enumerated(EnumType.STRING)
     private Category category;
+
+    private Double usedCapacity;
 
 }

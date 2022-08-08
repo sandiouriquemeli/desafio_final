@@ -24,6 +24,9 @@ public class InBoundOrderService implements IInBoundOrderService {
     @Autowired
     BatchService batchService;
 
+    @Autowired
+    SectionService sectionService;
+
     @Override
     public List<InBoundOrder> getAll() {
         return repository.findAll();
@@ -37,20 +40,38 @@ public class InBoundOrderService implements IInBoundOrderService {
      * @param inBoundOrder
      * @return BatchList
      */
-    private List<Batch> validateInboundOrder(InBoundOrder inBoundOrder) {
-        validationService.validateSection(inBoundOrder.getSection());
+    private List<Batch> validateInboundOrder(InBoundOrder inBoundOrder, long agentId) {
+        Agent agent = validationService.validateAgent(agentId);
+
+        Section section = validationService.validateSection(inBoundOrder.getSection());
+        if(agent.getWarehouse().getId().equals(section.getWarehouse().getId())){
+            inBoundOrder.setAgent(agent);
+        }else{
+            throw new RuntimeException("Esse represente não está vinculado a esse armazen");
+        }
+
         List<Batch>batchList = inBoundOrder.getBatchStock();
         batchList.forEach((batch) -> {
             Adsense adsense = adsenseService.findById(batch.getAdsense().getId());
-            validationService.validateSeller(adsense.getSeller());
-            validationService.validateProduct(adsense.getProduct());
+            if(section.getCategory().equals(adsense.getProduct().getCategory())){
+                validationService.validateSeller(adsense.getSeller());
+                validationService.validateProduct(adsense.getProduct());
+            }else {
+                throw new RuntimeException("Produto não pertence a esse setor.");
+            }
+            double batchVolum = bacthVolumen(batch.getCurrentQuantity(), adsense.getProduct().getVolumen());
+            System.out.println("volum calculo ------------- >" + batchVolum);
+            sectionService.setAndUpdateCapacity(batchVolum, section);
         });
         return batchList;
     }
 
+    private double bacthVolumen(int quantity, double volumen){
+        return quantity * volumen;
+    }
+
     private List<InBoundOrderDto> saveOrUpdate(InBoundOrder inBoundOrder, long agentId) {
-        List<Batch> batchList = this.validateInboundOrder(inBoundOrder);
-        inBoundOrder.setAgent(validationService.validateAgent(agentId));
+        List<Batch> batchList = this.validateInboundOrder(inBoundOrder, agentId);
         InBoundOrder newInboundOrder = repository.save(inBoundOrder);
 
         return batchList.stream().map((batch -> {

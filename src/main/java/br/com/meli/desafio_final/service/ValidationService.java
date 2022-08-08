@@ -31,8 +31,8 @@ public class ValidationService {
      * Metodo Valida a existência de uma Section no DB.
      * @param section
      */
-    void validateSection(Section section) {
-        sectionRepository.findById(section.getId())
+    Section validateSection(Section section) {
+       return sectionRepository.findById(section.getId())
                 .orElseThrow(() -> {
                     throw new RuntimeException("Section não encontrada");
                 });
@@ -66,6 +66,8 @@ public class ValidationService {
                     throw new RuntimeException("representante não encontrado");
                 });
     }
+
+
     //TODO: Fazer exceptions para Seller, Section e Product notFound
     // TODO: lembrar de criar um service pra cada ou um service validations
 }
