@@ -18,6 +18,7 @@ import org.mockito.quality.Strictness;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -71,6 +72,18 @@ class AdsenseControllerTest {
     }
 
     @Test
-    void findAll() {
+    @DisplayName("Listar anúncios: Valida se retorna uma lista de anúncios.")
+    void findAll_returnListAdsense_whenAdsensesExists() {
+        BDDMockito.when(service.findAll())
+            .thenReturn(List.of(TestAdsenseGenerator.getAdsenseWithId()));
+
+        Adsense adsense = TestAdsenseGenerator.getAdsenseWithId();
+
+        ResponseEntity<List<Adsense>> response = controller.findAll();
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().size()).isNotNull().isPositive().isEqualTo(1);
+        assertThat(response.getBody().get(0).getId()).isEqualTo(adsense.getId());
     }
 }
