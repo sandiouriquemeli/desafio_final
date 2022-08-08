@@ -6,6 +6,7 @@ import br.com.meli.desafio_final.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,7 +53,8 @@ public class InBoundOrderService implements IInBoundOrderService {
 
     @Override
     public List<InBoundOrderDto> update(InBoundOrder inBoundOrder, long agentId) {
-        repository.findById(inBoundOrder.getId()).orElseThrow(() -> {
+         InBoundOrder oldInboundOrder = repository.findById(inBoundOrder.getId())
+                .orElseThrow(() -> {
             throw new RuntimeException("InboundOrder não encontrada");
         });
 
@@ -70,9 +72,9 @@ public class InBoundOrderService implements IInBoundOrderService {
     private List<Batch> validateInboundOrder(InBoundOrder inBoundOrder, long agentId) {
         Agent agent = validationService.validateAgent(agentId);
         Section section = validateSection(inBoundOrder, agent);
-        List<Batch>batchList = inBoundOrder.getBatchStock();
-        validateBatchList(batchList, section);
-        return batchList;
+        //List<Batch>batchList = inBoundOrder.getBatchStock();
+        validateBatchList(inBoundOrder, section);
+        return inBoundOrder.getBatchStock();
     }
 
     private double bacthVolumen(int quantity, double volumen){
@@ -90,8 +92,8 @@ public class InBoundOrderService implements IInBoundOrderService {
         return section;
     }
 
-    private void validateBatchList(List<Batch> batchList, Section section){
-        batchList.forEach((batch) -> {
+    private void validateBatchList(InBoundOrder inBoundOrder, Section section){
+        inBoundOrder.getBatchStock().forEach((batch) -> {
             Adsense adsense = adsenseService.findById(batch.getAdsense().getId());
             if (section.getCategory().equals(adsense.getProduct().getCategory())) {
                 validationService.validateSeller(adsense.getSeller());
@@ -99,11 +101,12 @@ public class InBoundOrderService implements IInBoundOrderService {
             } else {
                 throw new RuntimeException("Produto não pertence a esse setor.");
             }
-            double batchVolum = bacthVolumen(batch.getCurrentQuantity(), adsense.getProduct().getVolumen());
-            sectionService.setAndUpdateCapacity(batchVolum, section);
+            if(inBoundOrder.getId()==null){
+                double batchVolum = bacthVolumen(batch.getCurrentQuantity(), adsense.getProduct().getVolumen());
+                sectionService.setAndUpdateCapacity(batchVolum, section);
+            }
+
         });
         }
-
-
     // TODO: fazer exception pra update e create
 }

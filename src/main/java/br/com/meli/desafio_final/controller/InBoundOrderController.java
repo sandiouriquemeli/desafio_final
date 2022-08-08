@@ -22,10 +22,17 @@ public class InBoundOrderController {
         }
 
         @PostMapping("/{agentId}")
-        public ResponseEntity<List<InBoundOrderDto>> novoAuthor(@PathVariable long agentId,@RequestBody InBoundOrder inBoundOrder) {
+        public ResponseEntity<List<InBoundOrderDto>> createInBoundOrder(@PathVariable long agentId,@RequestBody InBoundOrder inBoundOrder) {
             return ResponseEntity.ok(service.create(inBoundOrder, agentId));
         }
-}
+
+
+        @PutMapping("/{agentId}")
+        public ResponseEntity<List<InBoundOrderDto>> updateInBoundOrder(@PathVariable long agentId,@RequestBody InBoundOrder inBoundOrder) {
+            return ResponseEntity.ok(service.update(inBoundOrder, agentId));
+        }
+
+    }
 
 
 
