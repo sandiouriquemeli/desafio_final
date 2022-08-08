@@ -1,5 +1,6 @@
 package br.com.meli.desafio_final.service;
 
+import br.com.meli.desafio_final.exception.ExProductNotFound;
 import br.com.meli.desafio_final.model.entity.Adsense;
 import br.com.meli.desafio_final.repository.AdsenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class AdsenseService implements IAdsenseService {
     //Implementando findAll para verificar existencia produtos do carrinho!
     @Override
     public List<Adsense> findAll() {
-        return (List<Adsense>) adsenseRepository.findAll();
+        List<Adsense> adsenses = (List<Adsense>) adsenseRepository.findAll();
+
+        if (adsenses.size() == 0) throw new ExProductNotFound("Lista de anúncios não encontrada");
+
+        return adsenses;
+
     }
 }
