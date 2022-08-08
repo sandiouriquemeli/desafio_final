@@ -21,9 +21,9 @@ public class InBoundOrderController {
             return ResponseEntity.ok(service.getAll());
         }
 
-        @PostMapping
-        public ResponseEntity<List<InBoundOrderDto>> novoAuthor(@RequestBody InBoundOrder inBoundOrder) {
-            return ResponseEntity.ok(service.create(inBoundOrder));
+        @PostMapping("/{agentId}")
+        public ResponseEntity<List<InBoundOrderDto>> novoAuthor(@PathVariable long agentId,@RequestBody InBoundOrder inBoundOrder) {
+            return ResponseEntity.ok(service.create(inBoundOrder, agentId));
         }
 }
 
