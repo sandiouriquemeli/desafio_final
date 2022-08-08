@@ -17,15 +17,18 @@ public class InBoundOrder {
     private Long id;
 
     @OneToOne
-    @NotBlank(message = "O 'id' do setor precisa ser informado.")
     @JoinColumn(name = "section_id")
     private Section section;
 
-    LocalDate date = LocalDate.now();
+    private LocalDate date = LocalDate.now();
 
-    @OneToMany(mappedBy = "inBoundOrder")
+    @ManyToOne
+    @JoinColumn(name = "agent_id")
     @JsonIgnoreProperties("inBoundOrder")
-    @NotBlank(message = "Uma lista precisa ser passada na chave 'BatchStock")
+    private Agent agent;
+
+    @OneToMany(mappedBy = "inBoundOrder", cascade = CascadeType.PERSIST)
+    @JsonIgnoreProperties("inBoundOrder")
     private List<Batch> batchStock;
 
 }

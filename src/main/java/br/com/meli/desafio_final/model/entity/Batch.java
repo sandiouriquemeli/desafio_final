@@ -22,14 +22,14 @@ public class Batch {
     @ManyToOne
     @JoinColumn(name = "adsense_id")
     @JsonIgnoreProperties("batch")
-    @NotBlank(message = "O id do anuncio precisa ser informado.")
+    // @NotBlank(message = "O id do anuncio precisa ser informado.")
     private Adsense adsense;
 
     @NotBlank(message = "A temperatura do produto precisa ser informada.")
     private float currentTemperature;
 
     @NotBlank(message = "A temperatura mínima do produto precisa ser informada.")
-    private float minimunTemperature;
+    private float minimumTemperature;
 
     @NotBlank(message = "A quantidade do produto precissa ser informada.")
     private int currentQuantity;
@@ -50,6 +50,5 @@ public class Batch {
     @JoinColumn(name = "inBoundOrder_id")
     @JsonIgnoreProperties("batch")
     private InBoundOrder inBoundOrder;
-
 
 }
