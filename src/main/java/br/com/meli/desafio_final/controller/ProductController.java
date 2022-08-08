@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/fresh-products")
+@RequestMapping("/api/v2/fresh-products") //adicionando endpoint v2 -> requisito 2
 public class ProductController {
 
     @Autowired
