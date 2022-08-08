@@ -1,5 +1,6 @@
 package br.com.meli.desafio_final.service;
 
+import br.com.meli.desafio_final.exception.NotFound;
 import br.com.meli.desafio_final.model.entity.Product;
 import br.com.meli.desafio_final.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ public class ProductService implements IProductService{
 
     @Override
     public Product findProductById(long id) {
-        return productRepository.findById(id).orElseThrow(() -> {throw new RuntimeException("Produto não existe em nosso catágolo");});
+        return productRepository.findById(id).orElseThrow(() -> {throw new NotFound("Produto não existe em nosso catágolo");});
     }
-    //TODO: fazer exception
 }

@@ -1,12 +1,13 @@
 package br.com.meli.desafio_final.service;
 
 import br.com.meli.desafio_final.dto.InBoundOrderDto;
+import br.com.meli.desafio_final.exception.BadRequest;
+import br.com.meli.desafio_final.exception.Unauthorized;
 import br.com.meli.desafio_final.model.entity.*;
 import br.com.meli.desafio_final.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +47,7 @@ public class InBoundOrderService implements IInBoundOrderService {
     @Override
     public List<InBoundOrderDto> create(InBoundOrder inBoundOrder, long agentId) {
         if(inBoundOrder.getId() != null) {
-            throw new RuntimeException("InboundOrder já cadastrada");
+            throw new BadRequest("Pedido de entrada já cadastrado");
         }
         return saveOrUpdate(inBoundOrder, agentId);
     }
@@ -55,14 +56,11 @@ public class InBoundOrderService implements IInBoundOrderService {
     public List<InBoundOrderDto> update(InBoundOrder inBoundOrder, long agentId) {
          InBoundOrder oldInboundOrder = repository.findById(inBoundOrder.getId())
                 .orElseThrow(() -> {
-            throw new RuntimeException("InboundOrder não encontrada");
+            throw new BadRequest("Pedido de entrada não cadastrado");
         });
 
         return saveOrUpdate(inBoundOrder, agentId);
     }
-
-    //TODO: Fazer exceptions para Seller, Section e Product notFound
-    // TODO: lembrar de criar um service pra cada ou um service validations
 
     /**
      * Metodo valida o InboundOrder e retorna a lista de Baths já validada.
@@ -77,7 +75,7 @@ public class InBoundOrderService implements IInBoundOrderService {
         return inBoundOrder.getBatchStock();
     }
 
-    private double bacthVolumen(int quantity, double volumen){
+    private double batchVolume(int quantity, double volumen){
         return quantity * volumen;
     }
 
@@ -87,7 +85,7 @@ public class InBoundOrderService implements IInBoundOrderService {
         if(agent.getWarehouse().getId().equals(section.getWarehouse().getId())){
             inBoundOrder.setAgent(agent);
         }else{
-            throw new RuntimeException("Esse represente não está vinculado a esse armazen");
+            throw new Unauthorized("Esse represente não está vinculado a esse armazen");
         }
         return section;
     }
@@ -99,14 +97,25 @@ public class InBoundOrderService implements IInBoundOrderService {
                 validationService.validateSeller(adsense.getSeller());
                 validationService.validateProduct(adsense.getProduct());
             } else {
-                throw new RuntimeException("Produto não pertence a esse setor.");
+                throw new BadRequest("Produto não pertence a esse setor.");
             }
             if(inBoundOrder.getId()==null){
-                double batchVolum = bacthVolumen(batch.getCurrentQuantity(), adsense.getProduct().getVolumen());
+                double batchVolum = batchVolume(batch.getCurrentQuantity(), adsense.getProduct().getVolumen());
                 sectionService.setAndUpdateCapacity(batchVolum, section);
+            }else{
+                Batch oldBatch = batchService.findById(batch.getBatchNumber());
+                batch.setInitialQuantity(batch.getInitialQuantity() + oldBatch.getInitialQuantity());
+                if(oldBatch.getCurrentQuantity() > batch.getCurrentQuantity()){
+                    // aumentar o volume
+                    double batchVolumen = batchVolume(oldBatch.getCurrentQuantity() - batch.getCurrentQuantity(),
+                            adsense.getProduct().getVolumen());
+                    sectionService.setAndUpdateCapacity(-batchVolumen, section);
+                }else{
+                    double batchVolumen = batchVolume(batch.getCurrentQuantity() - oldBatch.getCurrentQuantity(),
+                            adsense.getProduct().getVolumen());
+                    sectionService.setAndUpdateCapacity(batchVolumen, section);
+                }
             }
-
         });
         }
-    // TODO: fazer exception pra update e create
 }

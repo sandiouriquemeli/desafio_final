@@ -1,5 +1,6 @@
 package br.com.meli.desafio_final.service;
 
+import br.com.meli.desafio_final.exception.NotAcceptable;
 import br.com.meli.desafio_final.model.entity.Section;
 import br.com.meli.desafio_final.repository.SectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class SectionService implements ISectionService{
             section.setUsedCapacity(section.getUsedCapacity() - batchVolumen);
             update(section);
         }else{
-            throw new RuntimeException("Setor sem espaço para armazer o lote");
+            throw new NotAcceptable("Setor sem espaço para armazer o lote");
         }
     }
 

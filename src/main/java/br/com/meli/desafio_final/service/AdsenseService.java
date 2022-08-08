@@ -14,6 +14,6 @@ public class AdsenseService implements IAdsenseService{
     @Override
     public Adsense findById(long id) {
         return adsenseRepository.findById(id)
-                .orElseThrow(() -> { throw new NotFound("Adsense não cadastrada."); } );
+                .orElseThrow(() -> { throw new NotFound("Anúncio não cadastrado."); } );
     }
 }

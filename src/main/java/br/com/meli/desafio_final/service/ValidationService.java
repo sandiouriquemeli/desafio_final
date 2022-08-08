@@ -1,5 +1,6 @@
 package br.com.meli.desafio_final.service;
 
+import br.com.meli.desafio_final.exception.BadRequest;
 import br.com.meli.desafio_final.model.entity.Agent;
 import br.com.meli.desafio_final.model.entity.Product;
 import br.com.meli.desafio_final.model.entity.Section;
@@ -34,7 +35,7 @@ public class ValidationService {
     Section validateSection(Section section) {
        return sectionRepository.findById(section.getId())
                 .orElseThrow(() -> {
-                    throw new RuntimeException("Section não encontrada");
+                    throw new BadRequest("Section não encontrada");
                 });
     }
 
@@ -45,7 +46,7 @@ public class ValidationService {
     void validateSeller(Seller seller) {
         sellerRepository.findById(seller.getId())
                 .orElseThrow(() -> {
-                    throw new RuntimeException("Seller não encontrada");
+                    throw new BadRequest("Seller não encontrada");
                 });
     }
 
@@ -56,18 +57,14 @@ public class ValidationService {
     void validateProduct(Product product) {
         productRepository.findById(product.getId())
                 .orElseThrow(() -> {
-                    throw new RuntimeException("Product não encontrada");
+                    throw new BadRequest("Product não encontrada");
                 });
     }
 
     Agent validateAgent(long id) {
         return agentRepository.findById(id)
                 .orElseThrow(() -> {
-                    throw new RuntimeException("representante não encontrado");
+                    throw new BadRequest("representante não encontrado");
                 });
     }
-
-
-    //TODO: Fazer exceptions para Seller, Section e Product notFound
-    // TODO: lembrar de criar um service pra cada ou um service validations
 }
