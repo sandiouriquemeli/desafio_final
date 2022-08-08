@@ -71,18 +71,7 @@ public class InBoundOrderService implements IInBoundOrderService {
         Agent agent = validationService.validateAgent(agentId);
         Section section = validateSection(inBoundOrder, agent);
         List<Batch>batchList = inBoundOrder.getBatchStock();
-        batchList.forEach((batch) -> {
-            Adsense adsense = adsenseService.findById(batch.getAdsense().getId());
-            if(section.getCategory().equals(adsense.getProduct().getCategory())){
-                validationService.validateSeller(adsense.getSeller());
-                validationService.validateProduct(adsense.getProduct());
-            }else {
-                throw new RuntimeException("Produto não pertence a esse setor.");
-            }
-            double batchVolum = bacthVolumen(batch.getCurrentQuantity(), adsense.getProduct().getVolumen());
-            System.out.println("volum calculo ------------- >" + batchVolum);
-            sectionService.setAndUpdateCapacity(batchVolum, section);
-        });
+        validateBatchList(batchList, section);
         return batchList;
     }
 
@@ -100,6 +89,21 @@ public class InBoundOrderService implements IInBoundOrderService {
         }
         return section;
     }
+
+    private void validateBatchList(List<Batch> batchList, Section section){
+        batchList.forEach((batch) -> {
+            Adsense adsense = adsenseService.findById(batch.getAdsense().getId());
+            if (section.getCategory().equals(adsense.getProduct().getCategory())) {
+                validationService.validateSeller(adsense.getSeller());
+                validationService.validateProduct(adsense.getProduct());
+            } else {
+                throw new RuntimeException("Produto não pertence a esse setor.");
+            }
+            double batchVolum = bacthVolumen(batch.getCurrentQuantity(), adsense.getProduct().getVolumen());
+            sectionService.setAndUpdateCapacity(batchVolum, section);
+        });
+        }
+
 
     // TODO: fazer exception pra update e create
 }
