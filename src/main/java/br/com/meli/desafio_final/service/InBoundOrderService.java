@@ -48,9 +48,11 @@ public class InBoundOrderService implements IInBoundOrderService {
         return batchList;
     }
 
-    private List<InBoundOrderDto> saveOrUpdate(InBoundOrder inBoundOrder) {
+    private List<InBoundOrderDto> saveOrUpdate(InBoundOrder inBoundOrder, long agentId) {
 
         List<Batch> batchList = this.validateInboundOrder(inBoundOrder);
+
+        inBoundOrder.setAgent(validationService.validateAgent(agentId));
 
         InBoundOrder newInboundOrder = repository.save(inBoundOrder);
 
@@ -61,20 +63,20 @@ public class InBoundOrderService implements IInBoundOrderService {
     }
 
     @Override
-    public List<InBoundOrderDto> create(InBoundOrder inBoundOrder) {
+    public List<InBoundOrderDto> create(InBoundOrder inBoundOrder, long agentId) {
        if(inBoundOrder.getId() != null) {
                throw new RuntimeException("InboundOrder já cadastrada");
        }
-
-      return saveOrUpdate(inBoundOrder);
+      return saveOrUpdate(inBoundOrder, agentId);
     }
 
     @Override
-    public List<InBoundOrderDto> update(InBoundOrder inBoundOrder) {
+    public List<InBoundOrderDto> update(InBoundOrder inBoundOrder, long agentId) {
         repository.findById(inBoundOrder.getId()).orElseThrow(() -> {
             throw new RuntimeException("InboundOrder não encontrada");
         });
-        return saveOrUpdate(inBoundOrder);
+
+        return saveOrUpdate(inBoundOrder, agentId);
     }
 
     // TODO: fazer exception pra update e create

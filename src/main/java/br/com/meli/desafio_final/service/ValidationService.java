@@ -1,5 +1,6 @@
 package br.com.meli.desafio_final.service;
 
+import br.com.meli.desafio_final.model.entity.Agent;
 import br.com.meli.desafio_final.model.entity.Product;
 import br.com.meli.desafio_final.model.entity.Section;
 import br.com.meli.desafio_final.model.entity.Seller;
@@ -22,6 +23,9 @@ public class ValidationService {
 
     @Autowired
     BatchRepository batchRepository;
+
+    @Autowired
+    AgentRepository agentRepository;
 
     /**
      * Metodo Valida a existência de uma Section no DB.
@@ -53,6 +57,13 @@ public class ValidationService {
         productRepository.findById(product.getId())
                 .orElseThrow(() -> {
                     throw new RuntimeException("Product não encontrada");
+                });
+    }
+
+    Agent validateAgent(long id) {
+        return agentRepository.findById(id)
+                .orElseThrow(() -> {
+                    throw new RuntimeException("representante não encontrado");
                 });
     }
     //TODO: Fazer exceptions para Seller, Section e Product notFound
