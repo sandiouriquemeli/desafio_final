@@ -86,4 +86,23 @@ class AdsenseControllerTest {
         assertThat(response.getBody().size()).isNotNull().isPositive().isEqualTo(1);
         assertThat(response.getBody().get(0).getId()).isEqualTo(adsense.getId());
     }
+
+    @Test
+    @DisplayName("Listar anúncios: Valida se dispara a execeção NOT FOUND quando não há anúncios cadastrados.")
+    void findAll_throwException_whenAdsensesNotExists() {
+        BDDMockito.when(service.findAll())
+            .thenAnswer((invocationOnMock) -> {
+                throw new ExNotFound("💢 Lista de anúncios não encontrada");
+            });
+
+        Exception exception = null;
+        try {
+            controller.findAll();
+        } catch (ExNotFound ex) {
+            exception = ex;
+        }
+
+        verify(service, atLeastOnce()).findAll();
+        assertThat(exception.getMessage()).isEqualTo("💢 Lista de anúncios não encontrada");
+    }
 }
