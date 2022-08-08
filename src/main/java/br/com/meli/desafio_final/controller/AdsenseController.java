@@ -31,7 +31,7 @@ public class AdsenseController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<Adsense>> getByCategory(@RequestParam Category querytype) {
+    public ResponseEntity<List<Adsense>> findByCategory(@RequestParam Category querytype) {
         return ResponseEntity.ok(adsenseService.findByCategory(querytype));
     }
 }

@@ -27,10 +27,10 @@ import static org.mockito.Mockito.verify;
 public class AdsenseServiceTest {
 
     @InjectMocks
-    AdsenseService service;
+    private AdsenseService service;
 
     @Mock
-    AdsenseRepository repository;
+    private AdsenseRepository repository;
 
     @Test
     public void find_findByCategory_whenAdsensesByCategoryExist() {
