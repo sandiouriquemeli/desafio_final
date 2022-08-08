@@ -1,5 +1,6 @@
 package br.com.meli.desafio_final.service;
 
+import br.com.meli.desafio_final.exception.CategoryNotFoundException;
 import br.com.meli.desafio_final.model.entity.Adsense;
 import br.com.meli.desafio_final.model.enums.Category;
 import br.com.meli.desafio_final.repository.AdsenseRepository;
@@ -14,7 +15,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
+import java.util.Collections;
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
@@ -28,7 +34,7 @@ public class AdsenseServiceTest {
 
     @Test
     public void find_findByCategory_whenAdsensesByCategoryExist() {
-        BDDMockito.when(service.findAll())
+        BDDMockito.when(repository.findAll())
                 .thenReturn(AdsenseUtils.generateAdsenseList());
 
         List<Adsense> adsenseList = service.findByCategory(Category.FRESH);
@@ -37,4 +43,19 @@ public class AdsenseServiceTest {
         Assertions.assertThat(adsenseList.size()).isEqualTo(2);
     }
 
+    @Test
+    public void find_findByCategory_whenAdsensesByCategoryDontExist() {
+        BDDMockito.when(repository.findAll()).thenReturn(Collections.emptyList());
+        Exception exception = null;
+        List<Adsense> adsenseList = null;
+        try {
+            adsenseList = service.findByCategory(Category.FRESH);
+        } catch (CategoryNotFoundException e) {
+            exception = e;
+        }
+        verify(repository, atLeastOnce()).findAll();
+        Assertions.assertThat(adsenseList).isNull();
+        assertThat(exception.getMessage()).isEqualTo("Nenhum produto com essa categoria foi encontrado");
+
+    }
 }

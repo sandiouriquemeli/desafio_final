@@ -38,6 +38,7 @@ public class AdsenseUtils {
         List<Adsense> adsenseList = new ArrayList<>();
         adsenseList.add(newAdsense1ToSave());
         adsenseList.add(newAdsense2ToSave());
+        adsenseList.add(newAdsense3ToSave());
         return adsenseList;
     }
 }
