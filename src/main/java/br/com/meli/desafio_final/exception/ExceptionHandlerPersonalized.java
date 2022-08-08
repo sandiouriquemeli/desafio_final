@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class ExceptionHandlerPersonalized {
 
-    @ExceptionHandler(ExProductNotFound.class)
-    public ResponseEntity<ExceptionDetails> handlerProductNotFound(ExProductNotFound ex) {
+    @ExceptionHandler(ExNotFound.class)
+    public ResponseEntity<ExceptionDetails> handlerProductNotFound(ExNotFound ex) {
         return new ResponseEntity<>(
             ExceptionDetails.builder()
                 .message(ex.getMessage())
