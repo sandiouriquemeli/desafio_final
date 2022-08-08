@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -32,7 +33,7 @@ class AdsenseServiceTest {
     private AdsenseRepository repository;
 
     @Test
-    @DisplayName("Retorna um anúncio quando o ID é válido.")
+    @DisplayName("Busca pelo ID: Valida se retorna um anúncio completo quando o ID é válido.")
     void findById_returnAdsense_whenIdIsValid() {
         BDDMockito.when(repository.findById(anyLong()))
             .thenReturn(Optional.of(TestAdsenseGenerator.getAdsenseWithId()));
@@ -46,7 +47,7 @@ class AdsenseServiceTest {
     }
 
     @Test
-    @DisplayName("Dispara a exceção NOT FOUND quando o ID é inválido.")
+    @DisplayName("Busca pelo ID: Valida se dispara a exceção NOT FOUND quando o ID é inválido.")
     void findById_throwException_whenIdIdInvalid() {
         assertThrows(ExNotFound.class, () -> {
            service.findById(0L);
@@ -54,6 +55,14 @@ class AdsenseServiceTest {
     }
 
     @Test
+    @DisplayName("Listar anúncios: Valida se retorna uma lista de anúncios")
     void findAll() {
+        BDDMockito.when(repository.findAll())
+            .thenReturn(List.of(TestAdsenseGenerator.getAdsenseWithId()));
+
+        List<Adsense> adsenseList = service.findAll();
+
+        assertThat(adsenseList).isNotNull();
+        assertThat(adsenseList.size()).isEqualTo(1);
     }
 }
