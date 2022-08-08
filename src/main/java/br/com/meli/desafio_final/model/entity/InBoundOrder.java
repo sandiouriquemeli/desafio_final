@@ -30,5 +30,4 @@ public class InBoundOrder {
     @OneToMany(mappedBy = "inBoundOrder", cascade = CascadeType.PERSIST)
     @JsonIgnoreProperties("inBoundOrder")
     private List<Batch> batchStock;
-
 }

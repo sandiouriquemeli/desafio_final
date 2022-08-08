@@ -49,11 +49,8 @@ public class InBoundOrderService implements IInBoundOrderService {
     }
 
     private List<InBoundOrderDto> saveOrUpdate(InBoundOrder inBoundOrder, long agentId) {
-
         List<Batch> batchList = this.validateInboundOrder(inBoundOrder);
-
         inBoundOrder.setAgent(validationService.validateAgent(agentId));
-
         InBoundOrder newInboundOrder = repository.save(inBoundOrder);
 
         return batchList.stream().map((batch -> {
