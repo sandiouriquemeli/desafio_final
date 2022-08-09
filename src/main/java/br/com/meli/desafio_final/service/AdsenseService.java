@@ -1,6 +1,5 @@
 package br.com.meli.desafio_final.service;
 
-import br.com.meli.desafio_final.exception.CategoryNotFoundException;
 import br.com.meli.desafio_final.model.entity.Adsense;
 import br.com.meli.desafio_final.model.enums.Category;
 import br.com.meli.desafio_final.repository.AdsenseRepository;
@@ -31,7 +30,9 @@ public class AdsenseService implements IAdsenseService {
     //Implementando findAll para verificar existencia produtos do carrinho!
     @Override
     public List<Adsense> findAll() {
-        return adsenseRepository.findAll();
+        List<Adsense> adsenses = adsenseRepository.findAll();
+        if (adsenses.size() == 0) throw new ExNotFound("💢 Lista de anúncios não encontrada");
+        return adsenses;
     }
 
     @Override

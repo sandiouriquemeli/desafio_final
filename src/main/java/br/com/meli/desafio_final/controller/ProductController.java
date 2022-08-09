@@ -13,11 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/fresh-products")
+@RequestMapping("/api/v2/fresh-products")
 public class ProductController {
 
     @Autowired
     private ProductService service;
+
+    @GetMapping
+    public ResponseEntity<List<Product>> getAll() {
+        return ResponseEntity.ok(service.getAllProducts());
+    }
 
     @GetMapping("/list")
     public ResponseEntity<List<Product>> getByCategory(@RequestParam Category querytype) {
