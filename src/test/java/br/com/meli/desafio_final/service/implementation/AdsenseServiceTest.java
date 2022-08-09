@@ -1,4 +1,4 @@
-package br.com.meli.desafio_final.service;
+package br.com.meli.desafio_final.service.implementation;
 
 import br.com.meli.desafio_final.model.entity.Adsense;
 import br.com.meli.desafio_final.model.enums.Category;
