@@ -80,6 +80,7 @@ public class AdsenseServiceTest {
     @Test
     @DisplayName("Busca pelo ID: Valida se dispara a exceção NOT FOUND quando o ID é inválido.")
     void findById_throwException_whenIdInvalid() {
+        // ToDo: Tratar Exception
         assertThrows(RuntimeException.class, () -> {
            service.findById(0L);
         });
@@ -100,7 +101,7 @@ public class AdsenseServiceTest {
     @Test
     @DisplayName("Listar anúncios: Valida se dispara a execeção NOT FOUND quando não há anúncios cadastrados.")
     void findAll_throwException_whenAdsensesNotExists() {
-
+        // ToDo: Tratar Exception
         assertThrows(RuntimeException.class, () -> {
             service.findAll();
         });

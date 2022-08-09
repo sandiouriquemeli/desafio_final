@@ -87,6 +87,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     public PurchaseOrder findById(Long id) {
         return purchaseOrderRepository.findById(id)
                 .orElseThrow(() -> {
+                    // ToDo: Tratar Exception
                     throw new RuntimeException("Pedido inexistente");
                 });
     }
