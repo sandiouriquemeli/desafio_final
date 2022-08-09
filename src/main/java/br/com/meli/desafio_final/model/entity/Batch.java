@@ -9,7 +9,9 @@ import java.time.LocalDateTime;
 
 @Entity
 @Setter @Getter
-@Builder @AllArgsConstructor // Adicionado para usar em 'test/util'
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Batch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

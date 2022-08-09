@@ -3,6 +3,7 @@ package br.com.meli.desafio_final.service;
 import br.com.meli.desafio_final.model.entity.Buyer;
 import br.com.meli.desafio_final.model.entity.Item;
 import br.com.meli.desafio_final.model.entity.PurchaseOrder;
+import br.com.meli.desafio_final.model.enums.Status;
 import br.com.meli.desafio_final.repository.BuyerRepository;
 import br.com.meli.desafio_final.repository.PurchaseOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,23 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         }
     }
 
+    @Override
+    public PurchaseOrder findById(Long id) {
+        return purchaseOrderRepository.findById(id)
+                .orElseThrow(() -> {
+                    throw new RuntimeException("Pedido inexistente");
+                });
+        // TODO: Tratar Exception
+    }
+
+    @Override
+    public PurchaseOrder updateToFinished(Long id) { // definir se sera void
+        PurchaseOrder purchaseOrder = findById(id);
+        purchaseOrder.setStatus(Status.FINISHED);
+        purchaseOrderRepository.save(purchaseOrder);
+        return purchaseOrder;
+    }
+
     private void verifyExistAdsenses(PurchaseOrder purchaseOrder) {
         purchaseOrder.getItemList().forEach(item -> adsenseService.findById(item.getAdsense().getId()));
     }
@@ -45,5 +63,4 @@ public class PurchaseOrderService implements IPurchaseOrderService {
                 .map(item -> item.getCurrentPrice() * item.getQuantity())
                 .reduce(Double::sum).orElse(0.0);
     }
-
 }
