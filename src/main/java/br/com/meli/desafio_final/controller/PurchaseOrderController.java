@@ -2,7 +2,7 @@ package br.com.meli.desafio_final.controller;
 
 import br.com.meli.desafio_final.dto.AdsenseDto;
 import br.com.meli.desafio_final.model.entity.PurchaseOrder;
-import br.com.meli.desafio_final.service.PurchaseOrderService;
+import br.com.meli.desafio_final.service.implementation.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

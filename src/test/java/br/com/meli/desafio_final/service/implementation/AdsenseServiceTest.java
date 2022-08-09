@@ -1,8 +1,10 @@
-package br.com.meli.desafio_final.service;
+package br.com.meli.desafio_final.service.implementation;
 
+import br.com.meli.desafio_final.exception.NotFound;
 import br.com.meli.desafio_final.model.entity.Adsense;
 import br.com.meli.desafio_final.model.enums.Category;
 import br.com.meli.desafio_final.repository.AdsenseRepository;
+import br.com.meli.desafio_final.service.implementation.AdsenseService;
 import br.com.meli.desafio_final.util.AdsenseUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -79,7 +81,7 @@ public class AdsenseServiceTest {
     @Test
     @DisplayName("Busca pelo ID: Valida se dispara a exceção NOT FOUND quando o ID é inválido.")
     void findById_throwException_whenIdInvalid() {
-        assertThrows(RuntimeException.class, () -> {
+        assertThrows(NotFound.class, () -> {
            service.findById(0L);
         });
     }
@@ -99,8 +101,7 @@ public class AdsenseServiceTest {
     @Test
     @DisplayName("Listar anúncios: Valida se dispara a execeção NOT FOUND quando não há anúncios cadastrados.")
     void findAll_throwException_whenAdsensesNotExists() {
-
-        assertThrows(RuntimeException.class, () -> {
+        assertThrows(NotFound.class, () -> {
             service.findAll();
         });
     }

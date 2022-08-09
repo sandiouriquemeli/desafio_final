@@ -27,7 +27,7 @@ public class AdsenseUtils {
 
     public static Adsense newAdsense3ToSave() {
         return Adsense.builder()
-                .id(2L)
+                .id(3L)
                 .price(25.00)
                 .seller(SellerUtils.newSeller1ToSave())
                 .product(ProductUtils.newProduct3ToSave())

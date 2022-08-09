@@ -1,13 +1,14 @@
-package br.com.meli.desafio_final.service;
+package br.com.meli.desafio_final.service.implementation;
 
 import br.com.meli.desafio_final.exception.NotAcceptable;
 import br.com.meli.desafio_final.model.entity.Section;
 import br.com.meli.desafio_final.repository.SectionRepository;
+import br.com.meli.desafio_final.service.ISectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SectionService implements ISectionService{
+public class SectionService implements ISectionService {
 
     @Autowired
     SectionRepository sectionRepository;
