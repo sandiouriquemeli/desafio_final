@@ -7,13 +7,16 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Setter @Getter
+@Setter
+@Getter
 public class Item {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Double currentPrice;
+
     private int quantity;
 
     @ManyToOne

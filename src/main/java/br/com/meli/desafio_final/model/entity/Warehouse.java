@@ -6,8 +6,10 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Setter @Getter
+@Setter
+@Getter
 public class Warehouse {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

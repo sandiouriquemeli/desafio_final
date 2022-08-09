@@ -5,6 +5,7 @@ import br.com.meli.desafio_final.model.entity.Adsense;
 import br.com.meli.desafio_final.repository.AdsenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class AdsenseService implements IAdsenseService{
@@ -16,4 +17,11 @@ public class AdsenseService implements IAdsenseService{
         return adsenseRepository.findById(id)
                 .orElseThrow(() -> { throw new NotFound("Anúncio não cadastrado."); } );
     }
+
+
+    @Override
+    public List<Adsense> findAll() {
+        return adsenseRepository.findAll();
+    }
 }
+
