@@ -15,7 +15,6 @@ public class AdsenseService implements IAdsenseService {
     @Autowired
     private AdsenseRepository adsenseRepository;
 
-
     //Implementando findById para verificar existencia produtos do carrinho!
     //Lançar exception a nível de product, POST requisito 2!
     @Override
@@ -25,24 +24,20 @@ public class AdsenseService implements IAdsenseService {
                     throw new RuntimeException("deu ruim");
                 });
     }
-    // TODO: Tratar Exception
 
     //Implementando findAll para verificar existencia produtos do carrinho!
     @Override
     public List<Adsense> findAll() {
         List<Adsense> adsenses = adsenseRepository.findAll();
-        if (adsenses.size() == 0) throw new ExNotFound("💢 Lista de anúncios não encontrada");
+        if (adsenses.size() == 0) throw new RuntimeException("💢 Lista de anúncios não encontrada");
         return adsenses;
     }
 
     @Override
     public List<Adsense> findByCategory(Category category) {
-        List<Adsense> response = findAll().stream().filter(a -> a.getProduct().getCategory().equals(category))
+        return findAll().stream().filter(a -> a.getProduct().getCategory().equals(category))
                 .collect(Collectors.toList());
-        if (response.isEmpty()) {
-            throw new CategoryNotFoundException("Nenhum produto com essa categoria foi encontrado");
-            // verificar a exception
-        }
-        return response;
     }
+
+    // TODO: Tratar Exception
 }

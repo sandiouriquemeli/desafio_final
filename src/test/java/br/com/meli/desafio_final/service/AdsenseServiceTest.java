@@ -1,6 +1,5 @@
 package br.com.meli.desafio_final.service;
 
-import br.com.meli.desafio_final.exception.CategoryNotFoundException;
 import br.com.meli.desafio_final.model.entity.Adsense;
 import br.com.meli.desafio_final.model.enums.Category;
 import br.com.meli.desafio_final.repository.AdsenseRepository;
@@ -54,22 +53,22 @@ public class AdsenseServiceTest {
         List<Adsense> adsenseList = null;
         try {
             adsenseList = service.findByCategory(Category.FRESH);
-        } catch (CategoryNotFoundException e) {
+        } catch (Exception e) {
             exception = e;
         }
         verify(repository, atLeastOnce()).findAll();
         Assertions.assertThat(adsenseList).isNull();
-        assertThat(exception.getMessage()).isEqualTo("Nenhum produto com essa categoria foi encontrado");
-
+        assertThat(exception.getMessage()).isEqualTo("💢 Lista de anúncios não encontrada");
+        // TODO: Mensagem do erro
     }
 
     @Test
     @DisplayName("Busca pelo ID: Valida se retorna um anúncio completo quando o ID é válido.")
     void findById_returnAdsense_whenIdIsValid() {
         BDDMockito.when(repository.findById(anyLong()))
-            .thenReturn(Optional.of(TestAdsenseGenerator.getAdsenseWithId()));
+            .thenReturn(Optional.of(AdsenseUtils.newAdsense1ToSave()));
 
-        Adsense adsense = TestAdsenseGenerator.getAdsenseWithId();
+        Adsense adsense = AdsenseUtils.newAdsense1ToSave();
 
         Adsense adsenseFound = service.findById(1L);
 
@@ -80,7 +79,7 @@ public class AdsenseServiceTest {
     @Test
     @DisplayName("Busca pelo ID: Valida se dispara a exceção NOT FOUND quando o ID é inválido.")
     void findById_throwException_whenIdInvalid() {
-        assertThrows(ExNotFound.class, () -> {
+        assertThrows(RuntimeException.class, () -> {
            service.findById(0L);
         });
     }
@@ -89,7 +88,7 @@ public class AdsenseServiceTest {
     @DisplayName("Listar anúncios: Valida se retorna uma lista de anúncios.")
     void findAll_returnListAdsense_whenAdsensesExists() {
         BDDMockito.when(repository.findAll())
-            .thenReturn(List.of(TestAdsenseGenerator.getAdsenseWithId()));
+            .thenReturn(List.of(AdsenseUtils.newAdsense1ToSave()));
 
         List<Adsense> adsenseList = service.findAll();
 
@@ -101,7 +100,7 @@ public class AdsenseServiceTest {
     @DisplayName("Listar anúncios: Valida se dispara a execeção NOT FOUND quando não há anúncios cadastrados.")
     void findAll_throwException_whenAdsensesNotExists() {
 
-        assertThrows(ExNotFound.class, () -> {
+        assertThrows(RuntimeException.class, () -> {
             service.findAll();
         });
     }

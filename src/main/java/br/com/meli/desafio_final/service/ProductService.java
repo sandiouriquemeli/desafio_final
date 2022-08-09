@@ -18,7 +18,7 @@ public class ProductService implements IProductService {
     public List<Product> getAllProducts() {
         List<Product> products = repository.findAll();
 
-        if (products.size() == 0) throw new ExNotFound("Lista de produtos não encontrada");
+        if (products.size() == 0) throw new RuntimeException("Lista de produtos não encontrada");
 
         return products;
     }
@@ -26,7 +26,7 @@ public class ProductService implements IProductService {
     public List<Product> getByCategory(Category category) {
         List<Product> response = repository.findByCategory(category);
         if (response.size() == 0) {
-            throw new CategoryNotFoundException("Nenhum produto com essa categoria foi encontrado");
+            throw new RuntimeException("Nenhum produto com essa categoria foi encontrado");
         }
         return response;
     }

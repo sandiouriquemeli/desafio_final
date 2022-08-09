@@ -53,26 +53,6 @@ public class AdsenseControllerTest {
     }
 
     @Test
-    public void find_findByCategory_whenAdsensesByCategoryDontExist() {
-        BDDMockito.when(service.findByCategory(ArgumentMatchers.any(Category.class)))
-                .thenAnswer(invocationOnMock -> {
-                    throw new CategoryNotFoundException("Nenhum produto com essa categoria foi encontrado");
-                });
-
-        Exception exception = null;
-        ResponseEntity<List<Adsense>> adsenseList = null;
-        try {
-            adsenseList = controller.findByCategory(Category.FRESH);
-        } catch (CategoryNotFoundException e) {
-            exception = e;
-        }
-
-        verify(service, atLeastOnce()).findByCategory(Category.FRESH);
-        org.junit.jupiter.api.Assertions.assertNull(adsenseList);
-        assertThat(exception.getMessage()).isEqualTo("Nenhum produto com essa categoria foi encontrado");
-    }
-
-    @Test
     @DisplayName("Busca pelo ID: Valida se retorna um anúncio completo quando o ID é válido.")
     void findById_returnAdsense_whenIdIsValid() {
         BDDMockito.when(service.findById(anyLong()))

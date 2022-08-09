@@ -63,5 +63,4 @@ public class PurchaseOrderService implements IPurchaseOrderService {
                 .map(item -> item.getCurrentPrice() * item.getQuantity())
                 .reduce(Double::sum).orElse(0.0);
     }
-
 }
