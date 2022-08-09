@@ -2,6 +2,7 @@ package br.com.meli.desafio_final.service.implementation;
 
 import br.com.meli.desafio_final.dto.AdsenseDto;
 import br.com.meli.desafio_final.exception.BadRequest;
+import br.com.meli.desafio_final.exception.NotFound;
 import br.com.meli.desafio_final.model.entity.*;
 import br.com.meli.desafio_final.model.enums.Status;
 import br.com.meli.desafio_final.repository.PurchaseOrderRepository;
@@ -87,8 +88,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     public PurchaseOrder findById(Long id) {
         return purchaseOrderRepository.findById(id)
                 .orElseThrow(() -> {
-                    // ToDo: Tratar Exception
-                    throw new RuntimeException("Pedido inexistente");
+                    throw new NotFound("Pedido inexistente");
                 });
     }
 
