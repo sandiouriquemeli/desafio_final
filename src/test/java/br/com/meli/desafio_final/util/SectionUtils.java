@@ -9,8 +9,8 @@ public class SectionUtils {
     public static Section newSectionFresh() {
         Section section = new Section();
         section.setId(1L);
-        section.setTotalCapacity(500D);
-        section.setUsedCapacity(500D);
+        section.setTotalCapacity(5000D);
+        section.setUsedCapacity(5000D);
         section.setWarehouse(newWarehouse());
         section.setCategory(Category.FRESH);
         return section;
@@ -19,8 +19,8 @@ public class SectionUtils {
     public static Section newSectionRefrigerated() {
         Section section = new Section();
         section.setId(2L);
-        section.setTotalCapacity(500D);
-        section.setUsedCapacity(500D);
+        section.setTotalCapacity(5000D);
+        section.setUsedCapacity(5000D);
         section.setWarehouse(newWarehouse());
         section.setCategory(Category.REFRIGERATED);
         return section;
@@ -29,8 +29,8 @@ public class SectionUtils {
     public static Section newSectionFrozen() {
         Section section = new Section();
         section.setId(3L);
-        section.setTotalCapacity(500D);
-        section.setUsedCapacity(500D);
+        section.setTotalCapacity(5000D);
+        section.setUsedCapacity(5000D);
         section.setWarehouse(newWarehouse());
         section.setCategory(Category.FROZEN);
         return section;

@@ -6,6 +6,8 @@ public class AgentUtils {
     public static Agent newAgent() {
         Agent agent = new Agent();
         agent.setId(1L);
+        agent.setName("Raul");
+        agent.setWarehouse(WarehouseUtils.newWarehouse());
         return agent;
     }
 }

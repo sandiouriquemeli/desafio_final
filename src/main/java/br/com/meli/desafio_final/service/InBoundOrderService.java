@@ -29,11 +29,6 @@ public class InBoundOrderService implements IInBoundOrderService {
     @Autowired
     SectionService sectionService;
 
-    @Override
-    public List<InBoundOrder> getAll() {
-        return repository.findAll();
-    }
-
     private List<InBoundOrderDto> saveOrUpdate(InBoundOrder inBoundOrder, long agentId) {
         List<Batch> batchList = this.validateInboundOrder(inBoundOrder, agentId);
         InBoundOrder newInboundOrder = repository.save(inBoundOrder);

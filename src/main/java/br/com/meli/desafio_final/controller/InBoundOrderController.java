@@ -16,10 +16,6 @@ public class InBoundOrderController {
 
         @Autowired
         private IInBoundOrderService service;
-        @GetMapping
-        public ResponseEntity<List<InBoundOrder>>getAll() {
-            return ResponseEntity.ok(service.getAll());
-        }
 
         @PostMapping("/{agentId}")
         public ResponseEntity<List<InBoundOrderDto>> createInBoundOrder(@PathVariable long agentId,@RequestBody InBoundOrder inBoundOrder) {
