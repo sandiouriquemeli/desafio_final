@@ -65,7 +65,7 @@ public class InBoundOrderServiceTeste {
 
         List<InBoundOrderDto> inbourdOrderCreated= GeneratePerson.newPerson1ToSave();
 
-        List<InBoundOrderDto> inbourdOrderCreated = personService.save(person); // ação
+        List<InBoundOrderDto> inbourdOrderCreated = inBoundOrderService.create(person); // ação
 
         assertThat(personSaved).isNotNull();
         assertThat(personSaved.getId()).isPositive();
