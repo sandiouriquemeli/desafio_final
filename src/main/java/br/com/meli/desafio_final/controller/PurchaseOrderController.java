@@ -27,4 +27,8 @@ public class PurchaseOrderController {
         return ResponseEntity.ok(purchaseOrderService.findAdsensesByPurchaseOrderId(id));
     }
 
+    @PutMapping("/orders/")
+    public ResponseEntity<PurchaseOrder> update(@RequestParam Long queryParam) {
+        return ResponseEntity.ok(purchaseOrderService.updateToFinished(queryParam));
+    }
 }

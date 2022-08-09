@@ -1,14 +1,15 @@
 package br.com.meli.desafio_final.model.entity;
 
 import br.com.meli.desafio_final.model.enums.Category;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Setter
-@Getter
+@Setter @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
 
     @Id

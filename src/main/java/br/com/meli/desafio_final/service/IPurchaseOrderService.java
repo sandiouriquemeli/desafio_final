@@ -7,10 +7,9 @@ import java.util.List;
 
 public interface IPurchaseOrderService {
 
-    PurchaseOrder findById(Long id);
-
     Double save(PurchaseOrder purchaseOrder);
-
+    PurchaseOrder findById(Long id);
+    PurchaseOrder updateToFinished(Long id);
     List<AdsenseDto> findAdsensesByPurchaseOrderId(Long id);
 
 }
