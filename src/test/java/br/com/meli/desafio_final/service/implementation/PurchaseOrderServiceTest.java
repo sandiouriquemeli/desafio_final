@@ -62,18 +62,20 @@ public class PurchaseOrderServiceTest {
     @BeforeEach
     public void setup() {
         BDDMockito.when(purchaseOrderRepository.save(PurchaseOrderUtils.newPurchase1ToSave()))
-            .thenReturn(PurchaseOrderUtils.newPurchase1ToSave());
+                .thenReturn(PurchaseOrderUtils.newPurchase1ToSave());
+        BDDMockito.when(purchaseOrderRepository.findById(PurchaseOrderUtils.newPurchase1ToSave().getId()))
+                .thenReturn(Optional.ofNullable(PurchaseOrderUtils.newPurchase1ToSave()));
         BDDMockito.when(buyerService.findById(BuyerUtils.newBuyer1ToSave().getId()))
-            .thenReturn(BuyerUtils.newBuyer1ToSave());
+                .thenReturn(BuyerUtils.newBuyer1ToSave());
         BDDMockito.when(adsenseService.findById(AdsenseUtils.newAdsense1ToSave().getId()))
-            .thenReturn(AdsenseUtils.newAdsense1ToSave());
+                .thenReturn(AdsenseUtils.newAdsense1ToSave());
     }
 
     @Test
     @DisplayName("Busca pelo ID: Valida se retorna uma Ordem de Compra quando um ID é válido.")
     void findById_returnPurchaseOrder_whenIdValid() {
         BDDMockito.when(purchaseOrderRepository.findById(anyLong()))
-            .thenReturn(Optional.of(PurchaseOrderUtils.newPurchase1ToSave()));
+                .thenReturn(Optional.of(PurchaseOrderUtils.newPurchase1ToSave()));
 
         PurchaseOrder purchaseOrder = PurchaseOrderUtils.newPurchase1ToSave();
 
@@ -94,13 +96,8 @@ public class PurchaseOrderServiceTest {
     @Test
     @DisplayName("Atualiza Status: Valida se retorna uma Ordem de Compra com status atualizado e se ela foi salva.")
     void updateToFinished_returnPurchaseOrderUpdated_whenUpdateStatus() {
-        PurchaseOrder purchaseOrder = PurchaseOrderUtils.newPurchase1ToSave();
-
-        assertThat(purchaseOrder.getStatus()).isEqualTo(Status.OPEN);
-
-        purchaseOrder.setStatus(Status.FINISHED);
-        purchaseOrderRepository.save(purchaseOrder);
-
+        PurchaseOrder purchaseOrder = purchaseOrderService
+                .updateToFinished(PurchaseOrderUtils.newPurchase1ToSave().getId());
         assertThat(purchaseOrder).isNotNull();
         assertThat(purchaseOrder.getStatus()).isEqualTo(Status.FINISHED);
         verify(purchaseOrderRepository, atLeastOnce()).save(purchaseOrder);
