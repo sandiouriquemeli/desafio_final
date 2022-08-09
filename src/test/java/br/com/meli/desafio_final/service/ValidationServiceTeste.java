@@ -1,0 +1,4 @@
+package br.com.meli.desafio_final.service;
+
+public class ValidationServiceTeste {
+}
