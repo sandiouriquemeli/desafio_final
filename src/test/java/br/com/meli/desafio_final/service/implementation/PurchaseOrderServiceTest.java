@@ -1,8 +1,10 @@
 package br.com.meli.desafio_final.service.implementation;
 
+import br.com.meli.desafio_final.exception.NotFound;
 import br.com.meli.desafio_final.model.entity.PurchaseOrder;
 import br.com.meli.desafio_final.repository.PurchaseOrderRepository;
 import br.com.meli.desafio_final.util.PurchaseOrderUtils;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,5 +42,13 @@ public class PurchaseOrderServiceTest {
 
         assertThat(purchaseFound).isNotNull();
         assertThat(purchaseFound.getId()).isEqualTo(purchaseOrder.getId());
+    }
+
+    @Test
+    @DisplayName("Busca pelo ID: Valida se retorna uma exceção quando o ID é inválido")
+    void findById_throwException_whenIdInvalid() {
+        Assertions.assertThrows(NotFound.class, () -> {
+            service.findById(0L);
+        });
     }
 }

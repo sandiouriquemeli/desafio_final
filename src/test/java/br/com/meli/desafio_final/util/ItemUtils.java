@@ -12,7 +12,7 @@ public class ItemUtils {
             .id(1L)
             .currentPrice(0.50)
             .quantity(3)
-            .purchaseOrder(PurchaseOrderUtils.newPurchase1ToSave())
+            //.purchaseOrder(PurchaseOrderUtils.newPurchase1ToSave())
             .adsense(AdsenseUtils.newAdsense1ToSave())
             .build();
     }
@@ -22,7 +22,7 @@ public class ItemUtils {
             .id(2L)
             .currentPrice(0.80)
             .quantity(8)
-            .purchaseOrder(PurchaseOrderUtils.newPurchase1ToSave())
+            //.purchaseOrder(PurchaseOrderUtils.newPurchase1ToSave())
             .adsense(AdsenseUtils.newAdsense1ToSave())
             .build();
     }
