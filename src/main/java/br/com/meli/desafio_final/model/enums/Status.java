@@ -1,5 +1,7 @@
 package br.com.meli.desafio_final.model.enums;
 
 public enum Status {
-    ABERTO, FINALIZADO
+
+    OPEN, FINISHED
+
 }
