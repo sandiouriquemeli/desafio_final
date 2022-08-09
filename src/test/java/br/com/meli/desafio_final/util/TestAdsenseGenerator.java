@@ -16,19 +16,7 @@ public class TestAdsenseGenerator {
         InBoundOrder inBoundOrder = new InBoundOrder();
         List<Batch> batchList = new ArrayList<>();
 
-        Batch batch1 = new Batch(
-            1L,
-            adsense,
-            10,
-            5,
-            100,
-            100,
-            LocalDate.now(),
-            LocalDateTime.now(),
-            LocalDate.now(),
-            inBoundOrder);
-
-        batchList.add(batch1);
+        batchList.add(BatchUtils.newBatch1ToSave());
 
         return Adsense.builder()
             .id(1L)

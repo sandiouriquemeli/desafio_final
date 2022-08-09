@@ -8,7 +8,9 @@ import java.util.List;
 
 @Entity
 @Setter @Getter
-@Builder @NoArgsConstructor @AllArgsConstructor// Adicionado para usar na 'test/util'
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Adsense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +26,6 @@ public class Adsense {
     @JsonIgnoreProperties("adsense")
     private Product product;
 
-
-    //Alterando tipo para Double para calcular total price e adicionando private.
     private Double price;
 
     @OneToMany(mappedBy = "adsense")
