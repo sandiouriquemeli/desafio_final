@@ -32,7 +32,7 @@ public class ValidationService {
      * Metodo Valida a existência de uma Section no DB.
      * @param section
      */
-    Section validateSection(Section section) {
+    public Section validateSection(Section section) {
        return sectionRepository.findById(section.getId())
                 .orElseThrow(() -> {
                     throw new BadRequest("Section não encontrada");
@@ -43,7 +43,7 @@ public class ValidationService {
      * Metodo Valida a existência de um Seller no DB.
      * @param seller
      */
-    void validateSeller(Seller seller) {
+    public void validateSeller(Seller seller) {
         sellerRepository.findById(seller.getId())
                 .orElseThrow(() -> {
                     throw new BadRequest("Seller não encontrada");
@@ -54,14 +54,14 @@ public class ValidationService {
      * Metodo Valida a existência de um Product no DB.
      * @param product
      */
-    void validateProduct(Product product) {
+    public void validateProduct(Product product) {
         productRepository.findById(product.getId())
                 .orElseThrow(() -> {
                     throw new BadRequest("Product não encontrada");
                 });
     }
 
-    Agent validateAgent(long id) {
+    public Agent validateAgent(long id) {
         return agentRepository.findById(id)
                 .orElseThrow(() -> {
                     throw new BadRequest("Representante não encontrado");

@@ -3,6 +3,7 @@ package br.com.meli.desafio_final.service;
 import br.com.meli.desafio_final.exception.BadRequest;
 import br.com.meli.desafio_final.model.entity.*;
 import br.com.meli.desafio_final.repository.*;
+import br.com.meli.desafio_final.service.implementation.ValidationService;
 import br.com.meli.desafio_final.util.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

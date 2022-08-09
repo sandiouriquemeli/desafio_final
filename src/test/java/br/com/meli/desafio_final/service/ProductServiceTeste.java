@@ -5,6 +5,7 @@ import br.com.meli.desafio_final.model.entity.Section;
 import br.com.meli.desafio_final.model.enums.Category;
 import br.com.meli.desafio_final.repository.ProductRepository;
 import br.com.meli.desafio_final.repository.SectionRepository;
+import br.com.meli.desafio_final.service.implementation.ProductService;
 import br.com.meli.desafio_final.util.ProductUtils;
 import br.com.meli.desafio_final.util.SectionUtils;
 import org.junit.jupiter.api.Test;

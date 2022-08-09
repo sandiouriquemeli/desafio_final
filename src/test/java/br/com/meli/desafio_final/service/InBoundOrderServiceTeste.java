@@ -3,6 +3,10 @@ package br.com.meli.desafio_final.service;
 import br.com.meli.desafio_final.dto.InBoundOrderDto;
 import br.com.meli.desafio_final.model.entity.*;
 import br.com.meli.desafio_final.repository.InboundOrderRepository;
+import br.com.meli.desafio_final.service.implementation.AdsenseService;
+import br.com.meli.desafio_final.service.implementation.InBoundOrderService;
+import br.com.meli.desafio_final.service.implementation.SectionService;
+import br.com.meli.desafio_final.service.implementation.ValidationService;
 import br.com.meli.desafio_final.util.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -35,7 +39,7 @@ public class InBoundOrderServiceTeste {
     private AdsenseService adsenseService;
 
     @Mock
-    private BatchService batchService;
+    private br.com.meli.desafio_final.service.BatchService batchService;
 
     @Mock
     private SectionService sectionService;

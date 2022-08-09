@@ -7,6 +7,7 @@ import br.com.meli.desafio_final.model.entity.Item;
 import br.com.meli.desafio_final.model.entity.PurchaseOrder;
 import br.com.meli.desafio_final.model.enums.Status;
 import br.com.meli.desafio_final.repository.PurchaseOrderRepository;
+import br.com.meli.desafio_final.service.BatchService;
 import br.com.meli.desafio_final.util.AdsenseUtils;
 import br.com.meli.desafio_final.util.ItemUtils;
 import br.com.meli.desafio_final.util.PurchaseOrderUtils;
@@ -107,18 +108,12 @@ public class PurchaseOrderServiceTest {
 
     @Test
     @DisplayName("Busca Anúncios pelo ID da Ordem de Compra: Valida se retorna uma Lista de Anúncios " +
-        "quando o ID da Ordem de Compra é válido.")
+            "quando o ID da Ordem de Compra é válido.")
     void findAdsensesByPurchaseOrderId() {
         BDDMockito.when(itemService.findItemsByPurchaseOrderId(anyLong()))
-            .thenReturn(ItemUtils.generatedItemList());
-
-        List<Item> itemList = itemService.findItemsByPurchaseOrderId(1L);
-
-        List<Adsense> adsenseList = new ArrayList<>();
-        itemList.forEach(item -> adsenseList.add(item.getAdsense()));
-
-        List<AdsenseDto> adsenseDtoList = AdsenseDto.convertDto(adsenseList);
-
+                .thenReturn(ItemUtils.generatedItemList());
+        List<AdsenseDto> adsenseDtoList = purchaseOrderService
+                .findAdsensesByPurchaseOrderId(AdsenseUtils.newAdsense3ToSave().getId());
         assertThat(adsenseDtoList).isNotNull();
         assertThat(adsenseDtoList.size()).isEqualTo(ItemUtils.generatedItemList().size());
     }
