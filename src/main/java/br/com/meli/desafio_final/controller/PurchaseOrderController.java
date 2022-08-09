@@ -24,11 +24,11 @@ public class PurchaseOrderController {
 
     @GetMapping("/orders/{id}")
     public ResponseEntity<List<AdsenseDto>> findAdsensesByPurchaseOrderId(@PathVariable Long id) {
-        return ResponseEntity.ok(purchaseOrderService.findAdsensesByPurchaseOrderId(id));
+        return ResponseEntity.status(HttpStatus.OK).body(purchaseOrderService.findAdsensesByPurchaseOrderId(id));
     }
 
     @PutMapping("/orders/")
     public ResponseEntity<PurchaseOrder> update(@RequestParam Long queryParam) {
-        return ResponseEntity.ok(purchaseOrderService.updateToFinished(queryParam));
+        return ResponseEntity.status(HttpStatus.OK).body(purchaseOrderService.updateToFinished(queryParam));
     }
 }
