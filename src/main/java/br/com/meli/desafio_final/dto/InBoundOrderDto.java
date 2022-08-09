@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
+@NoArgsConstructor
 public class InBoundOrderDto {
 
     private Long batchNumber;

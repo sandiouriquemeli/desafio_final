@@ -64,7 +64,7 @@ public class ValidationService {
     Agent validateAgent(long id) {
         return agentRepository.findById(id)
                 .orElseThrow(() -> {
-                    throw new BadRequest("representante não encontrado");
+                    throw new BadRequest("Representante não encontrado");
                 });
     }
 }

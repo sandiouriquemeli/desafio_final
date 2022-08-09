@@ -20,7 +20,7 @@ public class SectionService implements ISectionService{
     public void setAndUpdateCapacity(double batchVolumen, Section section){
         if (section.getUsedCapacity() >= batchVolumen){
             section.setUsedCapacity(section.getUsedCapacity() - batchVolumen);
-            update(section);
+            sectionRepository.save(section);
         }else{
             throw new NotAcceptable("Setor sem espaço para armazer o lote");
         }
