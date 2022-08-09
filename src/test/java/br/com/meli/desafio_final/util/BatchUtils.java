@@ -96,4 +96,8 @@ public class BatchUtils {
         return batchlist;
     }
 
+    public static List<Batch> BatchListEmpty(){
+        ArrayList<Batch> batchlist = new ArrayList<>();
+        return batchlist;
+    }
 }
