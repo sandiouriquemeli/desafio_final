@@ -40,34 +40,29 @@ public class PurchaseOrderService implements IPurchaseOrderService {
             purchaseOrderRepository.save(purchaseOrder);
             saveItemByPurchase(purchaseOrder);
             return totalPrice(purchaseOrder.getItemList());
-        }else {
+        } else {
             throw new BadRequest("Pedido não cadastrado!");
         }
     }
 
     private boolean validationAdsense(PurchaseOrder purchaseOrder) {
-        verifyExistAdsenses(purchaseOrder);
-        verifyDateBatch(purchaseOrder);
-        return true;
-    }
-
-    private void verifyDateBatch(PurchaseOrder purchaseOrder) {
         List<Item> itemList = purchaseOrder.getItemList();
         for (Item item : itemList) {
-            List<Batch> batchList = batchService.findBatchByAdsenseId(item.getAdsense().getId());
+            Adsense adsense = adsenseService.findById(item.getAdsense().getId());
+            List<Batch> batchList = batchService.findBatchByAdsenseId(adsense.getId());
             for (Batch batch : batchList) {
                 if ((LocalDate.now().plusWeeks(3)).isBefore(batch.getDueDate())) {
-                    batch.setCurrentQuantity(batch.getCurrentQuantity() - item.getQuantity());
-                }else {
+                    if ((batch.getCurrentQuantity() - item.getQuantity()) > 0) {
+                        batch.setCurrentQuantity(batch.getCurrentQuantity() - item.getQuantity());
+                    } else {
+                        throw new BadRequest("Estoque insuficiente!");
+                    }
+                } else {
                     throw new BadRequest("Data de validade inferior a 3 semanas!");
                 }
             }
-
         }
-    }
-
-    private void verifyExistAdsenses(PurchaseOrder purchaseOrder) {
-        purchaseOrder.getItemList().forEach(item -> adsenseService.findById(item.getAdsense().getId()));
+        return true;
     }
 
     private void saveItemByPurchase(PurchaseOrder purchaseOrder) {
@@ -107,5 +102,4 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         });
         return AdsenseDto.convertDto(adsenseList);
     }
-
 }

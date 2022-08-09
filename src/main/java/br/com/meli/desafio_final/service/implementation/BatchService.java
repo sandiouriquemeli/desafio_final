@@ -23,7 +23,7 @@ public class BatchService implements IBatchService {
     @Override
     public List<Batch> findBatchByAdsenseId(Long id) {
         List<Batch> batchList = batchRepository.findBatchesByAdsenseId(id);
-        if(batchList.size() == 0) throw new NotFound("Lote não encontrado");
+        if(batchList.size() == 0) throw new NotFound("Lote do anúncio não encontrado!");
         return batchList;
     }
 
