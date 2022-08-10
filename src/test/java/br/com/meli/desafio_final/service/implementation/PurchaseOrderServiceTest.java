@@ -115,8 +115,8 @@ public class PurchaseOrderServiceTest {
     @Test
     @DisplayName("Salvar carrinho: Retorna valor total passando nas validações")
     public void save_returnTotalPrice_whenIsValid() {
-        BDDMockito.when(batchService.findBatchByAdsenseId(AdsenseUtils.newAdsense1ToSave().getId()))
-                .thenReturn(BatchUtils.genetadBatchList());
+        BDDMockito.when(batchService.findAllByAdsenseId(AdsenseUtils.newAdsense1ToSave().getId()))
+                .thenReturn(BatchUtils.generatadBatchListFail());
         Double totralPrice = purchaseOrderService.save(PurchaseOrderUtils.newPurchase1ToSave());
         Assertions.assertEquals(totralPrice, 7.90);
     }
@@ -124,8 +124,8 @@ public class PurchaseOrderServiceTest {
     @Test
     @DisplayName("Salvar carrinho: Valida exception BAD REQUEST se o estoque é insuficiente. ")
     public void save_throwException_whenBatchinsufficient() {
-        BDDMockito.when(batchService.findBatchByAdsenseId(AdsenseUtils.newAdsense1ToSave().getId()))
-                .thenReturn(BatchUtils.genetadBatchListBatchFail());
+        BDDMockito.when(batchService.findAllByAdsenseId(AdsenseUtils.newAdsense1ToSave().getId()))
+                .thenReturn(BatchUtils.generatadBatchListFail());
         try {
             purchaseOrderService.save(PurchaseOrderUtils.newPurchase1ToSave());
         } catch (BadRequest badRequest) {
@@ -136,7 +136,7 @@ public class PurchaseOrderServiceTest {
     @Test
     @DisplayName("Salvar carrinho: Valida exception BAD REQUEST se o data é menor que 3 semanas. ")
     public void save_throwException_whenDateinsufficient() {
-        BDDMockito.when(batchService.findBatchByAdsenseId(AdsenseUtils.newAdsense1ToSave().getId()))
+        BDDMockito.when(batchService.findAllByAdsenseId(AdsenseUtils.newAdsense1ToSave().getId()))
                 .thenReturn(BatchUtils.genetadBatchListDataFail());
         try {
             purchaseOrderService.save(PurchaseOrderUtils.newPurchase1ToSave());

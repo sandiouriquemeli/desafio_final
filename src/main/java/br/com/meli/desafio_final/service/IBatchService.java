@@ -10,7 +10,6 @@ import java.util.List;
 public interface IBatchService {
     Batch saveBatch(Batch batch);
     Batch findById(Long id);
-    List<Batch> findBatchByAdsenseId(Long id);
     List<BatchDto> findAllByAdsenseId(Long adsenseId);
     List<BatchDto> returnBatchStock(List<AdsenseIdDto> adsenseList, String s);
     List<AdsenseByWarehouseDto> getAdsenseByWarehouseAndQuantity(long adsenseId);

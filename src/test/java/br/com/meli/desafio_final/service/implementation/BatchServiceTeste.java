@@ -1,5 +1,6 @@
 package br.com.meli.desafio_final.service.implementation;
 
+import br.com.meli.desafio_final.dto.BatchDto;
 import br.com.meli.desafio_final.model.entity.Batch;
 
 import br.com.meli.desafio_final.repository.BatchRepository;
@@ -42,10 +43,10 @@ public class BatchServiceTeste {
     @Test
     public void testFindBatchByAdsenseId() {
         Batch batch = BatchUtils.newBatch1ToSave();
-        BDDMockito.when(batchRepository.findBatchesByAdsenseId(batch.getBatchNumber()))
+        BDDMockito.when(batchRepository.findAllByAdsenseId(batch.getBatchNumber()))
                 .thenReturn(BatchUtils.BatchList());
 
-        List<Batch> batchListByAdsenseId = batchService.findBatchByAdsenseId(batch.getBatchNumber());
+        List<BatchDto> batchListByAdsenseId = batchService.findAllByAdsenseId(batch.getBatchNumber());
 
         Assertions.assertThat(batchListByAdsenseId).isNotNull();
         Assertions.assertThat(batchListByAdsenseId.size()).isEqualTo(1);
@@ -56,10 +57,10 @@ public class BatchServiceTeste {
         Batch batch = BatchUtils.newBatch1ToSave();
         Exception exceptionResponse = null;
 
-        BDDMockito.when(batchRepository.findBatchesByAdsenseId(batch.getBatchNumber()))
+        BDDMockito.when(batchRepository.findAllByAdsenseId(batch.getBatchNumber()))
                 .thenReturn(BatchUtils.BatchListEmpty());
         try {
-            batchService.findBatchByAdsenseId(batch.getBatchNumber());
+            batchService.findAllByAdsenseId(batch.getBatchNumber());
         } catch (Exception exception) {
             exceptionResponse = exception;
         }

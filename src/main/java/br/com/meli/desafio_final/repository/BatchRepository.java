@@ -17,8 +17,6 @@ public interface BatchRepository extends JpaRepository<Batch, Long> {
 
     List<Batch> findAllByAdsenseId(Long adsenseId);
 
-    List<Batch> findBatchesByAdsenseId(Long id);
-
     @Query(value = "SELECT \n" +
             "    SUM(frescos.batch.current_quantity) AS quantity,\n" +
             "    frescos.section.warehouse_id AS warehouse_id\n" +

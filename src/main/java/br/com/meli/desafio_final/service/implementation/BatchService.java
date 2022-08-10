@@ -27,15 +27,10 @@ public class BatchService implements IBatchService {
     }
 
     @Override
-    public List<Batch> findBatchByAdsenseId(Long id) {
-        List<Batch> batchList = batchRepository.findBatchesByAdsenseId(id);
-        if(batchList.size() == 0) throw new NotFound("Lote do anúncio não encontrado!");
-        return batchList;
-    }
-
-    @Override
     public List<BatchDto> findAllByAdsenseId(Long adsenseId) {
-        return BatchDto.convertDto(batchRepository.findAllByAdsenseId(adsenseId));
+        List<Batch> batchList = batchRepository.findAllByAdsenseId(adsenseId);
+        if(batchList.size() == 0) throw new NotFound("Lote do anúncio não encontrado!");
+        return BatchDto.convertDto(batchList);
     }
 
     @Override
