@@ -19,6 +19,7 @@ public class AdsenseByWarehouseDto {
     BigInteger warehouse_id;
 
     public AdsenseByWarehouseDto(Object warehouse, Object currentQantity) {
+        System.out.println(warehouse.getClass());
         this.quantity = (BigDecimal) warehouse;
         this.warehouse_id = (BigInteger) currentQantity;
     }

@@ -1,8 +1,11 @@
 package br.com.meli.desafio_final.service.implementation;
 
+import br.com.meli.desafio_final.dto.AdsenseByWarehouseDto;
 import br.com.meli.desafio_final.model.entity.Batch;
 
 import br.com.meli.desafio_final.repository.BatchRepository;
+import br.com.meli.desafio_final.util.AdsenseByWarehouseDtoUtils;
+import br.com.meli.desafio_final.util.AdsenseUtils;
 import br.com.meli.desafio_final.util.BatchUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -92,5 +95,16 @@ public class BatchServiceTeste {
         }
 
         assertThat(exceptionResponse.getMessage()).isEqualTo("Lote não encontrado");
+    }
+
+    @Test
+    public void testAdsenseByWarehouseAndQuantity() {
+        long adsenseId = AdsenseUtils.newAdsense1ToSave().getId();
+        BDDMockito.when(batchRepository.getAdsenseByWarehouse(adsenseId))
+                .thenReturn(AdsenseByWarehouseDtoUtils.AdsenseByWarehouseDtoList());
+
+        List<AdsenseByWarehouseDto> saveBatchResponse = batchService.getAdsenseByWarehouseAndQuantity(adsenseId);
+
+        Assertions.assertThat(saveBatchResponse).isNotNull();
     }
 }
