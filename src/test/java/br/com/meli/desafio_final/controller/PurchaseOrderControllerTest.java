@@ -1,21 +1,14 @@
 package br.com.meli.desafio_final.controller;
 
 import br.com.meli.desafio_final.dto.AdsenseDto;
-import br.com.meli.desafio_final.dto.InBoundOrderDto;
-import br.com.meli.desafio_final.model.entity.Adsense;
-import br.com.meli.desafio_final.model.entity.InBoundOrder;
 import br.com.meli.desafio_final.model.entity.PurchaseOrder;
-import br.com.meli.desafio_final.model.enums.Category;
 import br.com.meli.desafio_final.model.enums.Status;
 import br.com.meli.desafio_final.service.implementation.PurchaseOrderService;
 import br.com.meli.desafio_final.util.AdsenseUtils;
-import br.com.meli.desafio_final.util.InboundOrderDtoUtils;
-import br.com.meli.desafio_final.util.InboundOrderUtils;
 import br.com.meli.desafio_final.util.PurchaseOrderUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

@@ -1,12 +1,9 @@
 package br.com.meli.desafio_final.controller;
 
-import br.com.meli.desafio_final.model.entity.Adsense;
 import br.com.meli.desafio_final.model.entity.Product;
 import br.com.meli.desafio_final.model.enums.Category;
-import br.com.meli.desafio_final.service.implementation.AdsenseService;
 import br.com.meli.desafio_final.service.implementation.ProductService;
 import br.com.meli.desafio_final.util.ProductUtils;
-import br.com.meli.desafio_final.util.TestAdsenseGenerator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;

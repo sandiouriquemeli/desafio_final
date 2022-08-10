@@ -2,8 +2,6 @@ package br.com.meli.desafio_final.service.implementation;
 
 import br.com.meli.desafio_final.dto.AdsenseDto;
 import br.com.meli.desafio_final.exception.NotFound;
-import br.com.meli.desafio_final.model.entity.Adsense;
-import br.com.meli.desafio_final.model.entity.Item;
 import br.com.meli.desafio_final.model.entity.PurchaseOrder;
 import br.com.meli.desafio_final.model.enums.Status;
 import br.com.meli.desafio_final.repository.PurchaseOrderRepository;
@@ -27,7 +25,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

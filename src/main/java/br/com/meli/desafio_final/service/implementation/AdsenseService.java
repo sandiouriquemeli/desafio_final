@@ -9,7 +9,7 @@ import br.com.meli.desafio_final.service.implementation.BatchService;
 import br.com.meli.desafio_final.service.IAdsenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import br.com.meli.desafio_final.dto.AdsenseIdDto;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,6 +40,16 @@ public class AdsenseService implements IAdsenseService {
         return findAll().stream().filter(a -> a.getProduct().getCategory().equals(category))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<AdsenseIdDto> findByProductId(Long productId) {
+        List<Adsense> adsenseList = findAll().stream().filter(a -> a.getProduct().getId().equals(productId))
+                .collect(Collectors.toList());
+        return AdsenseIdDto.convertDto(adsenseList);
+    }
+
+
+
 
     @Override
     public List<AdsenseByWarehouseDto> findAdsenseByWarehouseAndQuantity(Long adsenseId) {

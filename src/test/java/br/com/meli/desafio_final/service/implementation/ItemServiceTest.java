@@ -1,15 +1,7 @@
 package br.com.meli.desafio_final.service.implementation;
 
-
-import br.com.meli.desafio_final.model.entity.Adsense;
-import br.com.meli.desafio_final.model.entity.Buyer;
 import br.com.meli.desafio_final.model.entity.Item;
-import br.com.meli.desafio_final.model.enums.Category;
-import br.com.meli.desafio_final.repository.AdsenseRepository;
 import br.com.meli.desafio_final.repository.ItemRepository;
-import br.com.meli.desafio_final.service.implementation.ItemService;
-import br.com.meli.desafio_final.util.AdsenseUtils;
-import br.com.meli.desafio_final.util.BuyerUtils;
 import br.com.meli.desafio_final.util.ItemUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,7 +18,6 @@ import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -2,7 +2,6 @@ package br.com.meli.desafio_final.service.implementation;
 
 import br.com.meli.desafio_final.model.entity.Section;
 import br.com.meli.desafio_final.repository.SectionRepository;
-import br.com.meli.desafio_final.service.implementation.SectionService;
 import br.com.meli.desafio_final.util.SectionUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

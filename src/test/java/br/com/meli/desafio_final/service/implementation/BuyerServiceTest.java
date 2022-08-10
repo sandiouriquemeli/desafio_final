@@ -1,10 +1,7 @@
 package br.com.meli.desafio_final.service.implementation;
 
-
-import br.com.meli.desafio_final.model.entity.Batch;
 import br.com.meli.desafio_final.model.entity.Buyer;
 import br.com.meli.desafio_final.repository.BuyerRepository;
-import br.com.meli.desafio_final.util.BatchUtils;
 import br.com.meli.desafio_final.util.BuyerUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -55,6 +52,4 @@ public class BuyerServiceTest {
 
         assertThat(exceptionResponse.getMessage()).isEqualTo("Anúncio não cadastrado.");
     }
-
-
 }

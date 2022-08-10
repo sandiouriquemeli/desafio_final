@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BatchUtils {
     public static Batch newBatch1ToSave() {

@@ -4,7 +4,6 @@ import br.com.meli.desafio_final.exception.NotFound;
 import br.com.meli.desafio_final.model.entity.Adsense;
 import br.com.meli.desafio_final.model.enums.Category;
 import br.com.meli.desafio_final.repository.AdsenseRepository;
-import br.com.meli.desafio_final.service.implementation.AdsenseService;
 import br.com.meli.desafio_final.util.AdsenseUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

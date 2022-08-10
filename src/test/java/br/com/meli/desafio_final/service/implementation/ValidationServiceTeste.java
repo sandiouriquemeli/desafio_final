@@ -1,11 +1,8 @@
 package br.com.meli.desafio_final.service.implementation;
 
-import br.com.meli.desafio_final.exception.BadRequest;
 import br.com.meli.desafio_final.model.entity.*;
 import br.com.meli.desafio_final.repository.*;
-import br.com.meli.desafio_final.service.implementation.ValidationService;
 import br.com.meli.desafio_final.util.*;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -15,9 +12,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.assertThat;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 
 import java.util.Optional;
 
