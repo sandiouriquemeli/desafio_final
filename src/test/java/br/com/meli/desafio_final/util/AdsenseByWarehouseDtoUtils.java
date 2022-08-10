@@ -18,4 +18,13 @@ public class AdsenseByWarehouseDtoUtils {
         return objects;
     }
 
+    public static List<AdsenseByWarehouseDto> AdsenseByWarehouseDtoListDto() {
+        List<AdsenseByWarehouseDto> listDto = new ArrayList<>();
+        listDto.add(new AdsenseByWarehouseDto( new BigDecimal(1), new BigInteger("30")));
+        listDto.add(new AdsenseByWarehouseDto( new BigDecimal(2), new BigInteger("30")));
+        listDto.add(new AdsenseByWarehouseDto( new BigDecimal(3), new BigInteger("30")));
+        listDto.add(new AdsenseByWarehouseDto( new BigDecimal(4), new BigInteger("30")));
+        return listDto;
+    }
+
 }

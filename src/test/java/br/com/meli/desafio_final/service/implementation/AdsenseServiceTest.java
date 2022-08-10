@@ -1,9 +1,11 @@
 package br.com.meli.desafio_final.service.implementation;
 
+import br.com.meli.desafio_final.dto.AdsenseByWarehouseDto;
 import br.com.meli.desafio_final.exception.NotFound;
 import br.com.meli.desafio_final.model.entity.Adsense;
 import br.com.meli.desafio_final.model.enums.Category;
 import br.com.meli.desafio_final.repository.AdsenseRepository;
+import br.com.meli.desafio_final.util.AdsenseByWarehouseDtoUtils;
 import br.com.meli.desafio_final.util.AdsenseUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -35,6 +37,9 @@ public class AdsenseServiceTest {
 
     @Mock
     private AdsenseRepository repository;
+
+    @Mock
+    private BatchService batchService;
 
     @Test
     public void find_findByCategory_whenAdsensesByCategoryExist() {
@@ -103,5 +108,17 @@ public class AdsenseServiceTest {
         assertThrows(NotFound.class, () -> {
             service.findAll();
         });
+    }
+
+    @Test
+    public void testFindAdsenseByWarehouseAndQuantity() {
+        long adsenseId = AdsenseUtils.newAdsense1ToSave().getId();
+        BDDMockito.when(batchService.getAdsenseByWarehouseAndQuantity(adsenseId))
+                .thenReturn(AdsenseByWarehouseDtoUtils.AdsenseByWarehouseDtoListDto());
+
+        List<AdsenseByWarehouseDto> adsenseList = service.findAdsenseByWarehouseAndQuantity(adsenseId);
+
+        Assertions.assertThat(adsenseList).isNotNull();
+        Assertions.assertThat(adsenseList.size()).isEqualTo(4);
     }
 }
