@@ -34,7 +34,7 @@ public class ProductServiceTeste {
         BDDMockito.when(productRepository.findAll())
                 .thenReturn(ProductUtils.productList());
 
-        List<Product> productListResponse = productService.getAllProducts();
+        List<Product> productListResponse = productService.findAllProducts();
 
         assertThat(productListResponse.size()).isEqualTo(4);
         assertThat(productListResponse).isNotNull();
@@ -46,7 +46,7 @@ public class ProductServiceTeste {
         BDDMockito.when(productRepository.findAll())
                 .thenReturn(new ArrayList<>());
         try {
-            productService.getAllProducts();
+            productService.findAllProducts();
         } catch (Exception exception) {
             exceptionResponse = exception;
         }
@@ -59,7 +59,7 @@ public class ProductServiceTeste {
         BDDMockito.when(productRepository.findByCategory(Category.FRESH))
                 .thenReturn(ProductUtils.productListFresh());
 
-        List<Product> productListResponse = productService.getByCategory(Category.FRESH);
+        List<Product> productListResponse = productService.findByCategory(Category.FRESH);
 
         assertThat(productListResponse.size()).isEqualTo(2);
         assertThat(productListResponse.get(0).getCategory()).isEqualTo(Category.FRESH);
@@ -74,7 +74,7 @@ public class ProductServiceTeste {
                 .thenReturn(new ArrayList<>());
 
         try {
-            productService.getByCategory(Category.FRESH);
+            productService.findByCategory(Category.FRESH);
         }catch (Exception exception) {
             exceptionResponse = exception;
         }

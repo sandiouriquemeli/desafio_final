@@ -3,9 +3,6 @@ package br.com.meli.desafio_final.service.implementation;
 import br.com.meli.desafio_final.model.entity.Batch;
 
 import br.com.meli.desafio_final.repository.BatchRepository;
-import br.com.meli.desafio_final.service.implementation.BatchService;
-import br.com.meli.desafio_final.util.AdsenseByWarehouseDtoUtils;
-import br.com.meli.desafio_final.util.AdsenseUtils;
 import br.com.meli.desafio_final.util.BatchUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,9 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import org.mockito.stubbing.Answer;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

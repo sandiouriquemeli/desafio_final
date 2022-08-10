@@ -10,9 +10,11 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BatchRepository extends JpaRepository<Batch, Long> {
+
     List<Batch> findAllByAdsenseId(Long adsenseId);
 
     List<Batch> findBatchesByAdsenseId(Long id);

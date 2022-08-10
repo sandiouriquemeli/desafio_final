@@ -31,7 +31,7 @@ public class ProductControllerTest {
 
     @Test
     public void testGetAllProducts() {
-        BDDMockito.when(productService.getAllProducts())
+        BDDMockito.when(productService.findAllProducts())
                 .thenReturn(ProductUtils.productList());
 
         ResponseEntity<List<Product>> productResponse = productController.getAll();
@@ -42,7 +42,7 @@ public class ProductControllerTest {
 
     @Test
     public void testProductsByCategory() {
-        BDDMockito.when(productService.getByCategory(Category.FRESH))
+        BDDMockito.when(productService.findByCategory(Category.FRESH))
                 .thenReturn(ProductUtils.productListFresh());
 
         ResponseEntity<List<Product>> productResponse = productController.getByCategory(Category.FRESH);

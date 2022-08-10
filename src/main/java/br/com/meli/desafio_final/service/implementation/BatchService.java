@@ -60,10 +60,12 @@ public class BatchService implements IBatchService {
         }
     }
 
-    public Batch findById(long id){
+    @Override
+    public Batch findById(Long id){
         return batchRepository.findById(id).orElseThrow(() -> {throw new NotFound("Lote não encontrado");});
     }
 
+    @Override
     public List<AdsenseByWarehouseDto> getAdsenseByWarehouseAndQuantity(long adsenseId) {
         return batchRepository.getAdsenseByWarehouse(adsenseId).stream().map(
                 (obj) -> new AdsenseByWarehouseDto(obj[0], obj[1])).collect(Collectors.toList());
