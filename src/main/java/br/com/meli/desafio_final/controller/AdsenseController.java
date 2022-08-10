@@ -1,6 +1,8 @@
 package br.com.meli.desafio_final.controller;
 
 
+import br.com.meli.desafio_final.dto.AdsenseDto;
+import br.com.meli.desafio_final.dto.AdsenseIdDto;
 import br.com.meli.desafio_final.model.entity.Adsense;
 import br.com.meli.desafio_final.model.enums.Category;
 import br.com.meli.desafio_final.service.AdsenseService;
@@ -15,22 +17,25 @@ import java.util.List;
 public class AdsenseController {
 
     @Autowired
-    private AdsenseService adsenseService;
+    private AdsenseService service;
 
-    //Método necessário POST requisito 2
     @GetMapping("/{id}")
     public ResponseEntity<Adsense> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(adsenseService.findById(id));
+        return ResponseEntity.ok(service.findById(id));
     }
 
-    //Método necessário POST requisito 2
     @GetMapping
     public ResponseEntity<List<Adsense>> findAll() {
-        return ResponseEntity.ok(adsenseService.findAll());
+        return ResponseEntity.ok(service.findAll());
     }
 
     @GetMapping("/list")
     public ResponseEntity<List<Adsense>> findByCategory(@RequestParam Category querytype) {
-        return ResponseEntity.ok(adsenseService.findByCategory(querytype));
+        return ResponseEntity.ok(service.findByCategory(querytype));
+    }
+
+    @GetMapping("/test/{productId}")
+    public ResponseEntity<List<AdsenseIdDto>> findByProductId(@PathVariable Long productId) {
+        return ResponseEntity.ok(service.findByProductId(productId));
     }
 }
