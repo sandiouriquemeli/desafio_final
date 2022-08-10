@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -22,7 +24,6 @@ public interface BatchRepository extends JpaRepository<Batch, Long> {
             "AND batch.in_bound_order_id = inbound.id \n" +
             "AND inbound.section_id = section.id\n" +
             "GROUP BY warehouse_id, adsense_id;", nativeQuery = true)
-       List<AdsenseByWarehouseDto> getAdsenseByWarehouse(long id);
-
+    List<Object[]> getAdsenseByWarehouse(long id);
 
 }

@@ -11,7 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v2/adsenses")
@@ -19,9 +22,6 @@ public class AdsenseController {
 
     @Autowired
     private AdsenseService adsenseService;
-
-    @Autowired
-    private BatchRepository batchRepository;
 
     @GetMapping("/{id}")
     public ResponseEntity<Adsense> findById(@PathVariable Long id) {
@@ -40,6 +40,7 @@ public class AdsenseController {
 
     @GetMapping("/warehouse/{adsenseId}")
     public ResponseEntity <List<AdsenseByWarehouseDto>> getByAdsenseByWarehouse(@PathVariable Long adsenseId) {
-        return ResponseEntity.status(HttpStatus.OK).body(batchRepository.getAdsenseByWarehouse(adsenseId));
+
+        return ResponseEntity.status(HttpStatus.OK).body(adsenseService.findAdsenseByWarehouseAndQuantity(adsenseId));
     }
 }

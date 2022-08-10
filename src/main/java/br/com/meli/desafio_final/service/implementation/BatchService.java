@@ -1,5 +1,6 @@
-package br.com.meli.desafio_final.service;
+package br.com.meli.desafio_final.service.implementation;
 
+import br.com.meli.desafio_final.dto.AdsenseByWarehouseDto;
 import br.com.meli.desafio_final.exception.NotFound;
 import br.com.meli.desafio_final.model.entity.Batch;
 import br.com.meli.desafio_final.repository.BatchRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BatchService implements IBatchService {
@@ -30,4 +32,10 @@ public class BatchService implements IBatchService {
     public Batch findById(long id){
         return batchRepository.findById(id).orElseThrow(() -> {throw new NotFound("Lote não encontrado");});
     }
+
+    public List<AdsenseByWarehouseDto> getAdsenseByWarehouseAndQuantity(long adsenseId) {
+        return batchRepository.getAdsenseByWarehouse(adsenseId).stream().map(
+                (obj) -> new AdsenseByWarehouseDto(obj[0], obj[1])).collect(Collectors.toList());
+    }
+
 }
