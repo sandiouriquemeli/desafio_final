@@ -1,8 +1,10 @@
 package br.com.meli.desafio_final.controller;
 
+import br.com.meli.desafio_final.dto.AdsenseByWarehouseDto;
 import br.com.meli.desafio_final.model.entity.Adsense;
 import br.com.meli.desafio_final.model.enums.Category;
 import br.com.meli.desafio_final.service.implementation.AdsenseService;
+import br.com.meli.desafio_final.util.AdsenseByWarehouseDtoUtils;
 import br.com.meli.desafio_final.util.AdsenseUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -120,5 +122,20 @@ public class AdsenseControllerTest {
         verify(service, atLeastOnce()).findAll();
         assertThat(exception.getMessage()).isEqualTo("💢 Lista de anúncios não encontrada");
     }
+
+    @Test
+    @DisplayName("Listar anúncios: Valida se retorna uma lista de anúncios.")
+    void testGetByAdsenseByWarehouse() {
+        long adsenseId = AdsenseUtils.newAdsense1ToSave().getId();
+        BDDMockito.when(service.findAdsenseByWarehouseAndQuantity(adsenseId))
+                .thenReturn(AdsenseByWarehouseDtoUtils.AdsenseByWarehouseDtoListDto());
+
+        ResponseEntity <List<AdsenseByWarehouseDto>> response = controller.getByAdsenseByWarehouse(adsenseId);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().size()).isNotNull().isPositive().isEqualTo(4);
+    }
+
 }
 
