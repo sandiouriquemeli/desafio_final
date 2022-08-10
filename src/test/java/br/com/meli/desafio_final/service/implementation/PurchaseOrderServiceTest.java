@@ -7,7 +7,7 @@ import br.com.meli.desafio_final.model.entity.Item;
 import br.com.meli.desafio_final.model.entity.PurchaseOrder;
 import br.com.meli.desafio_final.model.enums.Status;
 import br.com.meli.desafio_final.repository.PurchaseOrderRepository;
-import br.com.meli.desafio_final.service.BatchService;
+import br.com.meli.desafio_final.service.implementation.BatchService;
 import br.com.meli.desafio_final.util.AdsenseUtils;
 import br.com.meli.desafio_final.util.ItemUtils;
 import br.com.meli.desafio_final.util.PurchaseOrderUtils;

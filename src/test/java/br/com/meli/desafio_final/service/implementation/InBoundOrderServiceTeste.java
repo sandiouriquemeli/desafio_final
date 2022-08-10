@@ -39,7 +39,7 @@ public class InBoundOrderServiceTeste {
     private AdsenseService adsenseService;
 
     @Mock
-    private br.com.meli.desafio_final.service.BatchService batchService;
+    private BatchService batchService;
 
     @Mock
     private SectionService sectionService;

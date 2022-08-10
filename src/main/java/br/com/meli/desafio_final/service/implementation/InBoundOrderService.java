@@ -5,7 +5,7 @@ import br.com.meli.desafio_final.exception.BadRequest;
 import br.com.meli.desafio_final.exception.Unauthorized;
 import br.com.meli.desafio_final.model.entity.*;
 import br.com.meli.desafio_final.repository.*;
-import br.com.meli.desafio_final.service.BatchService;
+import br.com.meli.desafio_final.service.implementation.BatchService;
 import br.com.meli.desafio_final.service.IInBoundOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
