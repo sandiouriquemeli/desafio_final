@@ -1,13 +1,11 @@
-package br.com.meli.desafio_final.service;
+package br.com.meli.desafio_final.service.implementation;
 
-import br.com.meli.desafio_final.dto.AdsenseDto;
 import br.com.meli.desafio_final.dto.AdsenseIdDto;
-import br.com.meli.desafio_final.dto.BatchDto;
 import br.com.meli.desafio_final.exception.NotFound;
 import br.com.meli.desafio_final.model.entity.Adsense;
-import br.com.meli.desafio_final.model.entity.Batch;
 import br.com.meli.desafio_final.model.enums.Category;
 import br.com.meli.desafio_final.repository.AdsenseRepository;
+import br.com.meli.desafio_final.service.IAdsenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +17,6 @@ public class AdsenseService implements IAdsenseService {
 
     @Autowired
     private AdsenseRepository repository;
-
-    @Autowired
-    private BatchService batchService;
 
     @Override
     public Adsense findById(long id) {

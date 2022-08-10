@@ -1,7 +1,7 @@
 package br.com.meli.desafio_final.controller;
 
 import br.com.meli.desafio_final.dto.BatchDto;
-import br.com.meli.desafio_final.service.BatchService;
+import br.com.meli.desafio_final.service.implementation.BatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

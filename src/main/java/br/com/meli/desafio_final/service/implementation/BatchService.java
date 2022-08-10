@@ -1,10 +1,11 @@
-package br.com.meli.desafio_final.service;
+package br.com.meli.desafio_final.service.implementation;
 
 import br.com.meli.desafio_final.dto.AdsenseIdDto;
 import br.com.meli.desafio_final.dto.BatchDto;
 import br.com.meli.desafio_final.exception.NotFound;
 import br.com.meli.desafio_final.model.entity.Batch;
 import br.com.meli.desafio_final.repository.BatchRepository;
+import br.com.meli.desafio_final.service.IBatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class BatchService implements IBatchService{
+public class BatchService implements IBatchService {
 
     @Autowired
     BatchRepository batchRepository;
@@ -24,7 +25,6 @@ public class BatchService implements IBatchService{
        return batchRepository.save(batch);
     }
 
-    @Override
     public Batch findById(Long id){
         return batchRepository.findById(id).orElseThrow(() -> {throw new NotFound("Lote não encontrado");});
     }

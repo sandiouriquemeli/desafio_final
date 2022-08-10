@@ -1,10 +1,12 @@
-package br.com.meli.desafio_final.service;
+package br.com.meli.desafio_final.service.implementation;
 
 import br.com.meli.desafio_final.dto.InBoundOrderDto;
 import br.com.meli.desafio_final.exception.BadRequest;
 import br.com.meli.desafio_final.exception.Unauthorized;
 import br.com.meli.desafio_final.model.entity.*;
 import br.com.meli.desafio_final.repository.*;
+import br.com.meli.desafio_final.service.implementation.BatchService;
+import br.com.meli.desafio_final.service.IInBoundOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +30,6 @@ public class InBoundOrderService implements IInBoundOrderService {
 
     @Autowired
     SectionService sectionService;
-
-    @Override
-    public List<InBoundOrder> getAll() {
-        return repository.findAll();
-    }
 
     private List<InBoundOrderDto> saveOrUpdate(InBoundOrder inBoundOrder, long agentId) {
         List<Batch> batchList = this.validateInboundOrder(inBoundOrder, agentId);

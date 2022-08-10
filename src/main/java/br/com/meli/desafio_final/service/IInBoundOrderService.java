@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface IInBoundOrderService {
 
-    List<InBoundOrder> getAll();
     List<InBoundOrderDto> create(InBoundOrder inBoundOrder, long agentId);
     List<InBoundOrderDto> update(InBoundOrder inBoundOrder, long agentId);
 }

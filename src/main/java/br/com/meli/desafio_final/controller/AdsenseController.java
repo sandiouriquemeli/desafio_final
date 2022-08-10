@@ -1,11 +1,10 @@
 package br.com.meli.desafio_final.controller;
 
 
-import br.com.meli.desafio_final.dto.AdsenseDto;
 import br.com.meli.desafio_final.dto.AdsenseIdDto;
 import br.com.meli.desafio_final.model.entity.Adsense;
 import br.com.meli.desafio_final.model.enums.Category;
-import br.com.meli.desafio_final.service.AdsenseService;
+import br.com.meli.desafio_final.service.implementation.AdsenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -3,6 +3,9 @@ package br.com.meli.desafio_final.util;
 import br.com.meli.desafio_final.model.entity.Product;
 import br.com.meli.desafio_final.model.enums.Category;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductUtils {
 
     public static Product newProduct1ToSave() {
@@ -41,4 +44,21 @@ public class ProductUtils {
                 .build();
     }
 
+    public static List<Product> productList() {
+        List<Product> productList = new ArrayList<>();
+        productList.add(newProduct1ToSave());
+        productList.add(newProduct2ToSave());
+        productList.add(newProduct3ToSave());
+        productList.add(newProduct4ToSave());
+
+        return productList;
+    }
+
+    public static List<Product> productListFresh() {
+        List<Product> productList = new ArrayList<>();
+        productList.add(newProduct1ToSave());
+        productList.add(newProduct2ToSave());
+
+        return productList;
+    }
 }
