@@ -2,6 +2,7 @@ package br.com.meli.desafio_final.repository;
 
 import br.com.meli.desafio_final.dto.AdsenseByWarehouseDto;
 import br.com.meli.desafio_final.model.entity.Batch;
+import br.com.meli.desafio_final.model.enums.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.Query;
@@ -41,4 +42,43 @@ public interface BatchRepository extends JpaRepository<Batch, Long> {
             " AND due_date BETWEEN ?2 AND ?3", nativeQuery = true)
     List<Object[]> getAdsenseBySectionAndDate(long id, LocalDate initialDate, LocalDate finalDate);
 
+
+    @Query(value = "SELECT\n" +
+            " batch_number, \n" +
+            " adsense_id, \n" +
+            " current_quantity, \n" +
+            " due_date,\n" +
+            " frescos.product.category AS productType,\n" +
+            " frescos.in_bound_order.section_id AS section_id\n" +
+            " FROM batch\n" +
+            " JOIN frescos.in_bound_order\n" +
+            " JOIN frescos.adsense as adsense\n" +
+            " JOIN frescos.product as product\n" +
+            " WHERE frescos.in_bound_order.id = frescos.batch.in_bound_order_id\n" +
+            " AND due_date BETWEEN ?1 AND ?2\n" +
+            " AND batch.adsense_id = adsense.id\n" +
+            " AND product.id = adsense.product_id\n" +
+            " AND product.category = ?3\n" +
+            " ORDER BY current_quantity ASC", nativeQuery = true)
+    List<Object[]> getAdsenseByDueDateAndCategoryAsc(LocalDate initialDate, LocalDate finalDate, String category);
+
+
+    @Query(value = "SELECT\n" +
+            " batch_number, \n" +
+            " adsense_id, \n" +
+            " current_quantity, \n" +
+            " due_date,\n" +
+            " frescos.product.category AS productType,\n" +
+            " frescos.in_bound_order.section_id AS section_id\n" +
+            " FROM batch\n" +
+            " JOIN frescos.in_bound_order\n" +
+            " JOIN frescos.adsense as adsense\n" +
+            " JOIN frescos.product as product\n" +
+            " WHERE frescos.in_bound_order.id = frescos.batch.in_bound_order_id\n" +
+            " AND due_date BETWEEN ?1 AND ?2\n" +
+            " AND batch.adsense_id = adsense.id\n" +
+            " AND product.id = adsense.product_id\n" +
+            " AND product.category = ?3\n" +
+            " ORDER BY current_quantity DESC", nativeQuery = true)
+    List<Object[]> getAdsenseByDueDateAndCategoryDesc(LocalDate initialDate, LocalDate finalDate, String category);
 }

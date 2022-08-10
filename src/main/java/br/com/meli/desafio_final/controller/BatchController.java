@@ -1,5 +1,6 @@
 package br.com.meli.desafio_final.controller;
 
+import br.com.meli.desafio_final.dto.AdsensByDueDateAndCategoryDto;
 import br.com.meli.desafio_final.dto.AdsenseBySectionAndDueDateDto;
 import br.com.meli.desafio_final.dto.BatchDto;
 import br.com.meli.desafio_final.repository.BatchRepository;
@@ -30,5 +31,11 @@ public class BatchController {
     public ResponseEntity<List<AdsenseBySectionAndDueDateDto>> findAdsenseBySectionAndDueDate(@RequestParam Long sectionId, @RequestParam int numberOfDays) {
 
         return ResponseEntity.status(HttpStatus.OK).body(service.findAdsenseBySectionAndDueDate(sectionId, numberOfDays));
+    }
+
+    @GetMapping("/due-date/list")
+    public ResponseEntity<List<AdsensByDueDateAndCategoryDto>> findAdsenseByDueDateAndCategory(@RequestParam int numberOfDays, @RequestParam String category, @RequestParam String order) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAdsenseByDueDateAndCategory(numberOfDays, category, order));
     }
 }
