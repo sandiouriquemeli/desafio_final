@@ -1,13 +1,19 @@
 package br.com.meli.desafio_final.model.entity;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Getter @Setter
-public class Agent{
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+public class Agent {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
