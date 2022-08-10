@@ -4,6 +4,8 @@ import br.com.meli.desafio_final.model.entity.Batch;
 
 import br.com.meli.desafio_final.repository.BatchRepository;
 import br.com.meli.desafio_final.service.implementation.BatchService;
+import br.com.meli.desafio_final.util.AdsenseByWarehouseDtoUtils;
+import br.com.meli.desafio_final.util.AdsenseUtils;
 import br.com.meli.desafio_final.util.BatchUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
