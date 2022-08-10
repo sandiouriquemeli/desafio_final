@@ -1,16 +1,20 @@
 package br.com.meli.desafio_final.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Setter @Getter
+@Setter
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class InBoundOrder {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,9 +23,14 @@ public class InBoundOrder {
     @JoinColumn(name = "section_id")
     private Section section;
 
-    LocalDate date;
+    private LocalDate date = LocalDate.now();
 
-    @OneToMany(mappedBy = "inBoundOrder")
+    @ManyToOne
+    @JoinColumn(name = "agent_id")
+    @JsonIgnoreProperties("inBoundOrder")
+    private Agent agent;
+
+    @OneToMany(mappedBy = "inBoundOrder", cascade = CascadeType.PERSIST)
     @JsonIgnoreProperties("inBoundOrder")
     private List<Batch> batchStock;
 }
