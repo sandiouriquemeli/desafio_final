@@ -11,9 +11,7 @@ import br.com.meli.desafio_final.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements IProductService {
@@ -55,16 +53,12 @@ public class ProductService implements IProductService {
         });
     }
 
-    public BatchesByProductDto findBatchByProduct(Long id) {
-        List<BatchDto> result = new ArrayList<>();
+    @Override
+    public BatchesByProductDto findBatchByProduct(Long id, String s) {
         Product product = findById(id);
         Section section = sectionService.findByCategory(product.getCategory());
         List<AdsenseIdDto> adsenseList = adsenseService.findByProductId(product.getId());
-        List<List<BatchDto>> batchDtoList = adsenseList.stream().map(adsenseId -> batchService.findAllByAdsenseId(adsenseId.getId()))
-                .collect(Collectors.toList());
-        batchDtoList.stream().forEach(batchDtos -> result.addAll(batchDtos));
-        return new BatchesByProductDto(section, product.getId(), result);
+        List<BatchDto> batchStock = batchService.returnBatchStock(adsenseList, s);
+        return new BatchesByProductDto(section, product.getId(), batchStock);
     }
-
-
 }

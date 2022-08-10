@@ -28,8 +28,8 @@ public class ProductController {
         return ResponseEntity.ok(service.findByCategory(querytype));
     }
 
-    @GetMapping("/test/{id}")
-    public ResponseEntity<BatchesByProductDto> findBatchByProduct(@PathVariable Long id) {
-        return ResponseEntity.ok(service.findBatchByProduct(id));
+    @GetMapping("/test")
+    public ResponseEntity<BatchesByProductDto> findBatchByProduct(@RequestParam Long productId, String s) {
+        return ResponseEntity.ok(service.findBatchByProduct(productId, s));
     }
 }

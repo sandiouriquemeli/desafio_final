@@ -12,5 +12,5 @@ public interface IProductService {
     List<Product> findAllProducts();
     List<Product> findByCategory(Category category);
     Product findById(Long id);
-    BatchesByProductDto findBatchByProduct(Long id);
+    BatchesByProductDto findBatchByProduct(Long id, String sort);
 }
