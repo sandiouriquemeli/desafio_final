@@ -1,5 +1,6 @@
 package br.com.meli.desafio_final.service;
 
+import br.com.meli.desafio_final.dto.AdsenseBySectionAndDueDateDto;
 import br.com.meli.desafio_final.dto.AdsenseByWarehouseDto;
 import br.com.meli.desafio_final.dto.AdsenseIdDto;
 import br.com.meli.desafio_final.dto.BatchDto;
@@ -14,5 +15,6 @@ public interface IBatchService {
     List<BatchDto> findAllByAdsenseId(Long adsenseId);
     List<BatchDto> returnBatchStock(List<AdsenseIdDto> adsenseList, String s);
     List<AdsenseByWarehouseDto> getAdsenseByWarehouseAndQuantity(long adsenseId);
+    List<AdsenseBySectionAndDueDateDto> findAdsenseBySectionAndDueDate(long sectionId, int numberOfDays);
 
 }

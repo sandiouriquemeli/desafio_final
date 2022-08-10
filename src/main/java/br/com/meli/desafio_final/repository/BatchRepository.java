@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -30,5 +31,14 @@ public interface BatchRepository extends JpaRepository<Batch, Long> {
             "AND inbound.section_id = section.id\n" +
             "GROUP BY warehouse_id, adsense_id;", nativeQuery = true)
     List<Object[]> getAdsenseByWarehouse(long id);
+
+    @Query(value = "SELECT\n" +
+            " batch_number, adsense_id, current_quantity, due_date\n" +
+            " FROM batch\n" +
+            " JOIN frescos.in_bound_order\n" +
+            " WHERE frescos.in_bound_order.id = frescos.batch.in_bound_order_id\n" +
+            " AND frescos.in_bound_order.section_id = ?1\n" +
+            " AND due_date BETWEEN ?2 AND ?3", nativeQuery = true)
+    List<Object[]> getAdsenseBySectionAndDate(long id, LocalDate initialDate, LocalDate finalDate);
 
 }

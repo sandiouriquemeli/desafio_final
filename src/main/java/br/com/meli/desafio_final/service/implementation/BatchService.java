@@ -1,4 +1,5 @@
 package br.com.meli.desafio_final.service.implementation;
+import br.com.meli.desafio_final.dto.AdsenseBySectionAndDueDateDto;
 import br.com.meli.desafio_final.dto.AdsenseIdDto;
 import br.com.meli.desafio_final.dto.BatchDto;
 import br.com.meli.desafio_final.dto.AdsenseByWarehouseDto;
@@ -6,9 +7,11 @@ import br.com.meli.desafio_final.exception.NotFound;
 import br.com.meli.desafio_final.model.entity.Batch;
 import br.com.meli.desafio_final.repository.BatchRepository;
 import br.com.meli.desafio_final.service.IBatchService;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -69,6 +72,14 @@ public class BatchService implements IBatchService {
     public List<AdsenseByWarehouseDto> getAdsenseByWarehouseAndQuantity(long adsenseId) {
         return batchRepository.getAdsenseByWarehouse(adsenseId).stream().map(
                 (obj) -> new AdsenseByWarehouseDto(obj[0], obj[1])).collect(Collectors.toList());
+    }
+
+    public List<AdsenseBySectionAndDueDateDto> findAdsenseBySectionAndDueDate(long sectionId, int numberOfDays) {
+        LocalDate initialDate = LocalDate.now();
+        LocalDate finalDate = initialDate.plusDays(numberOfDays);
+        return batchRepository.getAdsenseBySectionAndDate(sectionId, initialDate, finalDate).stream().map(
+                (obj) -> new AdsenseBySectionAndDueDateDto(obj[0], obj[1], obj[2], obj[3])
+        ).collect(Collectors.toList());
     }
 
 }
