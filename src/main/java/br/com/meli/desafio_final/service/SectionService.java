@@ -2,6 +2,7 @@ package br.com.meli.desafio_final.service;
 
 import br.com.meli.desafio_final.exception.NotAcceptable;
 import br.com.meli.desafio_final.model.entity.Section;
+import br.com.meli.desafio_final.model.enums.Category;
 import br.com.meli.desafio_final.repository.SectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,8 @@ public class SectionService implements ISectionService{
         }
     }
 
-
-
+    @Override
+    public Section findByCategory(Category category) {
+        return sectionRepository.findByCategory(category);
+    }
 }
