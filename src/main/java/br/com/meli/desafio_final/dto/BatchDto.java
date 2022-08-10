@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Getter @Setter
 @NoArgsConstructor
-public class BatchDto {
+public class BatchDto implements Comparable<BatchDto>{
     private Long batchNumber;
     private int currentQuantity;
     private LocalDate dueDate;
@@ -24,5 +24,16 @@ public class BatchDto {
 
     public static List<BatchDto> convertDto(List<Batch> batchList) {
         return batchList.stream().map(BatchDto::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public int compareTo(BatchDto batch) {
+        if (this.batchNumber < batch.getBatchNumber()) return -1;
+        if (this.batchNumber > batch.getBatchNumber()) return 1;
+        if (this.currentQuantity < batch.getCurrentQuantity()) return -1;
+        if (this.currentQuantity > batch.getCurrentQuantity()) return 1;
+        if (this.dueDate.isBefore(batch.getDueDate())) return -1;
+        if (this.dueDate.isAfter(batch.getDueDate())) return 1;
+        return 0;
     }
 }
