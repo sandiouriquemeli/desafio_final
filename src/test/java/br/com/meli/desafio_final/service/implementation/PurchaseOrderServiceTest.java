@@ -5,7 +5,6 @@ import br.com.meli.desafio_final.exception.NotFound;
 import br.com.meli.desafio_final.model.entity.PurchaseOrder;
 import br.com.meli.desafio_final.model.enums.Status;
 import br.com.meli.desafio_final.repository.PurchaseOrderRepository;
-import br.com.meli.desafio_final.service.implementation.BatchService;
 import br.com.meli.desafio_final.util.AdsenseUtils;
 import br.com.meli.desafio_final.util.ItemUtils;
 import br.com.meli.desafio_final.util.PurchaseOrderUtils;
@@ -56,24 +55,24 @@ public class PurchaseOrderServiceTest {
     @Mock
     private ItemService itemService;
 
-    // TODO: SEPARAR CADA MOCK COM 1 ESPAÇO ENTRE LINHAS
     @BeforeEach
     public void setup() {
         BDDMockito.when(purchaseOrderRepository.save(PurchaseOrderUtils.newPurchase1ToSave()))
                 .thenReturn(PurchaseOrderUtils.newPurchase1ToSave());
+
         BDDMockito.when(purchaseOrderRepository.findById(PurchaseOrderUtils.newPurchase1ToSave().getId()))
                 .thenReturn(Optional.ofNullable(PurchaseOrderUtils.newPurchase1ToSave()));
+
         BDDMockito.when(buyerService.findById(BuyerUtils.newBuyer1ToSave().getId()))
                 .thenReturn(BuyerUtils.newBuyer1ToSave());
+
         BDDMockito.when(adsenseService.findById(AdsenseUtils.newAdsense1ToSave().getId()))
                 .thenReturn(AdsenseUtils.newAdsense1ToSave());
     }
 
-    // TODO: ADICIONAR O public AOS MÉTODOS
-
     @Test
     @DisplayName("Busca pelo ID: Valida se retorna uma Ordem de Compra quando um ID é válido.")
-    void findById_returnPurchaseOrder_whenIdValid() {
+    public void findById_returnPurchaseOrder_whenIdValid() {
         BDDMockito.when(purchaseOrderRepository.findById(anyLong()))
                 .thenReturn(Optional.of(PurchaseOrderUtils.newPurchase1ToSave()));
 
@@ -87,15 +86,13 @@ public class PurchaseOrderServiceTest {
 
     @Test
     @DisplayName("Busca pelo ID: Valida se retorna uma exceção quando o ID é inválido.")
-    void findById_throwException_whenIdInvalid() {
-        Assertions.assertThrows(NotFound.class, () -> {
-            purchaseOrderService.findById(0L);
-        });
+    public void findById_throwException_whenIdInvalid() {
+        Assertions.assertThrows(NotFound.class, () -> purchaseOrderService.findById(0L));
     }
 
     @Test
     @DisplayName("Atualiza Status: Valida se retorna uma Ordem de Compra com status atualizado e se ela foi salva.")
-    void updateToFinished_returnPurchaseOrderUpdated_whenUpdateStatus() {
+    public void updateToFinished_returnPurchaseOrderUpdated_whenUpdateStatus() {
         PurchaseOrder purchaseOrder = purchaseOrderService
                 .updateToFinished(PurchaseOrderUtils.newPurchase1ToSave().getId());
         assertThat(purchaseOrder).isNotNull();
@@ -106,7 +103,7 @@ public class PurchaseOrderServiceTest {
     @Test
     @DisplayName("Busca Anúncios pelo ID da Ordem de Compra: Valida se retorna uma Lista de Anúncios " +
             "quando o ID da Ordem de Compra é válido.")
-    void findAdsensesByPurchaseOrderId() {
+    public void findAdsensesByPurchaseOrderId() {
         BDDMockito.when(itemService.findItemsByPurchaseOrderId(anyLong()))
                 .thenReturn(ItemUtils.generatedItemList());
         List<AdsenseDto> adsenseDtoList = purchaseOrderService

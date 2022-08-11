@@ -2,6 +2,7 @@ package br.com.meli.desafio_final.controller;
 
 
 import br.com.meli.desafio_final.dto.AdsenseByWarehouseDto;
+import br.com.meli.desafio_final.dto.AdsenseDto;
 import br.com.meli.desafio_final.dto.AdsenseIdDto;
 import br.com.meli.desafio_final.model.entity.Adsense;
 import br.com.meli.desafio_final.model.enums.Category;
@@ -25,24 +26,13 @@ public class AdsenseController {
     private AdsenseService adsenseService;
 
     /**
-     * Nesse método vamos retornar anúncio( Adsense) atráves do Id
-     * @param id
-     * @return
-     */
-    // TODO: colocar DTO
-    @GetMapping("/{id}")
-    public ResponseEntity<Adsense> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(adsenseService.findById(id));
-    }
-
-    /**
      * Nesse método retornamos uma lista de anúncios
      * @return
      */
     // TODO: colocar DTO
     @GetMapping
-    public ResponseEntity<List<Adsense>> findAll() {
-        return ResponseEntity.ok(adsenseService.findAll());
+    public ResponseEntity<List<AdsenseDto>> findAll() {
+        return ResponseEntity.ok(AdsenseDto.convertDto(adsenseService.findAll()));
     }
 
     /**
@@ -52,8 +42,8 @@ public class AdsenseController {
      */
     // TODO: colocar DTO
     @GetMapping("/list")
-    public ResponseEntity<List<Adsense>> findByCategory(@RequestParam Category querytype) {
-        return ResponseEntity.ok(adsenseService.findByCategory(querytype));
+    public ResponseEntity<List<AdsenseDto>> findByCategory(@RequestParam Category querytype) {
+        return ResponseEntity.ok(AdsenseDto.convertDto(adsenseService.findByCategory(querytype)));
     }
 
     /**
