@@ -11,6 +11,7 @@ public class AdsenseUtilsDto {
                 .id(3L)
                 .build();
     }
+
     public static List<AdsenseIdDto> generateAdsenseIdDtoList() {
         List<AdsenseIdDto> adsenseIdDtoList = new ArrayList<>();
         adsenseIdDtoList.add(newAdsenseDtoToSave());
