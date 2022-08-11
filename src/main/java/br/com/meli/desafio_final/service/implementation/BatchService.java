@@ -111,6 +111,14 @@ public class BatchService implements IBatchService {
                 (obj) -> new AdsenseByWarehouseDto(obj[0], obj[1])).collect(Collectors.toList());
     }
 
+    /**
+     * Esse método retorna uma lista de todos os lotes armazenados em um setor de um armazém,
+     * filtrados por um período de vencimento
+     * e ordenados por sua data de validade
+     * @param sectionId
+     * @param numberOfDays
+     */
+    @Override
     public List<AdsenseBySectionAndDueDateDto> findAdsenseBySectionAndDueDate(long sectionId, int numberOfDays) {
         LocalDate initialDate = LocalDate.now();
         LocalDate finalDate = initialDate.plusDays(numberOfDays);
@@ -119,17 +127,26 @@ public class BatchService implements IBatchService {
         ).collect(Collectors.toList());
     }
 
+    /**
+     * Esse método retorna uma lista de lote dentro do prazo de validade solicitado,
+     * que pertencem a uma determinada categoria de produto
+     * ordenada de forma crescente ou decrescente pela quantidade
+     * @param numberOfDays
+     * @param category
+     * @param order
+     */
+    @Override
     public List<AdsensByDueDateAndCategoryDto> findAdsenseByDueDateAndCategory(int numberOfDays, String category, String order) {
         LocalDate initialDate = LocalDate.now();
         LocalDate finalDate = initialDate.plusDays(numberOfDays);
 
-        return order.equalsIgnoreCase("asc")?
-                batchRepository.getAdsenseByDueDateAndCategoryAsc(initialDate, finalDate, category).stream().map(
-                (obj) -> new AdsensByDueDateAndCategoryDto(obj[0], obj[1], obj[2], obj[3], obj[4], obj[5])
-        ).collect(Collectors.toList())
-        : batchRepository.getAdsenseByDueDateAndCategoryDesc(initialDate, finalDate, category).stream().map(
-                (obj) -> new AdsensByDueDateAndCategoryDto(obj[0], obj[1], obj[2], obj[3], obj[4], obj[5])
-        ).collect(Collectors.toList());
+        return order.equalsIgnoreCase("asc")
+            ? batchRepository.getAdsenseByDueDateAndCategoryAsc(initialDate, finalDate, category).stream()
+                .map((obj) -> new AdsensByDueDateAndCategoryDto(obj[0], obj[1], obj[2], obj[3], obj[4], obj[5]))
+                .collect(Collectors.toList())
+            : batchRepository.getAdsenseByDueDateAndCategoryDesc(initialDate, finalDate, category).stream()
+                .map((obj) -> new AdsensByDueDateAndCategoryDto(obj[0], obj[1], obj[2], obj[3], obj[4], obj[5]))
+                .collect(Collectors.toList());
     }
 
 }

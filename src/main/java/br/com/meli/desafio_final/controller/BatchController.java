@@ -20,22 +20,35 @@ public class BatchController {
     /**
      * Nesse método retornamos uma lista de anúncio por Id
      * @param adsenseId
-     * @return
      */
     @GetMapping("/{adsenseId}")
     public ResponseEntity<List<BatchDto>> findAllByAdsenseId(@PathVariable Long adsenseId) {
         return ResponseEntity.ok(service.findAllByAdsenseId(adsenseId));
     }
 
+    /**
+     * Esse método retorna uma lista de todos os lotes armazenados em um setor de um armazém,
+     * filtrados por um período de vencimento
+     * e ordenados por sua data de validade
+     * @param sectionId
+     * @param numberOfDays
+     */
     @GetMapping("/due-date")
     public ResponseEntity<List<AdsenseBySectionAndDueDateDto>> findAdsenseBySectionAndDueDate(@RequestParam Long sectionId, @RequestParam int numberOfDays) {
-
         return ResponseEntity.status(HttpStatus.OK).body(service.findAdsenseBySectionAndDueDate(sectionId, numberOfDays));
     }
 
+    /**
+     * Esse método retorna uma lista de lote dentro do prazo de validade solicitado,
+     * que pertencem a uma determinada categoria de produto
+     * ordenada de forma crescente ou decrescente pela quantidade
+     *
+     * @param numberOfDays
+     * @param category
+     * @param order
+     */
     @GetMapping("/due-date/list")
     public ResponseEntity<List<AdsensByDueDateAndCategoryDto>> findAdsenseByDueDateAndCategory(@RequestParam int numberOfDays, @RequestParam String category, @RequestParam String order) {
-
         return ResponseEntity.status(HttpStatus.OK).body(service.findAdsenseByDueDateAndCategory(numberOfDays, category, order));
     }
 }
