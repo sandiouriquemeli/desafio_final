@@ -1,5 +1,6 @@
 package br.com.meli.desafio_final.controller;
 
+import br.com.meli.desafio_final.dto.BatchesByProductDto;
 import br.com.meli.desafio_final.model.entity.Product;
 import br.com.meli.desafio_final.model.enums.Category;
 import br.com.meli.desafio_final.service.implementation.ProductService;
@@ -51,4 +52,16 @@ public class ProductControllerTest {
         assertThat(productResponse.getBody().size()).isNotNull().isPositive().isEqualTo(2);
     }
 
+    @Test
+    public void testFindBatchByProduct() {
+        BatchesByProductDto batchesByProductDto = ProductUtils.bachesByProduct();
+        BDDMockito.when(productService.findBatchByProduct(1L, null))
+                .thenReturn(batchesByProductDto);
+
+        ResponseEntity<BatchesByProductDto> productResponse = productController.findBatchByProduct(1L, null);
+
+        assertThat(productResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(productResponse.getBody()).isNotNull();
+        assertThat(productResponse.getBody()).isEqualTo(batchesByProductDto);
+    }
 }
