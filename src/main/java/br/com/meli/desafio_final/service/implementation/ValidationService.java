@@ -61,6 +61,12 @@ public class ValidationService {
                 });
     }
 
+    /**
+     * Nesse método estamos validando um representante
+     * @param id
+     * @return
+     */
+
     public Agent validateAgent(long id) {
         return agentRepository.findById(id)
                 .orElseThrow(() -> {

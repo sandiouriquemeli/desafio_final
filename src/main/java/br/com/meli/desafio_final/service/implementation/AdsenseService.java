@@ -19,14 +19,25 @@ public class AdsenseService implements IAdsenseService {
     @Autowired
     private AdsenseRepository adsenseRepository;
 
+
     @Autowired
     private BatchService batchService;
 
+    /**
+     * Nesse método estamos retornado/ consultando anúncio Id
+     * @param id
+     * @return
+     */
     @Override
     public Adsense findById(long id) {
         return adsenseRepository.findById(id)
                 .orElseThrow(() -> { throw new NotFound("Anúncio não cadastrado."); } );
     }
+
+    /**
+     * Nesse método consultamos uma lista de anúncios e retornamos lista caso existe, caso não exibimos uma mensagem de erro
+     * @return
+     */
 
     @Override
     public List<Adsense> findAll() {
@@ -35,11 +46,22 @@ public class AdsenseService implements IAdsenseService {
         return adsenses;
     }
 
+    /**
+     * Nesse método retornamos uma lista de anúncio filtrado por categoria
+     * @param category
+     * @return
+     */
     @Override
     public List<Adsense> findByCategory(Category category) {
         return findAll().stream().filter(a -> a.getProduct().getCategory().equals(category))
                 .collect(Collectors.toList());
     }
+
+    /**
+     * Nesse método retornamos uma lista de anúncio filtrado por produtos e Id
+     * @param productId
+     * @return
+     */
 
     @Override
     public List<AdsenseIdDto> findByProductId(Long productId) {
@@ -48,7 +70,11 @@ public class AdsenseService implements IAdsenseService {
         return AdsenseIdDto.convertDto(adsenseList);
     }
 
-
+    /**
+     * Nesse método retornamos uma lista de anúncio e quantidade por armazém
+     * @param adsenseId
+     * @return
+     */
 
 
     @Override

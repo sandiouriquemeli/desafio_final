@@ -24,26 +24,52 @@ public class AdsenseController {
     @Autowired
     private AdsenseService adsenseService;
 
+    /**
+     * Nesse método vamos retornar anúncio( Adsense) atráves do Id
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Adsense> findById(@PathVariable Long id) {
         return ResponseEntity.ok(adsenseService.findById(id));
     }
+
+    /**
+     * Nesse método retornamos uma lista de anúncios
+     * @return
+     */
 
     @GetMapping
     public ResponseEntity<List<Adsense>> findAll() {
         return ResponseEntity.ok(adsenseService.findAll());
     }
 
+    /**
+     * Nesse método retornamos anúncio listado por categoria
+     * @param querytype
+     * @return
+     */
+
     @GetMapping("/list")
     public ResponseEntity<List<Adsense>> findByCategory(@RequestParam Category querytype) {
         return ResponseEntity.ok(adsenseService.findByCategory(querytype));
     }
 
+    /**
+     * Nesse método retormaos uma lista DTO de produtos por Id
+     * @param productId
+     * @return
+     */
     @GetMapping("/test/{productId}")
     public ResponseEntity<List<AdsenseIdDto>> findByProductId(@PathVariable Long productId) {
         return ResponseEntity.ok(adsenseService.findByProductId(productId));
     }
 
+    /**
+     * Nesse método retornamos um lista de anúncio por armazém / ou a qual armazém esse anúncio pertece
+     * @param adsenseId
+     * @return
+     */
     @GetMapping("/warehouse/{adsenseId}")
     public ResponseEntity <List<AdsenseByWarehouseDto>> getByAdsenseByWarehouse(@PathVariable Long adsenseId) {
 

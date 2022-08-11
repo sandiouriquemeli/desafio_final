@@ -54,6 +54,6 @@ public class BuyerServiceTest {
             exceptionResponse = exception;
         }
 
-        assertThat(exceptionResponse.getMessage()).isEqualTo("Anúncio não cadastrado.");
+        assertThat(exceptionResponse.getMessage()).isEqualTo("Comprador não cadastrado.");
     }
 }

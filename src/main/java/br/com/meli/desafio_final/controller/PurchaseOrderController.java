@@ -17,16 +17,32 @@ public class PurchaseOrderController {
     @Autowired
     private PurchaseOrderService purchaseOrderService;
 
+    /**
+     * Nesse método salvamos a ordem de pedido e retornamos o status de criado (CREATED)
+     * @param purchaseOrder
+     * @return
+     */
     @PostMapping("/orders")
     public ResponseEntity<Double> save(@RequestBody PurchaseOrder purchaseOrder) {
         return ResponseEntity.status(HttpStatus.CREATED).body(purchaseOrderService.save(purchaseOrder));
     }
+
+    /**
+     * Nesse método retornamos produto anunciando
+     * @param id
+     * @return
+     */
 
     @GetMapping("/orders/{id}")
     public ResponseEntity<List<AdsenseDto>> findAdsensesByPurchaseOrderId(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(purchaseOrderService.findAdsensesByPurchaseOrderId(id));
     }
 
+    /**
+     * Nesse método atualizamos o status de compra
+     * @param queryParam
+     * @return
+     */
     @PutMapping("/orders/")
     public ResponseEntity<PurchaseOrder> update(@RequestParam Long queryParam) {
         return ResponseEntity.status(HttpStatus.OK).body(purchaseOrderService.updateToFinished(queryParam));
