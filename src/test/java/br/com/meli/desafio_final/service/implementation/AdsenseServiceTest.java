@@ -1,5 +1,6 @@
 package br.com.meli.desafio_final.service.implementation;
 
+import br.com.meli.desafio_final.dto.AdsenseIdDto;
 import br.com.meli.desafio_final.exception.NotFound;
 import br.com.meli.desafio_final.model.entity.Adsense;
 import br.com.meli.desafio_final.model.enums.Category;
@@ -103,5 +104,15 @@ public class AdsenseServiceTest {
         assertThrows(NotFound.class, () -> {
             service.findAll();
         });
+    }
+
+    @Test
+    void find_findAdsensesByProductId_whenSuccess() {
+        BDDMockito.when(repository.findAll())
+                .thenReturn(List.of(AdsenseUtils.newAdsense1ToSave()));
+        List<AdsenseIdDto> adsenseList = service.findByProductId(1L);
+        List<AdsenseIdDto> newList = AdsenseIdDto.convertDto(List.of(AdsenseUtils.newAdsense1ToSave()));
+        assertThat(adsenseList).isNotNull();
+        assertThat(adsenseList.contains(newList));
     }
 }

@@ -48,12 +48,8 @@ public class AdsenseService implements IAdsenseService {
         return AdsenseIdDto.convertDto(adsenseList);
     }
 
-
-
-
     @Override
     public List<AdsenseByWarehouseDto> findAdsenseByWarehouseAndQuantity(Long adsenseId) {
-
         return batchService.getAdsenseByWarehouseAndQuantity(adsenseId);
     }
 
