@@ -56,6 +56,7 @@ public class PurchaseOrderServiceTest {
     @Mock
     private ItemService itemService;
 
+    // TODO: SEPARAR CADA MOCK COM 1 ESPAÇO ENTRE LINHAS
     @BeforeEach
     public void setup() {
         BDDMockito.when(purchaseOrderRepository.save(PurchaseOrderUtils.newPurchase1ToSave()))
@@ -67,6 +68,8 @@ public class PurchaseOrderServiceTest {
         BDDMockito.when(adsenseService.findById(AdsenseUtils.newAdsense1ToSave().getId()))
                 .thenReturn(AdsenseUtils.newAdsense1ToSave());
     }
+
+    // TODO: ADICIONAR O public AOS MÉTODOS
 
     @Test
     @DisplayName("Busca pelo ID: Valida se retorna uma Ordem de Compra quando um ID é válido.")

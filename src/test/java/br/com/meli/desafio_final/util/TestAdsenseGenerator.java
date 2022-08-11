@@ -8,7 +8,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+// TODO: PASSO 1: VERIFICAR ONDE ESTÃO SENDO USADO ESTE MÉTODO ÚTIL E SUBSTITUIR
+// TODO: PASSO 2: APAGAR ESSE ARQUIVO APÓS PASSO 1
 public class TestAdsenseGenerator {
 
     public static Adsense getAdsenseWithId() {

@@ -20,11 +20,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class BuyerServiceTest {
+
     @InjectMocks
     BuyerService buyerService;
 
     @Mock
     BuyerRepository buyerRepository;
+
+    // TODO: REMOVER A PALAVRA "TEST" DOS NOMES DOS MÉTODOS, POIS A MAIORIA NÃO POSSUI
+    // TODO: ADICIONAR @DisplayName() AOS TESTES QUE NÃO O POSSUI
 
     @Test
     public void testFindBuyerById() {

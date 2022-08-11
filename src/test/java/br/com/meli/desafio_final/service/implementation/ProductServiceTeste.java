@@ -20,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
+// TODO: RENOMEAR ARQUIVO E CLASSE (ÚLTIMA PALAVRA), PARA MANTER O PADRÃO - REMOVER O "E" DA PALAVRA "TEST"
 public class ProductServiceTeste {
 
     @InjectMocks
@@ -27,6 +28,9 @@ public class ProductServiceTeste {
 
     @Mock
     ProductRepository productRepository;
+
+    // TODO: REMOVER A PALAVRA "TEST" DOS NOMES DOS MÉTODOS, POIS A MAIORIA NÃO POSSUI
+    // TODO: ADICIONAR @DisplayName() AOS TESTES QUE NÃO O POSSUI
 
     @Test
     public void testGetAllProducts() {

@@ -23,16 +23,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
+// TODO: RENOMEAR ARQUIVO E CLASSE (ÚLTIMA PALAVRA), PARA MANTER O PADRÃO - REMOVER O "E" DA PALAVRA "TEST"
 public class BatchServiceTeste {
 
-        @InjectMocks
-        private BatchService batchService;
+    @InjectMocks
+    private BatchService batchService;
 
-        @Mock
-        private BatchRepository batchRepository;
+    @Mock
+    private BatchRepository batchRepository;
 
-        @Test
-        public void testSaveBatch() {
+    // TODO: REMOVER A PALAVRA "TEST" DOS NOMES DOS MÉTODOS, POIS A MAIORIA NÃO POSSUI
+    // TODO: ADICIONAR @DisplayName() AOS TESTES QUE NÃO O POSSUI
+
+    @Test
+    public void testSaveBatch() {
             Batch batch = BatchUtils.newBatch1ToSave();
             BDDMockito.when(batchRepository.save(batch))
                     .thenReturn(batch);
@@ -106,5 +110,10 @@ public class BatchServiceTeste {
         List<AdsenseByWarehouseDto> saveBatchResponse = batchService.getAdsenseByWarehouseAndQuantity(adsenseId);
 
         Assertions.assertThat(saveBatchResponse).isNotNull();
+    }
+
+    @Test
+    public void testFindAdsenseBySectionAndDueDate() {
+
     }
 }

@@ -11,6 +11,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
@@ -18,7 +21,10 @@ import java.util.Optional;
 
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
+// TODO: RENOMEAR ARQUIVO E CLASSE (ÚLTIMA PALAVRA), PARA MANTER O PADRÃO - REMOVER O "E" DA PALAVRA "TEST"
 public class InBoundOrderServiceTeste {
+
     @InjectMocks
     private InBoundOrderService inBoundOrderService;
 
@@ -36,6 +42,9 @@ public class InBoundOrderServiceTeste {
 
     @Mock
     private SectionService sectionService;
+
+    // TODO: ADICIONAR @DisplayName() AOS TESTES QUE NÃO O POSSUI
+    // TODO: MELHORAR IDENTAÇÃO DENTRO DOS MÉTODOS, SEPARANDO COM ESPAÇOS ENTRE LINHAS OS CONJUNTOS DE LÓGICA
 
     @Test
     public void createInboundOrder(){
@@ -60,6 +69,7 @@ public class InBoundOrderServiceTeste {
 
         BDDMockito.willDoNothing().given(sectionService).setAndUpdateCapacity(1500D, sectionFresh);
 
+        // TODO: REMOVER COMENTÁRIO
         //BDDMockito.when(batchService.findById(ArgumentMatchers.any(Long.class)))
           //      .thenReturn(batch);
 
@@ -163,5 +173,4 @@ public class InBoundOrderServiceTeste {
         assertThat(inbourdOrderCreated.size()).isEqualTo(1);
 
     }
-
 }

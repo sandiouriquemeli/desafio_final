@@ -33,11 +33,16 @@ import static org.mockito.Mockito.*;
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class AdsenseControllerTest {
 
+    // TODO: PADRONIZAR NOME DOS MOCKS
     @InjectMocks
     private AdsenseController controller;
 
     @Mock
     private AdsenseService service;
+
+    // TODO: REMOVER A PALAVRA "TEST" DOS NOMES DOS MÉTODOS, POIS A MAIORIA NÃO POSSUI
+    // TODO: ADICIONAR @DisplayName() AOS TESTES QUE NÃO O POSSUI
+    // TODO: ADICIONAR O public AOS MÉTODOS
 
     @Test
     public void find_findByCategory_whenAdsensesByCategoryExist() {
@@ -49,6 +54,7 @@ public class AdsenseControllerTest {
 
         verify(service, atLeastOnce()).findByCategory(Category.FRESH);
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        // TODO: AJUSTAR O IMPORT
         org.junit.jupiter.api.Assertions.assertEquals(response.getBody().size(), 2);
         org.junit.jupiter.api.Assertions.assertEquals(response.getBody(), adsenseList);
     }
@@ -74,6 +80,7 @@ public class AdsenseControllerTest {
     void findById_throwException_whenIdInvalid() {
         BDDMockito.when(service.findById(anyLong()))
             .thenAnswer((invocationOnMock) -> {
+                // TODO: ALTERAR EXCEPTION PARA A PADRÃO NotFound
                 throw new ExNotFound("💢 Anúncio não encontrado!");
             });
 
@@ -109,6 +116,7 @@ public class AdsenseControllerTest {
     void findAll_throwException_whenAdsensesNotExists() {
         BDDMockito.when(service.findAll())
             .thenAnswer((invocationOnMock) -> {
+                // TODO: ALTERAR A EXCEPTION PARA A PADRÃO NotFound
                 throw new ExNotFound("💢 Lista de anúncios não encontrada");
             });
 

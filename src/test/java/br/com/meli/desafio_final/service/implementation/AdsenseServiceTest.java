@@ -32,6 +32,7 @@ import static org.mockito.ArgumentMatchers.*;
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class AdsenseServiceTest {
 
+    // TODO: PADRONIZAR NOME DOS MOCKS
     @InjectMocks
     private AdsenseService service;
 
@@ -40,6 +41,10 @@ public class AdsenseServiceTest {
 
     @Mock
     private BatchService batchService;
+
+    // TODO: REMOVER A PALAVRA "TEST" DOS NOMES DOS MÉTODOS, POIS A MAIORIA NÃO POSSUI
+    // TODO: ADICIONAR @DisplayName() AOS TESTES QUE NÃO O POSSUI
+    // TODO: ADICIONAR O public AOS MÉTODOS
 
     @Test
     public void find_findByCategory_whenAdsensesByCategoryExist() {
@@ -65,7 +70,7 @@ public class AdsenseServiceTest {
         verify(repository, atLeastOnce()).findAll();
         Assertions.assertThat(adsenseList).isNull();
         assertThat(exception.getMessage()).isEqualTo("💢 Lista de anúncios não encontrada");
-        // TODO: Mensagem do erro
+        // TODO: TRATAR MENSAGEM DE ERRO
     }
 
     @Test

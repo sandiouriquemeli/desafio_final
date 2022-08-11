@@ -31,6 +31,9 @@ public class ItemServiceTest {
     @Mock
     private ItemRepository itemRepository;
 
+    // TODO: REMOVER A PALAVRA "TEST" DOS NOMES DOS MÉTODOS, POIS A MAIORIA NÃO POSSUI
+    // TODO: ADICIONAR @DisplayName() AOS TESTES QUE NÃO O POSSUI
+
     @Test
     public void testSaveItem() {
         Item item = ItemUtils.newItem1ToSave();

@@ -10,16 +10,21 @@ import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
+// TODO: RENOMEAR ARQUIVO E CLASSE (ÚLTIMA PALAVRA), PARA MANTER O PADRÃO - REMOVER O "E" DA PALAVRA "TEST"
 public class ValidationServiceTeste {
 
-        @InjectMocks
-        private ValidationService validationService;
+    @InjectMocks
+    private ValidationService validationService;
 
     @Mock
     SectionRepository sectionRepository;
@@ -30,11 +35,14 @@ public class ValidationServiceTeste {
     @Mock
     ProductRepository productRepository;
 
+    // TODO: REMOVER MOCK NÃO UTILIZADO
     @Mock
     BatchRepository batchRepository;
 
     @Mock
     AgentRepository agentRepository;
+
+    // TODO: ADICIONAR @DisplayName() AOS TESTES QUE NÃO O POSSUI
 
     @Test
     public void testValidateSection() {
@@ -46,7 +54,6 @@ public class ValidationServiceTeste {
         validationService.validateSection(section);
         verify(sectionRepository, only()).findById(1L);
     }
-
 
     @Test
     public void testValidateSectionThrowsException() {
