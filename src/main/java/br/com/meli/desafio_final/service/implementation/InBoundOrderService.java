@@ -176,7 +176,7 @@ public class InBoundOrderService implements IInBoundOrderService {
     }
 
     /**
-     *
+     * Esse método calcula o volume de um lote.
      * @param quantity
      * @param volumen
      * @return
