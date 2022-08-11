@@ -1,6 +1,7 @@
 package br.com.meli.desafio_final.service.implementation;
 
 import br.com.meli.desafio_final.dto.AdsenseByWarehouseDto;
+import br.com.meli.desafio_final.dto.AdsenseIdDto;
 import br.com.meli.desafio_final.exception.NotFound;
 import br.com.meli.desafio_final.model.entity.Adsense;
 import br.com.meli.desafio_final.model.enums.Category;
@@ -70,7 +71,7 @@ public class AdsenseServiceTest {
         verify(repository, atLeastOnce()).findAll();
         Assertions.assertThat(adsenseList).isNull();
         assertThat(exception.getMessage()).isEqualTo("💢 Lista de anúncios não encontrada");
-        // TODO: TRATAR MENSAGEM DE ERRO
+        // TODO: Mensagem do erro
     }
 
     @Test
@@ -114,6 +115,17 @@ public class AdsenseServiceTest {
             service.findAll();
         });
     }
+
+    @Test
+    void find_findAdsensesByProductId_whenSuccess() {
+        BDDMockito.when(repository.findAll())
+                .thenReturn(List.of(AdsenseUtils.newAdsense1ToSave()));
+        List<AdsenseIdDto> adsenseList = service.findByProductId(1L);
+        List<AdsenseIdDto> newList = AdsenseIdDto.convertDto(List.of(AdsenseUtils.newAdsense1ToSave()));
+        assertThat(adsenseList).isNotNull();
+        assertThat(adsenseList.contains(newList));
+    }
+
 
     @Test
     public void testFindAdsenseByWarehouseAndQuantity() {

@@ -1,9 +1,7 @@
 package br.com.meli.desafio_final.dto;
 
 import br.com.meli.desafio_final.model.entity.Batch;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,6 +9,8 @@ import java.util.stream.Collectors;
 
 @Getter @Setter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class BatchDto implements Comparable<BatchDto>{
     private Long batchNumber;
     private int currentQuantity;

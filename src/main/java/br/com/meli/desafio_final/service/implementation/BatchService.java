@@ -1,6 +1,7 @@
 package br.com.meli.desafio_final.service.implementation;
 import br.com.meli.desafio_final.dto.*;
 import br.com.meli.desafio_final.exception.NotFound;
+import br.com.meli.desafio_final.exception.BadRequest;
 import br.com.meli.desafio_final.model.entity.Batch;
 import br.com.meli.desafio_final.repository.BatchRepository;
 import br.com.meli.desafio_final.service.IBatchService;
@@ -8,6 +9,7 @@ import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -30,13 +32,11 @@ public class BatchService implements IBatchService {
     public Batch saveBatch(Batch batch) {
        return batchRepository.save(batch);
     }
-
     /**
      * Nesse método estamos consultando uma lista de anúncio por lote e retornando um status
      * @param id
      * @return
      */
-
     @Override
     public List<Batch> findBatchByAdsenseId(Long id) {
         List<Batch> batchList = batchRepository.findBatchesByAdsenseId(id);
@@ -49,10 +49,14 @@ public class BatchService implements IBatchService {
      * @param adsenseId
      * @return
      */
-
     @Override
     public List<BatchDto> findAllByAdsenseId(Long adsenseId) {
-        return BatchDto.convertDto(batchRepository.findAllByAdsenseId(adsenseId));
+        List<Batch> batchList = batchRepository.findAllByAdsenseId(adsenseId);
+        List<Batch> newListBacthValid = validateBatch(batchList);
+        if (newListBacthValid.isEmpty()) {
+            throw new NotFound("Lote do anúncio não encontrado!");
+        }
+        return BatchDto.convertDto(newListBacthValid);
     }
 
     /**
@@ -87,6 +91,18 @@ public class BatchService implements IBatchService {
         if (s.equals("V")) {
             batchDtos.sort(Comparator.comparing(BatchDto::getDueDate));
         }
+    }
+
+    private List<Batch> validateBatch(List<Batch> batchList) {
+        List<Batch> newListBatch = new ArrayList<>();
+        for (Batch batch : batchList) {
+            if (batch.getCurrentQuantity() > 0){
+                if ((LocalDate.now().plusWeeks(3)).isBefore(batch.getDueDate())) {
+                    newListBatch.add(batch);
+                }
+            }
+        }
+        return newListBatch;
     }
 
     /**

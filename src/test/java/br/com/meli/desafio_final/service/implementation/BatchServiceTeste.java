@@ -1,5 +1,5 @@
 package br.com.meli.desafio_final.service.implementation;
-
+import br.com.meli.desafio_final.dto.BatchDto;
 import br.com.meli.desafio_final.dto.AdsensByDueDateAndCategoryDto;
 import br.com.meli.desafio_final.dto.AdsenseBySectionAndDueDateDto;
 import br.com.meli.desafio_final.dto.AdsenseByWarehouseDto;
@@ -8,6 +8,7 @@ import br.com.meli.desafio_final.model.entity.Batch;
 import br.com.meli.desafio_final.repository.BatchRepository;
 import br.com.meli.desafio_final.util.*;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
@@ -34,6 +35,7 @@ public class BatchServiceTeste {
     @Mock
     private BatchRepository batchRepository;
 
+
     // TODO: REMOVER A PALAVRA "TEST" DOS NOMES DOS MÉTODOS, POIS A MAIORIA NÃO POSSUI
     // TODO: ADICIONAR @DisplayName() AOS TESTES QUE NÃO O POSSUI
 
@@ -51,10 +53,10 @@ public class BatchServiceTeste {
     @Test
     public void testFindBatchByAdsenseId() {
         Batch batch = BatchUtils.newBatch1ToSave();
-        BDDMockito.when(batchRepository.findBatchesByAdsenseId(batch.getBatchNumber()))
+        BDDMockito.when(batchRepository.findAllByAdsenseId(batch.getBatchNumber()))
                 .thenReturn(BatchUtils.BatchList());
 
-        List<Batch> batchListByAdsenseId = batchService.findBatchByAdsenseId(batch.getBatchNumber());
+        List<BatchDto> batchListByAdsenseId = batchService.findAllByAdsenseId(batch.getBatchNumber());
 
         Assertions.assertThat(batchListByAdsenseId).isNotNull();
         Assertions.assertThat(batchListByAdsenseId.size()).isEqualTo(1);
@@ -65,10 +67,10 @@ public class BatchServiceTeste {
         Batch batch = BatchUtils.newBatch1ToSave();
         Exception exceptionResponse = null;
 
-        BDDMockito.when(batchRepository.findBatchesByAdsenseId(batch.getBatchNumber()))
+        BDDMockito.when(batchRepository.findAllByAdsenseId(batch.getBatchNumber()))
                 .thenReturn(BatchUtils.BatchListEmpty());
         try {
-            batchService.findBatchByAdsenseId(batch.getBatchNumber());
+            batchService.findAllByAdsenseId(batch.getBatchNumber());
         } catch (Exception exception) {
             exceptionResponse = exception;
         }
@@ -156,5 +158,42 @@ public class BatchServiceTeste {
         List<AdsensByDueDateAndCategoryDto> adsDueDateCategoryDtoListDesc = batchService.findAdsenseByDueDateAndCategory(numberOfDays, category, orderDesc);
 
         assertThat(adsDueDateCategoryDtoListDesc).isNotNull();
+    }
+
+
+    @Test
+    @DisplayName("Retorna uma lista de Batch ordenada por lote.")
+    public void returnBatchStockTestSortL(){
+        BDDMockito.when(batchRepository.findAllByAdsenseId(AdsenseUtils.newAdsense3ToSave().getId()))
+                .thenReturn(BatchUtils.BatchList());
+
+        List<BatchDto> batchDtosList = batchService
+                .returnBatchStock(AdsenseUtilsDto.generateAdsenseIdDtoList(), "L");
+
+        Assertions.assertThat(batchDtosList.get(0)).isNotNull();
+    }
+
+    @Test
+    @DisplayName("Retorna uma lista de Batch ordenada por quantidade.")
+    public void returnBatchStockTestSortQ(){
+        BDDMockito.when(batchRepository.findAllByAdsenseId(AdsenseUtils.newAdsense3ToSave().getId()))
+                .thenReturn(BatchUtils.BatchList());
+
+        List<BatchDto> batchDtosList = batchService
+                .returnBatchStock(AdsenseUtilsDto.generateAdsenseIdDtoList(), "Q");
+
+        Assertions.assertThat(batchDtosList.get(0)).isNotNull();
+    }
+
+    @Test
+    @DisplayName("Retorna uma lista de Batch ordenada por vencimento.")
+    public void returnBatchStockTestSortV(){
+        BDDMockito.when(batchRepository.findAllByAdsenseId(AdsenseUtils.newAdsense3ToSave().getId()))
+                .thenReturn(BatchUtils.BatchList());
+
+        List<BatchDto> batchDtosList = batchService
+                .returnBatchStock(AdsenseUtilsDto.generateAdsenseIdDtoList(), "V");
+
+        Assertions.assertThat(batchDtosList.get(0)).isNotNull();
     }
 }

@@ -1,6 +1,7 @@
 package br.com.meli.desafio_final.service.implementation;
 
 import br.com.meli.desafio_final.exception.NotAcceptable;
+import br.com.meli.desafio_final.exception.NotFound;
 import br.com.meli.desafio_final.model.entity.Section;
 import br.com.meli.desafio_final.model.enums.Category;
 import br.com.meli.desafio_final.repository.SectionRepository;
@@ -39,7 +40,12 @@ public class SectionService implements ISectionService {
      * @return
      */
     @Override
-    public Section findByCategory(Category category) {
-        return sectionRepository.findByCategory(category);
+    public Section findByCategory(Category category)
+    {
+        try {
+            return sectionRepository.findByCategory(category);
+        }catch (Exception e){
+            throw new NotFound("Categoria não localizada.");
+        }
     }
 }

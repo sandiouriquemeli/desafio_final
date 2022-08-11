@@ -1,5 +1,6 @@
 package br.com.meli.desafio_final.util;
 
+import br.com.meli.desafio_final.dto.BatchDto;
 import br.com.meli.desafio_final.model.entity.Batch;
 
 import java.time.LocalDate;
@@ -39,18 +40,11 @@ public class BatchUtils {
                 .build();
     }
 
-    public static Batch newBatch3ToSave() {
-        return Batch.builder()
+    public static BatchDto newBatch3ToSave() {
+        return BatchDto.builder()
                 .batchNumber(3L)
-                .adsense(AdsenseUtils.newAdsense1ToSave())
-                .currentTemperature(10)
-                .minimumTemperature(10F)
                 .currentQuantity(100)
-                .initialQuantity(100)
-                .manufacturingDate(LocalDate.of(2022, 05, 03))
-                .manufacturingTime(LocalDateTime.of(LocalDate.of(2022, 05, 03), LocalTime.of(10, 15, 33)))
                 .dueDate(LocalDate.of(2022,12, 8))
-                .inBoundOrder(null)
                 .build();
     }
 
@@ -76,8 +70,22 @@ public class BatchUtils {
         return batchList;
     }
 
-    public static List<Batch> genetadBatchListDataFail() {
-        List<Batch> batchList = new ArrayList<>();
+    public static BatchDto newBatch5ToSave() {
+        return BatchDto.builder()
+                .batchNumber(3L)
+                .currentQuantity(100)
+                .dueDate(LocalDate.of(2022,12, 8))
+                .build();
+    }
+
+    public static List<BatchDto> generatadBatchListFail(){
+        List<BatchDto> batchList = new ArrayList<>();
+        batchList.add(newBatch5ToSave());
+        return batchList;
+    }
+
+    public static List<BatchDto> genetadBatchListDataFail() {
+        List<BatchDto> batchList = new ArrayList<>();
         batchList.add(newBatch3ToSave());
         return batchList;
     }

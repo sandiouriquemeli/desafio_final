@@ -1,17 +1,15 @@
 package br.com.meli.desafio_final.dto;
 
 import br.com.meli.desafio_final.model.entity.Section;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class BatchesByProductDto {
-//    private HashMap<String, Long> section;
     private Long sectionId;
     private Long warehouseId;
     private Long productId;

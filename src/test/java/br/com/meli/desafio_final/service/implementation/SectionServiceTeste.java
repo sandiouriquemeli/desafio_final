@@ -1,8 +1,11 @@
 package br.com.meli.desafio_final.service.implementation;
 
+import br.com.meli.desafio_final.exception.NotFound;
 import br.com.meli.desafio_final.model.entity.Section;
+import br.com.meli.desafio_final.model.enums.Category;
 import br.com.meli.desafio_final.repository.SectionRepository;
 import br.com.meli.desafio_final.util.SectionUtils;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -65,4 +68,31 @@ public class SectionServiceTeste {
         assertThat(sectionResponse).isEqualTo(section);
     }
 
+    @Test
+    public void testFindByCategory() {
+        Section section = SectionUtils.newSectionRefrigerated();
+        BDDMockito.when(sectionRepository.findByCategory(ArgumentMatchers.any(Category.class)))
+                .thenReturn(section);
+
+        Section sectionResponse = sectionService.findByCategory(Category.REFRIGERATED);
+
+        assertThat(sectionResponse).isNotNull();
+        Assertions.assertEquals(sectionResponse, section);
+    }
+
+    @Test
+    public void testFindByCategoryThrowsException() {
+        BDDMockito.when(sectionRepository.findByCategory(ArgumentMatchers.any(Category.class)))
+                .thenAnswer(invocationOnMock -> {
+                    throw new NotFound("Categoria não localizada.");
+                });
+
+        Exception exceptionResponse = null;
+        try {
+            sectionService.findByCategory(Category.REFRIGERATED);
+        } catch (NotFound exception) {
+            exceptionResponse = exception;
+        }
+        assertThat(exceptionResponse.getMessage()).isEqualTo("Categoria não localizada.");
+    }
 }
