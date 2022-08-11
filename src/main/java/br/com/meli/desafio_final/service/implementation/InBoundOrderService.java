@@ -71,10 +71,11 @@ public class InBoundOrderService implements IInBoundOrderService {
 
     @Override
     public List<InBoundOrderDto> update(InBoundOrder inBoundOrder, long agentId) {
-         InBoundOrder oldInboundOrder = repository.findById(inBoundOrder.getId())
+         repository.findById(inBoundOrder.getId())
                 .orElseThrow(() -> {
             throw new BadRequest("Pedido de entrada não cadastrado");
         });
+
 
         return saveOrUpdate(inBoundOrder, agentId);
     }
@@ -140,7 +141,8 @@ public class InBoundOrderService implements IInBoundOrderService {
                 double batchVolum = batchVolume(batch.getCurrentQuantity(), adsense.getProduct().getVolumen());
                 sectionService.setAndUpdateCapacity(batchVolum, section);
             }else{
-                Batch oldBatch = batchService.findById(batch.getBatchNumber());
+                Batch oldBatch = batchService.findById(batch.getBatchNumber(), inBoundOrder.getId());
+                batch.setId(oldBatch.getId());
                 batch.setInitialQuantity(batch.getInitialQuantity() + oldBatch.getInitialQuantity());
                 if(oldBatch.getCurrentQuantity() > batch.getCurrentQuantity()){
                     // aumentar o volume

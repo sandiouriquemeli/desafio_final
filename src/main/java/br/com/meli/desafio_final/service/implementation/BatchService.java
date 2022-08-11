@@ -96,8 +96,9 @@ public class BatchService implements IBatchService {
      */
 
     @Override
-    public Batch findById(Long id){
-        return batchRepository.findByBatchNumber(id).orElseThrow(() -> {throw new NotFound("Lote não encontrado");});
+    public Batch findById(Long batchNumber, Long inboundOrderId){
+        return batchRepository.findBatchByBatchNumberAndInBoundOrderId(batchNumber, inboundOrderId).orElseThrow(() -> {throw new NotFound("Lote não encontrado");});
+       // return batchRepository.findById(id).orElseThrow(() -> {throw new NotFound("Lote não encontrado");});
     }
 
     /**

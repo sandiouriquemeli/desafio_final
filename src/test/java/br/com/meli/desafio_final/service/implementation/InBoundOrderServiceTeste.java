@@ -114,7 +114,7 @@ public class InBoundOrderServiceTeste {
 
         BDDMockito.willDoNothing().given(sectionService).setAndUpdateCapacity(-1485D, sectionFresh);
 
-        BDDMockito.when(batchService.findById(ArgumentMatchers.any(Long.class)))
+        BDDMockito.when(batchService.findById(ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Long.class)))
               .thenReturn(batch);
 
         BDDMockito.when(inboundOrderRepository.save(ArgumentMatchers.any(InBoundOrder.class)))
@@ -158,7 +158,7 @@ public class InBoundOrderServiceTeste {
 
         BDDMockito.willDoNothing().given(sectionService).setAndUpdateCapacity(150D, sectionFresh);
 
-        BDDMockito.when(batchService.findById(ArgumentMatchers.any(Long.class)))
+        BDDMockito.when(batchService.findById(ArgumentMatchers.any(Long.class), ArgumentMatchers.any(Long.class)))
                 .thenReturn(batch);
 
         BDDMockito.when(inboundOrderRepository.save(ArgumentMatchers.any(InBoundOrder.class)))
