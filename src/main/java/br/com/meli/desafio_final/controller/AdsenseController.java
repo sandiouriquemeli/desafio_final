@@ -39,11 +39,6 @@ public class AdsenseController {
         return ResponseEntity.ok(adsenseService.findByCategory(querytype));
     }
 
-    @GetMapping("/test/{productId}")
-    public ResponseEntity<List<AdsenseIdDto>> findByProductId(@PathVariable Long productId) {
-        return ResponseEntity.ok(adsenseService.findByProductId(productId));
-    }
-
     @GetMapping("/warehouse/{adsenseId}")
     public ResponseEntity <List<AdsenseByWarehouseDto>> getByAdsenseByWarehouse(@PathVariable Long adsenseId) {
 
