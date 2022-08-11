@@ -5,7 +5,10 @@ import br.com.meli.desafio_final.model.enums.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface SectionRepository extends JpaRepository<Section, Long> {
-    Section findByCategory(Category category);
+    List<Section> findByCategory(Category category);
 }

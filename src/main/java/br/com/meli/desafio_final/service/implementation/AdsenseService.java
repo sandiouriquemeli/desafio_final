@@ -53,9 +53,12 @@ public class AdsenseService implements IAdsenseService {
      */
     @Override
     public List<Adsense> findByCategory(Category category) {
-        return findAll().stream().filter(a -> a.getProduct().getCategory().equals(category))
+        List<Adsense> adsenseList = findAll().stream().filter(a -> a.getProduct().getCategory().equals(category))
                 .collect(Collectors.toList());
+        if (adsenseList.isEmpty()) throw new NotFound("Não existem anuncios com essa categoria");
+        return adsenseList;
     }
+    // TODO: Test caminho triste
 
     /**
      * Nesse método retornamos uma lista de anúncio filtrado por produtos e Id

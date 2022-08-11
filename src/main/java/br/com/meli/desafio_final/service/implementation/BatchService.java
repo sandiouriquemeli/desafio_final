@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,10 +53,10 @@ public class BatchService implements IBatchService {
     @Override
     public List<BatchDto> findAllByAdsenseId(Long adsenseId) {
         List<Batch> batchList = batchRepository.findAllByAdsenseId(adsenseId);
+//        if (batchList.isEmpty()) {
+//            throw new NotFound("Lote do anúncio não encontrado!");
+//        }
         List<Batch> newListBacthValid = validateBatch(batchList);
-        if (newListBacthValid.isEmpty()) {
-            throw new NotFound("Lote do anúncio não encontrado!");
-        }
         return BatchDto.convertDto(newListBacthValid);
     }
 
@@ -102,6 +103,7 @@ public class BatchService implements IBatchService {
                 }
             }
         }
+//        if (newListBatch.isEmpty()) throw new NotFound("Data de validade ou estoque");
         return newListBatch;
     }
 
@@ -111,8 +113,9 @@ public class BatchService implements IBatchService {
      * @param adsenseId
      */
     public void findBatchByBatchNumberAndAdsenseId(Long batchNumber, Long adsenseId) {
-        batchRepository.findBatchByBatchNumberAndAdsenseId(batchNumber, adsenseId).orElseThrow(() -> {
-            throw new NotFound("Produto deste usuário já está cadastrado.");});
+        Optional<Batch> batch = batchRepository.findBatchByBatchNumberAndAdsenseId(batchNumber, adsenseId);
+        if(batch.isPresent())
+            throw new NotFound("Produto deste usuário já está cadastrado.");
     }
 
     @Override

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements IProductService {
@@ -81,9 +82,9 @@ public class ProductService implements IProductService {
     @Override
     public BatchesByProductDto findBatchByProduct(Long id, String s) {
         Product product = findById(id);
-        Section section = sectionService.findByCategory(product.getCategory());
+        List<Section> sections = sectionService.findByCategory(product.getCategory());
         List<AdsenseIdDto> adsenseList = adsenseService.findByProductId(product.getId());
         List<BatchDto> batchStock = batchService.returnBatchStock(adsenseList, s);
-        return new BatchesByProductDto(section, product.getId(), batchStock);
+        return new BatchesByProductDto(sections.get(0), product.getId(), batchStock);
     }
 }

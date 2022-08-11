@@ -9,6 +9,8 @@ import br.com.meli.desafio_final.service.ISectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SectionService implements ISectionService {
 
@@ -40,8 +42,7 @@ public class SectionService implements ISectionService {
      * @return
      */
     @Override
-    public Section findByCategory(Category category)
-    {
+    public List<Section> findByCategory(Category category) {
         try {
             return sectionRepository.findByCategory(category);
         }catch (Exception e){

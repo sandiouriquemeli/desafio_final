@@ -6,9 +6,9 @@ insert into warehouse values (null, "cd_meli_01_rj");
 insert into warehouse values (null, "cd_meli_01_es");
 insert into warehouse values (null, "cd_meli_01_df");
 
-insert into section values (null, "FRESH", 500.0, 500.0, 1);
-insert into section values (null, "REFRIGERATED", 500.0, 500.0, 1);
-insert into section values (null, "FROZEN", 500.0, 500.0, 1);
+insert into section values (null, "FRESH", 5000.0, 5000.0, 1);
+insert into section values (null, "REFRIGERATED", 5000.0, 5000.0, 1);
+insert into section values (null, "FROZEN", 5000.0, 5000.0, 1);
 
 insert into product values (null, "FRESH", "rucula", 0.1);
 insert into product values (null, "REFRIGERATED", "mozzarela de bufala", 0.5);

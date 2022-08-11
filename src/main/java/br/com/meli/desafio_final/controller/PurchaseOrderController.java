@@ -1,6 +1,7 @@
 package br.com.meli.desafio_final.controller;
 
 import br.com.meli.desafio_final.dto.AdsenseDto;
+import br.com.meli.desafio_final.dto.PurchaseOrderDto;
 import br.com.meli.desafio_final.model.entity.PurchaseOrder;
 import br.com.meli.desafio_final.service.implementation.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,23 +30,24 @@ public class PurchaseOrderController {
 
     /**
      * Nesse método retornamos produto anunciando
-     * @param id
+     * @param purchaseOrderId
      * @return
      */
 
-    @GetMapping("/orders/{id}")
-    public ResponseEntity<List<AdsenseDto>> findAdsensesByPurchaseOrderId(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(purchaseOrderService.findAdsensesByPurchaseOrderId(id));
+    @GetMapping("/orders/{purchaseOrderId}")
+    public ResponseEntity<List<AdsenseDto>> findAdsensesByPurchaseOrderId(@PathVariable Long purchaseOrderId) {
+        return ResponseEntity.status(HttpStatus.OK).body(purchaseOrderService.findAdsensesByPurchaseOrderId(purchaseOrderId));
     }
 
     /**
      * Nesse método atualizamos o status de compra
-     * @param queryParam
+     * @param purchaseOrderId
      * @return
      */
     //TODO: fazer DTO
     @PutMapping("/orders/")
-    public ResponseEntity<PurchaseOrder> update(@RequestParam Long queryParam) {
-        return ResponseEntity.status(HttpStatus.OK).body(purchaseOrderService.updateToFinished(queryParam));
+    public ResponseEntity<PurchaseOrderDto> update(@RequestParam Long purchaseOrderId) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new PurchaseOrderDto(purchaseOrderService.updateToFinished(purchaseOrderId)));
     }
 }

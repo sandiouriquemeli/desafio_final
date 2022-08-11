@@ -22,13 +22,13 @@ public class ItemService implements IItemService {
 
     /**
      * Nesse método estamos retornado intem através da  ordem de compra
-     * @param id
+     * @param purchaseOrderId
      * @return
      */
 
     @Override
-    public List<Item> findItemsByPurchaseOrderId(Long id) {
-        List<Item> itemList = itemRepository.findItemsByPurchaseOrderId(id);
+    public List<Item> findItemsByPurchaseOrderId(Long purchaseOrderId) {
+        List<Item> itemList = itemRepository.findItemsByPurchaseOrderId(purchaseOrderId);
         if(itemList.isEmpty()) throw new NotFound("Item não encontrado!");
         return itemList;
     }

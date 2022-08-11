@@ -1,5 +1,6 @@
 package br.com.meli.desafio_final.util;
 
+import br.com.meli.desafio_final.dto.PurchaseOrderDto;
 import br.com.meli.desafio_final.model.entity.PurchaseOrder;
 import br.com.meli.desafio_final.model.enums.Status;
 
@@ -17,4 +18,10 @@ public class PurchaseOrderUtils {
             .build();
     }
 
+    public static PurchaseOrderDto newPurchaseDto1ToSave() {
+        return PurchaseOrderDto.builder()
+                .id(1L)
+                .status(Status.OPEN)
+                .build();
+    }
 }

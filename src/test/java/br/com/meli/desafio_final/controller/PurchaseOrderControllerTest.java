@@ -1,6 +1,7 @@
 package br.com.meli.desafio_final.controller;
 
 import br.com.meli.desafio_final.dto.AdsenseDto;
+import br.com.meli.desafio_final.dto.PurchaseOrderDto;
 import br.com.meli.desafio_final.model.entity.PurchaseOrder;
 import br.com.meli.desafio_final.model.enums.Status;
 import br.com.meli.desafio_final.service.implementation.PurchaseOrderService;
@@ -64,7 +65,7 @@ public class PurchaseOrderControllerTest {
         BDDMockito.when(purchaseOrderService.updateToFinished(purchaseOrderFinish.getId()))
                 .thenReturn(purchaseOrderFinish);
 
-        ResponseEntity<PurchaseOrder> purchaseOrderResponse = purchaseOrderController.update(purchaseOrderFinish.getId());
+        ResponseEntity<PurchaseOrderDto> purchaseOrderResponse = purchaseOrderController.update(purchaseOrderFinish.getId());
 
         Assertions.assertThat(purchaseOrderResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         Assertions.assertThat(purchaseOrderResponse.getBody().getStatus()).isEqualTo(Status.FINISHED);

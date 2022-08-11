@@ -118,12 +118,12 @@ public class PurchaseOrderService implements IPurchaseOrderService {
 
     /**
      * Nesse método estamos atualizando o Lista de compra ...
-     * @param id
+     * @param purchaseOrderId
      * @return
      */
     @Override
-    public PurchaseOrder updateToFinished(Long id) {
-        PurchaseOrder purchaseOrder = findById(id);
+    public PurchaseOrder updateToFinished(Long purchaseOrderId) {
+        PurchaseOrder purchaseOrder = findById(purchaseOrderId);
         purchaseOrder.setStatus(Status.FINISHED);
         purchaseOrderRepository.save(purchaseOrder);
         return purchaseOrder;
@@ -131,14 +131,14 @@ public class PurchaseOrderService implements IPurchaseOrderService {
 
     /**
      * Nesse método estamos retornando uma lista de anúncio ...
-     * @param id
+     * @param purchaseOrderId
      * @return
      */
 
     @Override
-    public List<AdsenseDto> findAdsensesByPurchaseOrderId(Long id) {
+    public List<AdsenseDto> findAdsensesByPurchaseOrderId(Long purchaseOrderId) {
         List<Adsense> adsenseList = new ArrayList<>();
-        itemService.findItemsByPurchaseOrderId(id).forEach(item -> {
+        itemService.findItemsByPurchaseOrderId(purchaseOrderId).forEach(item -> {
             adsenseList.add(item.getAdsense());
         });
         return AdsenseDto.convertDto(adsenseList);

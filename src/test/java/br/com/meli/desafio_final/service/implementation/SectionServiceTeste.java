@@ -68,17 +68,17 @@ public class SectionServiceTeste {
         assertThat(sectionResponse).isEqualTo(section);
     }
 
-    @Test
-    public void testFindByCategory() {
-        Section section = SectionUtils.newSectionRefrigerated();
-        BDDMockito.when(sectionRepository.findByCategory(ArgumentMatchers.any(Category.class)))
-                .thenReturn(section);
-
-        Section sectionResponse = sectionService.findByCategory(Category.REFRIGERATED);
-
-        assertThat(sectionResponse).isNotNull();
-        Assertions.assertEquals(sectionResponse, section);
-    }
+//    @Test
+//    public void testFindByCategory() {
+//        Section section = SectionUtils.newSectionRefrigerated();
+//        BDDMockito.when(sectionRepository.findByCategory(ArgumentMatchers.any(Category.class)))
+//                .thenReturn(section);
+//
+//        Section sectionResponse = sectionService.findByCategory(Category.REFRIGERATED);
+//
+//        assertThat(sectionResponse).isNotNull();
+//        Assertions.assertEquals(sectionResponse, section);
+//    }
 
     @Test
     public void testFindByCategoryThrowsException() {
