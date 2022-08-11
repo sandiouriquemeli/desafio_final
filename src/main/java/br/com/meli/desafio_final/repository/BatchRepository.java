@@ -23,6 +23,8 @@ public interface BatchRepository extends JpaRepository<Batch, Long> {
 
     Optional<Batch> findBatchByBatchNumberAndInBoundOrderId(Long batchNumber, Long inboundOrder);
 
+    Optional<Batch> findBatchByBatchNumberAndAdsenseId(Long batchNumber, Long adsenseId);
+
     /**
      * Essa query recebe como parâmetro do adsense_id e retorna uma lista com a quantidade total de
      * produtos (adsense) por armazém.

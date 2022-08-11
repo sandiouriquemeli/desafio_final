@@ -79,10 +79,10 @@ public class BatchServiceTeste {
     @Test
     public void testFindBatchById() {
         Batch batch = BatchUtils.newBatch1ToSave();
-        BDDMockito.when(batchRepository.findById(batch.getBatchNumber()))
+        BDDMockito.when(batchRepository.findBatchByBatchNumberAndInBoundOrderId(batch.getBatchNumber(), 1L))
                 .thenReturn(Optional.of(batch));
 
-        Batch saveBatchResponse = batchService.findById(batch.getBatchNumber(), batch.getInBoundOrder().getId());
+        Batch saveBatchResponse = batchService.findById(batch.getBatchNumber(), 1L);
 
         Assertions.assertThat(saveBatchResponse).isNotNull();
     }
@@ -95,7 +95,7 @@ public class BatchServiceTeste {
         BDDMockito.when(batchRepository.findById(batch.getBatchNumber()))
                 .thenAnswer(invocationOnMock -> Optional.empty());
         try {
-            batchService.findById(batch.getBatchNumber(), batch.getInBoundOrder().getId());
+            batchService.findById(1L, 1L);
         } catch (Exception exception) {
             exceptionResponse = exception;
         }

@@ -5,7 +5,6 @@ import br.com.meli.desafio_final.exception.BadRequest;
 import br.com.meli.desafio_final.exception.Unauthorized;
 import br.com.meli.desafio_final.model.entity.*;
 import br.com.meli.desafio_final.repository.*;
-import br.com.meli.desafio_final.service.implementation.BatchService;
 import br.com.meli.desafio_final.service.IInBoundOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,11 +70,12 @@ public class InBoundOrderService implements IInBoundOrderService {
 
     @Override
     public List<InBoundOrderDto> update(InBoundOrder inBoundOrder, long agentId) {
-         repository.findById(inBoundOrder.getId())
+        if(inBoundOrder.getId() == null) throw new BadRequest("O 'id' do inboundOrder precisa ser informado.");
+
+        repository.findById(inBoundOrder.getId())
                 .orElseThrow(() -> {
             throw new BadRequest("Pedido de entrada não cadastrado");
         });
-
 
         return saveOrUpdate(inBoundOrder, agentId);
     }
@@ -88,7 +88,6 @@ public class InBoundOrderService implements IInBoundOrderService {
     private List<Batch> validateInboundOrder(InBoundOrder inBoundOrder, long agentId) {
         Agent agent = validationService.validateAgent(agentId);
         Section section = validateSection(inBoundOrder, agent);
-        //List<Batch>batchList = inBoundOrder.getBatchStock();
         validateBatchList(inBoundOrder, section);
         return inBoundOrder.getBatchStock();
     }
@@ -138,6 +137,7 @@ public class InBoundOrderService implements IInBoundOrderService {
                 throw new BadRequest("Produto não pertence a esse setor.");
             }
             if(inBoundOrder.getId()==null){
+                batchService.findBatchByBatchNumberAndAdsenseId(batch.getBatchNumber(), batch.getAdsense().getId());
                 double batchVolum = batchVolume(batch.getCurrentQuantity(), adsense.getProduct().getVolumen());
                 sectionService.setAndUpdateCapacity(batchVolum, section);
             }else{
@@ -145,7 +145,6 @@ public class InBoundOrderService implements IInBoundOrderService {
                 batch.setId(oldBatch.getId());
                 batch.setInitialQuantity(batch.getInitialQuantity() + oldBatch.getInitialQuantity());
                 if(oldBatch.getCurrentQuantity() > batch.getCurrentQuantity()){
-                    // aumentar o volume
                     double batchVolumen = batchVolume(oldBatch.getCurrentQuantity() - batch.getCurrentQuantity(),
                             adsense.getProduct().getVolumen());
                     sectionService.setAndUpdateCapacity(-batchVolumen, section);

@@ -95,10 +95,15 @@ public class BatchService implements IBatchService {
      * @return
      */
 
+    public void findBatchByBatchNumberAndAdsenseId(Long batchNumber, Long adsenseId) {
+        batchRepository.findBatchByBatchNumberAndAdsenseId(batchNumber, adsenseId).orElseThrow(() -> {
+            throw new NotFound("Produto deste usuário já está cadastrado.");});
+    }
+
     @Override
     public Batch findById(Long batchNumber, Long inboundOrderId){
-        return batchRepository.findBatchByBatchNumberAndInBoundOrderId(batchNumber, inboundOrderId).orElseThrow(() -> {throw new NotFound("Lote não encontrado");});
-       // return batchRepository.findById(id).orElseThrow(() -> {throw new NotFound("Lote não encontrado");});
+        return batchRepository.findBatchByBatchNumberAndInBoundOrderId(batchNumber, inboundOrderId)
+                .orElseThrow(() -> {throw new NotFound("Lote não encontrado");});
     }
 
     /**
