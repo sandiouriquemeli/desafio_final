@@ -8,22 +8,23 @@ import java.util.Date;
 import java.util.List;
 
 public class AdsenseBySectionAndDueDateDtoUtils {
-    public static List<Object[]> AdsenseBySectionAndDueDateDtoListObject() {
-        List<Object[]> listDto = new ArrayList<>();
 
-        listDto.add(new Object[] {
+    public static List<Object[]> AdsenseBySectionAndDueDateListObject() {
+        List<Object[]> listObj = new ArrayList<>();
+
+        listObj.add(new Object[] {
             new BigInteger("1"), new BigInteger("1"), 200, new Date(2022-12-15) });
 
-        listDto.add(new Object[] {
+        listObj.add(new Object[] {
             new BigInteger("2"), new BigInteger("2"), 200, new Date(2022-11-15) });
 
-        listDto.add(new Object[] {
+        listObj.add(new Object[] {
             new BigInteger("3"), new BigInteger("3"), 200, new Date(2022-10-15) });
 
-        listDto.add(new Object[] {
+        listObj.add(new Object[] {
             new BigInteger("4"), new BigInteger("4"), 200, new Date(2022-9-15) });
 
-        return listDto;
+        return listObj;
     }
 
     public static List<AdsenseBySectionAndDueDateDto> AdsenseBySectionAndDueDateDtoList() {
