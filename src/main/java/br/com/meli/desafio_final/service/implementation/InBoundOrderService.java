@@ -30,23 +30,6 @@ public class InBoundOrderService implements IInBoundOrderService {
     @Autowired
     SectionService sectionService;
 
-
-    /**
-     * Nesse metódo estamos salvando um produto
-     * @param inBoundOrder
-     * @param agentId
-     * @return
-     */
-    private List<InBoundOrderDto> saveOrUpdate(InBoundOrder inBoundOrder, long agentId) {
-        List<Batch> batchList = this.validateInboundOrder(inBoundOrder, agentId);
-        InBoundOrder newInboundOrder = repository.save(inBoundOrder);
-
-        return batchList.stream().map((batch -> {
-            batch.setInBoundOrder(newInboundOrder);
-            return new InBoundOrderDto(batchService.saveBatch(batch));
-        })).collect(Collectors.toList());
-    }
-
     /**
      * Esse método cria um produto e caso ele já exista retorna uma mensagem
      * @param inBoundOrder
@@ -81,6 +64,22 @@ public class InBoundOrderService implements IInBoundOrderService {
     }
 
     /**
+     * Nesse metódo estamos salvando um produto
+     * @param inBoundOrder
+     * @param agentId
+     * @return
+     */
+    private List<InBoundOrderDto> saveOrUpdate(InBoundOrder inBoundOrder, long agentId) {
+        List<Batch> batchList = validateInboundOrder(inBoundOrder, agentId);
+        InBoundOrder newInboundOrder = repository.save(inBoundOrder);
+
+        return batchList.stream().map((batch -> {
+            batch.setInBoundOrder(newInboundOrder);
+            return new InBoundOrderDto(batchService.saveBatch(batch));
+        })).collect(Collectors.toList());
+    }
+
+    /**
      * Metodo valida o InboundOrder e retorna a lista de Baths já validada.
      * @param inBoundOrder
      * @return BatchList
@@ -90,17 +89,6 @@ public class InBoundOrderService implements IInBoundOrderService {
         Section section = validateSection(inBoundOrder, agent);
         validateBatchList(inBoundOrder, section);
         return inBoundOrder.getBatchStock();
-    }
-
-    /**
-     *
-     * @param quantity
-     * @param volumen
-     * @return
-     */
-
-    private double batchVolume(int quantity, double volumen){
-        return quantity * volumen;
     }
 
     /**
@@ -130,30 +118,71 @@ public class InBoundOrderService implements IInBoundOrderService {
     private void validateBatchList(InBoundOrder inBoundOrder, Section section){
         inBoundOrder.getBatchStock().forEach((batch) -> {
             Adsense adsense = adsenseService.findById(batch.getAdsense().getId());
-            if (section.getCategory().equals(adsense.getProduct().getCategory())) {
-                validationService.validateSeller(adsense.getSeller());
-                validationService.validateProduct(adsense.getProduct());
-            } else {
-                throw new BadRequest("Produto não pertence a esse setor.");
-            }
+            validateProductBelongsToASector(section, adsense);
             if(inBoundOrder.getId()==null){
-                batchService.findBatchByBatchNumberAndAdsenseId(batch.getBatchNumber(), batch.getAdsense().getId());
-                double batchVolum = batchVolume(batch.getCurrentQuantity(), adsense.getProduct().getVolumen());
-                sectionService.setAndUpdateCapacity(batchVolum, section);
+                validateAndSetCapacityInSector(batch, adsense, section);
             }else{
-                Batch oldBatch = batchService.findById(batch.getBatchNumber(), inBoundOrder.getId());
-                batch.setId(oldBatch.getId());
-                batch.setInitialQuantity(batch.getInitialQuantity() + oldBatch.getInitialQuantity());
-                if(oldBatch.getCurrentQuantity() > batch.getCurrentQuantity()){
-                    double batchVolumen = batchVolume(oldBatch.getCurrentQuantity() - batch.getCurrentQuantity(),
-                            adsense.getProduct().getVolumen());
-                    sectionService.setAndUpdateCapacity(-batchVolumen, section);
-                }else{
-                    double batchVolumen = batchVolume(batch.getCurrentQuantity() - oldBatch.getCurrentQuantity(),
-                            adsense.getProduct().getVolumen());
-                    sectionService.setAndUpdateCapacity(batchVolumen, section);
-                }
+                validateAndUpdateCapacityInASector(batch, inBoundOrder, adsense, section);
             }
         });
+    }
+
+    /**
+     * Esse método valida se um produto está sendo cadastrado no setor correto.
+     * @param section
+     * @param adsense
+     */
+    private void validateProductBelongsToASector(Section section, Adsense adsense) {
+        if (section.getCategory().equals(adsense.getProduct().getCategory())) {
+            validationService.validateSeller(adsense.getSeller());
+            validationService.validateProduct(adsense.getProduct());
+        } else {
+            throw new BadRequest("Produto não pertence a esse setor.");
         }
+    }
+
+    /**
+     * Esse método valida se um setor tem a capacidade para armazenar o volume de um novo lote e caso positivo, altera.
+     * @param batch
+     * @param adsense
+     * @param section
+     */
+    private void validateAndSetCapacityInSector(Batch batch, Adsense adsense, Section section){
+        batchService.findBatchByBatchNumberAndAdsenseId(batch.getBatchNumber(), batch.getAdsense().getId());
+        double batchVolum = batchVolume(batch.getCurrentQuantity(), adsense.getProduct().getVolumen());
+        sectionService.setAndUpdateCapacity(batchVolum, section);
+    }
+
+    /**
+     * Esse método faz um update do volume de um setor, se este tiver a capacidade quando um lote é editado.
+     * @param batch
+     * @param inBoundOrder
+     * @param adsense
+     * @param section
+     */
+    private void validateAndUpdateCapacityInASector(Batch batch, InBoundOrder inBoundOrder, Adsense adsense, Section section) {
+        Batch oldBatch = batchService.findById(batch.getBatchNumber(), inBoundOrder.getId());
+        batch.setId(oldBatch.getId());
+        batch.setInitialQuantity(batch.getInitialQuantity() + oldBatch.getInitialQuantity());
+        if(oldBatch.getCurrentQuantity() > batch.getCurrentQuantity()){
+            double batchVolumen = batchVolume(oldBatch.getCurrentQuantity() - batch.getCurrentQuantity(),
+                    adsense.getProduct().getVolumen());
+            sectionService.setAndUpdateCapacity(-batchVolumen, section);
+        }else{
+           double batchVolumen = batchVolume(batch.getCurrentQuantity() - oldBatch.getCurrentQuantity(),
+                   adsense.getProduct().getVolumen());
+           sectionService.setAndUpdateCapacity(batchVolumen, section);
+        }
+    }
+
+    /**
+     *
+     * @param quantity
+     * @param volumen
+     * @return
+     */
+
+    private double batchVolume(int quantity, double volumen){
+        return quantity * volumen;
+    }
 }

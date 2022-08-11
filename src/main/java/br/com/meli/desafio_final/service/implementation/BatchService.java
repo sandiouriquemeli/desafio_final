@@ -17,6 +17,7 @@ import java.util.Comparator;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -113,8 +114,9 @@ public class BatchService implements IBatchService {
      * @param adsenseId
      */
     public void findBatchByBatchNumberAndAdsenseId(Long batchNumber, Long adsenseId) {
-        batchRepository.findBatchByBatchNumberAndAdsenseId(batchNumber, adsenseId).orElseThrow(() -> {
-            throw new NotFound("Produto deste usuário já está cadastrado.");});
+        Optional<Batch> batch = batchRepository.findBatchByBatchNumberAndAdsenseId(batchNumber, adsenseId);
+        if(batch.isPresent())
+            throw new NotFound("Produto deste usuário já está cadastrado.");
     }
 
     @Override
