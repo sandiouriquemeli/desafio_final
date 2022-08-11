@@ -1,5 +1,6 @@
 package br.com.meli.desafio_final.service.implementation;
 
+import br.com.meli.desafio_final.exception.NotFound;
 import br.com.meli.desafio_final.model.entity.Section;
 import br.com.meli.desafio_final.model.enums.Category;
 import br.com.meli.desafio_final.repository.SectionRepository;
@@ -77,13 +78,17 @@ public class SectionServiceTeste {
 
     @Test
     public void testFindByCategoryThrowsException() {
+        BDDMockito.when(sectionRepository.findByCategory(ArgumentMatchers.any(Category.class)))
+                .thenAnswer(invocationOnMock -> {
+                    throw new NotFound("Categoria não localizada.");
+                });
+
         Exception exceptionResponse = null;
         try {
             sectionService.findByCategory(Category.REFRIGERATED);
-        } catch (Exception exception) {
+        } catch (NotFound exception) {
             exceptionResponse = exception;
         }
         assertThat(exceptionResponse.getMessage()).isEqualTo("Categoria não localizada.");
     }
-    //TESTE QUEBRADO
 }

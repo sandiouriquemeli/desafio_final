@@ -67,7 +67,7 @@ public class ProductUtils {
         return BatchesByProductDto.builder()
                 .sectionId(3L)
                 .warehouseId(1L)
-                .productId(5L)
+                .productId(3L)
                 .batchStock(BatchDtoUtils.generateBatchDtoList())
                 .build();
     }

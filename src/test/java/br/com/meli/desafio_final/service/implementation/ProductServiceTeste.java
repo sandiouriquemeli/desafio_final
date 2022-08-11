@@ -1,11 +1,19 @@
 package br.com.meli.desafio_final.service.implementation;
 
+import br.com.meli.desafio_final.dto.AdsenseIdDto;
+import br.com.meli.desafio_final.dto.BatchDto;
+import br.com.meli.desafio_final.dto.BatchesByProductDto;
 import br.com.meli.desafio_final.model.entity.Product;
 import br.com.meli.desafio_final.model.enums.Category;
 import br.com.meli.desafio_final.repository.ProductRepository;
+import br.com.meli.desafio_final.util.AdsenseUtilsDto;
+import br.com.meli.desafio_final.util.BatchDtoUtils;
 import br.com.meli.desafio_final.util.ProductUtils;
+import br.com.meli.desafio_final.util.SectionUtils;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -15,6 +23,7 @@ import org.mockito.quality.Strictness;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,6 +36,15 @@ public class ProductServiceTeste {
 
     @Mock
     ProductRepository productRepository;
+
+    @Mock
+    SectionService sectionService;
+
+    @Mock
+    AdsenseService adsenseService;
+
+    @Mock
+    BatchService batchService;
 
     @Test
     public void testGetAllProducts() {
@@ -79,7 +97,53 @@ public class ProductServiceTeste {
             exceptionResponse = exception;
         }
         assertThat(exceptionResponse.getMessage()).isEqualTo("Nenhum produto com essa categoria foi encontrado");
+    }
 
+    @Test
+    public void testFindById() {
+        Product product =  ProductUtils.newProduct1ToSave();
+        BDDMockito.when(productRepository.findById(ArgumentMatchers.anyLong()))
+                .thenReturn(Optional.of(ProductUtils.newProduct1ToSave()));
 
+        Product productResponse = productService.findById(1L);
+
+        assertThat(productResponse).isNotNull();
+        Assertions.assertEquals(productResponse.getId(), product.getId());
+    }
+
+    @Test
+    public void testFindByIdThrowsException() {
+        Exception exceptionResponse = null;
+        BDDMockito.when(productRepository.findById(999L))
+                .thenAnswer(invocationOnMock -> Optional.empty());
+        try {
+            productService.findById(999L);
+        }catch (Exception exception) {
+            exceptionResponse = exception;
+        }
+        assertThat(exceptionResponse.getMessage()).isEqualTo("Produto inexistente");
+    }
+
+    @Test
+    public void testFindBatchByProduct() {
+        BDDMockito.when(productRepository.findById(ArgumentMatchers.anyLong()))
+                .thenReturn(Optional.of(ProductUtils.newProduct3ToSave()));
+
+        BDDMockito.when(sectionService.findByCategory(ArgumentMatchers.any(Category.class)))
+                .thenReturn(SectionUtils.newSectionFrozen());
+
+        BDDMockito.when(adsenseService.findByProductId(ArgumentMatchers.anyLong()))
+                .thenReturn(AdsenseUtilsDto.generateAdsenseIdDtoList());
+
+        BDDMockito.when(batchService.returnBatchStock(AdsenseUtilsDto.generateAdsenseIdDtoList(), null))
+                .thenReturn(BatchDtoUtils.generateBatchDtoList());
+
+        BatchesByProductDto batchesByProductDto = ProductUtils.bachesByProduct();
+        BatchesByProductDto response = productService.findBatchByProduct(3L, null);
+
+        assertThat(response).isNotNull();
+        Assertions.assertEquals(response.getSectionId(), batchesByProductDto.getSectionId());
+        Assertions.assertEquals(response.getWarehouseId(), batchesByProductDto.getWarehouseId());
+        Assertions.assertEquals(response.getProductId(), batchesByProductDto.getProductId());
     }
 }
