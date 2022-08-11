@@ -18,12 +18,23 @@ public class InBoundOrderController {
         @Autowired
         private IInBoundOrderService service;
 
+    /**
+     * Nesse método estamos criando (inserindo um produto) na classe InBoundOrder
+     * @param agentId
+     * @param inBoundOrder
+     * @return
+     */
         @PostMapping("/{agentId}")
         public ResponseEntity<List<InBoundOrderDto>> createInBoundOrder(@PathVariable long agentId,@RequestBody InBoundOrder inBoundOrder) {
             return ResponseEntity.status(HttpStatus.CREATED).body(service.create(inBoundOrder, agentId));
         }
 
-
+    /**
+     * Nesse método estamos atualizando produto / inBoundOrder
+     * @param agentId
+     * @param inBoundOrder
+     * @return
+     */
         @PutMapping("/{agentId}")
         public ResponseEntity<List<InBoundOrderDto>> updateInBoundOrder(@PathVariable long agentId,@RequestBody InBoundOrder inBoundOrder) {
             return ResponseEntity.status(HttpStatus.OK).body(service.update(inBoundOrder, agentId));

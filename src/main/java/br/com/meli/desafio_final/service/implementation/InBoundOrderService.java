@@ -31,6 +31,13 @@ public class InBoundOrderService implements IInBoundOrderService {
     @Autowired
     SectionService sectionService;
 
+
+    /**
+     * Nesse metódo estamos salvando um produto
+     * @param inBoundOrder
+     * @param agentId
+     * @return
+     */
     private List<InBoundOrderDto> saveOrUpdate(InBoundOrder inBoundOrder, long agentId) {
         List<Batch> batchList = this.validateInboundOrder(inBoundOrder, agentId);
         InBoundOrder newInboundOrder = repository.save(inBoundOrder);
@@ -41,6 +48,12 @@ public class InBoundOrderService implements IInBoundOrderService {
         })).collect(Collectors.toList());
     }
 
+    /**
+     * Esse método cria um produto e caso ele já exista retorna uma mensagem
+     * @param inBoundOrder
+     * @param agentId
+     * @return
+     */
     @Override
     public List<InBoundOrderDto> create(InBoundOrder inBoundOrder, long agentId) {
         if(inBoundOrder.getId() != null) {
@@ -48,6 +61,13 @@ public class InBoundOrderService implements IInBoundOrderService {
         }
         return saveOrUpdate(inBoundOrder, agentId);
     }
+
+    /**
+     *
+     * @param inBoundOrder
+     * @param agentId
+     * @return
+     */
 
     @Override
     public List<InBoundOrderDto> update(InBoundOrder inBoundOrder, long agentId) {
@@ -72,9 +92,23 @@ public class InBoundOrderService implements IInBoundOrderService {
         return inBoundOrder.getBatchStock();
     }
 
+    /**
+     *
+     * @param quantity
+     * @param volumen
+     * @return
+     */
+
     private double batchVolume(int quantity, double volumen){
         return quantity * volumen;
     }
+
+    /**
+     * Nesse método estamos validando o representando e o armazém
+     * @param inBoundOrder
+     * @param agent
+     * @return
+     */
 
     private Section validateSection(InBoundOrder inBoundOrder, Agent agent){
 
@@ -86,6 +120,12 @@ public class InBoundOrderService implements IInBoundOrderService {
         }
         return section;
     }
+
+    /**
+     * Nesse método estamos validando um produto
+     * @param inBoundOrder
+     * @param section
+     */
 
     private void validateBatchList(InBoundOrder inBoundOrder, Section section){
         inBoundOrder.getBatchStock().forEach((batch) -> {

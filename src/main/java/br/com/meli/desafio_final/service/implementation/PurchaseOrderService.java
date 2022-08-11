@@ -33,7 +33,11 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     @Autowired
     private BatchService batchService;
 
-
+    /**
+     * Nesse método estamos salvando um pedido
+     * @param purchaseOrder
+     * @return
+     */
     @Override
     public Double save(PurchaseOrder purchaseOrder) {
         Buyer buyer = buyerService.findById(purchaseOrder.getBuyer().getId());
@@ -46,6 +50,12 @@ public class PurchaseOrderService implements IPurchaseOrderService {
             throw new BadRequest("Pedido não cadastrado!");
         }
     }
+
+    /**
+     *
+     * @param purchaseOrder
+     * @return
+     */
 
     private boolean validationAdsense(PurchaseOrder purchaseOrder) {
         List<Item> itemList = purchaseOrder.getItemList();
@@ -67,6 +77,11 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         return true;
     }
 
+    /**
+     * Nesse método estamos salvando intem
+     * @param purchaseOrder
+     */
+
     private void saveItemByPurchase(PurchaseOrder purchaseOrder) {
         purchaseOrder.getItemList().forEach(item -> {
             item.setPurchaseOrder(purchaseOrder);
@@ -74,11 +89,23 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         });
     }
 
+    /**
+     * Nesse método estamos retornando preço ...
+     * @param itemList
+     * @return
+     */
+
     private Double totalPrice(List<Item> itemList) {
         return itemList.stream()
                 .map(item -> item.getCurrentPrice() * item.getQuantity())
                 .reduce(Double::sum).orElse(0.0);
     }
+
+    /**
+     * Nesse ,metódo retornamos pedido por Id
+     * @param id
+     * @return
+     */
 
     @Override
     public PurchaseOrder findById(Long id) {
@@ -88,6 +115,11 @@ public class PurchaseOrderService implements IPurchaseOrderService {
                 });
     }
 
+    /**
+     * Nesse método estamos atualizando o Lista de compra ...
+     * @param id
+     * @return
+     */
     @Override
     public PurchaseOrder updateToFinished(Long id) {
         PurchaseOrder purchaseOrder = findById(id);
@@ -95,6 +127,12 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         purchaseOrderRepository.save(purchaseOrder);
         return purchaseOrder;
     }
+
+    /**
+     * Nesse método estamos retornando uma lista de anúncio ...
+     * @param id
+     * @return
+     */
 
     @Override
     public List<AdsenseDto> findAdsensesByPurchaseOrderId(Long id) {

@@ -30,6 +30,10 @@ public class ProductService implements IProductService {
     @Autowired
     private SectionService sectionService;
 
+    /**
+     * Nesse método estamos retornado uma lista de produtos
+     * @return
+     */
     @Override
     public List<Product> findAllProducts() {
         List<Product> products = repository.findAll();
@@ -38,6 +42,12 @@ public class ProductService implements IProductService {
 
         return products;
     }
+
+    /**
+     * Nesse método estamos retornando uma lista de produtos por categoria
+     * @param category
+     * @return
+     */
 
     @Override
     public List<Product> findByCategory(Category category) {
@@ -48,12 +58,25 @@ public class ProductService implements IProductService {
         return response;
     }
 
+    /**
+     * Nesse método estamos localizando um produto por Id
+     * @param id
+     * @return
+     */
+
     @Override
     public Product findById(Long id) {
         return repository.findById(id).orElseThrow(() -> {
             throw new NotFound("Produto inexistente");
         });
     }
+
+    /**
+     * Nesse método estamos retornado um lote de produto
+     * @param id
+     * @param s
+     * @return
+     */
 
     @Override
     public BatchesByProductDto findBatchByProduct(Long id, String s) {

@@ -17,6 +17,11 @@ public class BatchController {
     @Autowired
     BatchService service;
 
+    /**
+     * Nesse método retornamos uma lista de anúncio por Id
+     * @param adsenseId
+     * @return
+     */
     @GetMapping("/{adsenseId}")
     public ResponseEntity<List<BatchDto>> findAllByAdsenseId(@PathVariable Long adsenseId) {
         return ResponseEntity.ok(service.findAllByAdsenseId(adsenseId));

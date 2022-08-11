@@ -21,10 +21,21 @@ public class BatchService implements IBatchService {
     @Autowired
     private BatchRepository batchRepository;
 
+    /**
+     * Nesse método salvamos um lote e retornamos
+     * @param batch
+     * @return
+     */
     @Override
     public Batch saveBatch(Batch batch) {
        return batchRepository.save(batch);
     }
+
+    /**
+     * Nesse método estamos consultando uma lista de anúncio por lote e retornando um status
+     * @param id
+     * @return
+     */
 
     @Override
     public List<Batch> findBatchByAdsenseId(Long id) {
@@ -33,10 +44,23 @@ public class BatchService implements IBatchService {
         return batchList;
     }
 
+    /**
+     * Nesse método estamos retornado um Lote (Batch DTO)
+     * @param adsenseId
+     * @return
+     */
+
     @Override
     public List<BatchDto> findAllByAdsenseId(Long adsenseId) {
         return BatchDto.convertDto(batchRepository.findAllByAdsenseId(adsenseId));
     }
+
+    /**
+     * Nesse método estamos consultando uma lista e retornando produto em estoque
+     * @param adsenseList
+     * @param s
+     * @return
+     */
 
     @Override
     public List<BatchDto> returnBatchStock(List<AdsenseIdDto> adsenseList, String s) {
@@ -48,6 +72,11 @@ public class BatchService implements IBatchService {
         return result;
     }
 
+    /**
+     * Nesse método estamos comparando ...
+     * @param batchDtos
+     * @param s
+     */
     private void sortBatchList(List<BatchDto> batchDtos, String s) {
         if (s.equals("L")) {
             batchDtos.sort(Comparator.comparing(BatchDto::getBatchNumber));
@@ -60,11 +89,22 @@ public class BatchService implements IBatchService {
         }
     }
 
+    /**
+     * Nesse método estamos retornando lote (Batch) através do Id
+     * @param id
+     * @return
+     */
+
     @Override
     public Batch findById(Long id){
         return batchRepository.findById(id).orElseThrow(() -> {throw new NotFound("Lote não encontrado");});
     }
 
+    /**
+     * Nesse método estamos retornando um anúncio, seu armazém e quantidade
+     * @param adsenseId
+     * @return
+     */
     @Override
     public List<AdsenseByWarehouseDto> getAdsenseByWarehouseAndQuantity(long adsenseId) {
         return batchRepository.getAdsenseByWarehouse(adsenseId).stream().map(

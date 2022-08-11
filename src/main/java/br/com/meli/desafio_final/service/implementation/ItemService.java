@@ -20,6 +20,12 @@ public class ItemService implements IItemService {
         itemRepository.save(item);
     }
 
+    /**
+     * Nesse método estamos retornado intem através da  ordem de compra
+     * @param id
+     * @return
+     */
+
     @Override
     public List<Item> findItemsByPurchaseOrderId(Long id) {
         List<Item> itemList = itemRepository.findItemsByPurchaseOrderId(id);
