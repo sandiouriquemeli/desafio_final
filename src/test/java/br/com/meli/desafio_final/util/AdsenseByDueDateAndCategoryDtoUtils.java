@@ -1,5 +1,7 @@
 package br.com.meli.desafio_final.util;
 
+import br.com.meli.desafio_final.dto.AdsensByDueDateAndCategoryDto;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,5 +33,31 @@ public class AdsenseByDueDateAndCategoryDtoUtils {
             new BigInteger("1"), new BigInteger("1"), 100, new Date(2022-1-1), "FROZEN", new BigInteger("3") });
 
         return listObj;
+    }
+
+    // RETORNO DO SERVICE - DESC
+    public static List<AdsensByDueDateAndCategoryDto> AdsensByDueDateAndCategoryDtoListDesc() {
+        List<AdsensByDueDateAndCategoryDto> listDto = new ArrayList<>();
+
+        listDto.add(new AdsensByDueDateAndCategoryDto (
+            new BigInteger("1"), new BigInteger("1"), 100, new Date(2022-1-1), "FROZEN", new BigInteger("3") ));
+
+        listDto.add(new AdsensByDueDateAndCategoryDto (
+            new BigInteger("2"), new BigInteger("2"), 50, new Date(2022-2-1), "FROZEN", new BigInteger("3") ));
+
+        return listDto;
+    }
+
+    // RETORNO DO SERVICE - ASC
+    public static List<AdsensByDueDateAndCategoryDto> AdsensByDueDateAndCategoryDtoListAsc() {
+        List<AdsensByDueDateAndCategoryDto> listDto = new ArrayList<>();
+
+        listDto.add(new AdsensByDueDateAndCategoryDto (
+            new BigInteger("2"), new BigInteger("2"), 50, new Date(2022-2-1), "FROZEN", new BigInteger("3") ));
+
+        listDto.add(new AdsensByDueDateAndCategoryDto (
+            new BigInteger("1"), new BigInteger("1"), 100, new Date(2022-1-1), "FROZEN", new BigInteger("3") ));
+
+        return listDto;
     }
 }

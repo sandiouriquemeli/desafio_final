@@ -1,9 +1,9 @@
 package br.com.meli.desafio_final.controller;
 
+import br.com.meli.desafio_final.dto.AdsensByDueDateAndCategoryDto;
 import br.com.meli.desafio_final.dto.AdsenseBySectionAndDueDateDto;
 import br.com.meli.desafio_final.service.implementation.BatchService;
-import br.com.meli.desafio_final.util.AdsenseBySectionAndDueDateDtoUtils;
-import br.com.meli.desafio_final.util.SectionUtils;
+import br.com.meli.desafio_final.util.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
@@ -32,10 +32,6 @@ class BatchControllerTest {
     private BatchService batchService;
 
     @Test
-    void findAllByAdsenseId() {
-    }
-
-    @Test
     void test_findAdsenseBySectionAndDueDate() {
         long sectionId = SectionUtils.newSectionFresh().getId();
         int numberOfDays = 20;
@@ -51,6 +47,18 @@ class BatchControllerTest {
     }
 
     @Test
-    void findAdsenseByDueDateAndCategory() {
+    void test_findAdsenseByDueDateAndCategory() {
+        int numberOfDays = 20;
+        String category = "FROZEN";
+        String order = "asc";
+
+        BDDMockito.when(batchService.findAdsenseByDueDateAndCategory(numberOfDays, category, order))
+            .thenReturn(AdsenseByDueDateAndCategoryDtoUtils.AdsensByDueDateAndCategoryDtoListAsc());
+
+        ResponseEntity<List<AdsensByDueDateAndCategoryDto>> response = batchController.findAdsenseByDueDateAndCategory(numberOfDays, category, order);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().size()).isNotNull().isPositive().isEqualTo(2);
     }
 }
