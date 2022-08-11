@@ -107,10 +107,9 @@ public class BatchService implements IBatchService {
 
     /**
      * Nesse método estamos retornando lote (Batch) através do Id
-     * @param id
-     * @return
+     * @param batchNumber
+     * @param adsenseId
      */
-
     public void findBatchByBatchNumberAndAdsenseId(Long batchNumber, Long adsenseId) {
         batchRepository.findBatchByBatchNumberAndAdsenseId(batchNumber, adsenseId).orElseThrow(() -> {
             throw new NotFound("Produto deste usuário já está cadastrado.");});
