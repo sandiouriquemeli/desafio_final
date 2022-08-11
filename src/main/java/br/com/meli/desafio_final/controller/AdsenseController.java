@@ -29,6 +29,7 @@ public class AdsenseController {
      * @param id
      * @return
      */
+    // TODO: colocar DTO
     @GetMapping("/{id}")
     public ResponseEntity<Adsense> findById(@PathVariable Long id) {
         return ResponseEntity.ok(adsenseService.findById(id));
@@ -38,7 +39,7 @@ public class AdsenseController {
      * Nesse método retornamos uma lista de anúncios
      * @return
      */
-
+    // TODO: colocar DTO
     @GetMapping
     public ResponseEntity<List<Adsense>> findAll() {
         return ResponseEntity.ok(adsenseService.findAll());
@@ -49,20 +50,10 @@ public class AdsenseController {
      * @param querytype
      * @return
      */
-
+    // TODO: colocar DTO
     @GetMapping("/list")
     public ResponseEntity<List<Adsense>> findByCategory(@RequestParam Category querytype) {
         return ResponseEntity.ok(adsenseService.findByCategory(querytype));
-    }
-
-    /**
-     * Nesse método retormaos uma lista DTO de produtos por Id
-     * @param productId
-     * @return
-     */
-    @GetMapping("/test/{productId}")
-    public ResponseEntity<List<AdsenseIdDto>> findByProductId(@PathVariable Long productId) {
-        return ResponseEntity.ok(adsenseService.findByProductId(productId));
     }
 
     /**

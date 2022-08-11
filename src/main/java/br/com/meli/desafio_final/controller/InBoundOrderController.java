@@ -24,6 +24,7 @@ public class InBoundOrderController {
      * @param inBoundOrder
      * @return
      */
+    // TODO: corrigir validaçao
         @PostMapping("/{agentId}")
         public ResponseEntity<List<InBoundOrderDto>> createInBoundOrder(@PathVariable long agentId,@RequestBody InBoundOrder inBoundOrder) {
             return ResponseEntity.status(HttpStatus.CREATED).body(service.create(inBoundOrder, agentId));

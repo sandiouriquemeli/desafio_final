@@ -43,6 +43,7 @@ public class PurchaseOrderController {
      * @param queryParam
      * @return
      */
+    //TODO: fazer DTO
     @PutMapping("/orders/")
     public ResponseEntity<PurchaseOrder> update(@RequestParam Long queryParam) {
         return ResponseEntity.status(HttpStatus.OK).body(purchaseOrderService.updateToFinished(queryParam));
