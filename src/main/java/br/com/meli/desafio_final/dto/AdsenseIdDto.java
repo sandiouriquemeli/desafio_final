@@ -1,15 +1,15 @@
 package br.com.meli.desafio_final.dto;
 
 import br.com.meli.desafio_final.model.entity.Adsense;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class AdsenseIdDto {
     private Long id;
 

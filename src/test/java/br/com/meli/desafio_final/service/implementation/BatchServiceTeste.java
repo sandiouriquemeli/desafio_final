@@ -4,8 +4,11 @@ import br.com.meli.desafio_final.dto.BatchDto;
 import br.com.meli.desafio_final.model.entity.Batch;
 
 import br.com.meli.desafio_final.repository.BatchRepository;
+import br.com.meli.desafio_final.util.AdsenseUtils;
+import br.com.meli.desafio_final.util.AdsenseUtilsDto;
 import br.com.meli.desafio_final.util.BatchUtils;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
@@ -93,5 +96,41 @@ public class BatchServiceTeste {
         }
 
         assertThat(exceptionResponse.getMessage()).isEqualTo("Lote não encontrado");
+    }
+
+    @Test
+    @DisplayName("Retorna uma lista de Batch ordenada por lote.")
+    public void returnBatchStockTestSortL(){
+        BDDMockito.when(batchRepository.findAllByAdsenseId(AdsenseUtils.newAdsense3ToSave().getId()))
+                .thenReturn(BatchUtils.BatchList());
+
+        List<BatchDto> batchDtosList = batchService
+                .returnBatchStock(AdsenseUtilsDto.generateAdsenseIdDtoList(), "L");
+
+        Assertions.assertThat(batchDtosList.get(0)).isNotNull();
+    }
+
+    @Test
+    @DisplayName("Retorna uma lista de Batch ordenada por quantidade.")
+    public void returnBatchStockTestSortQ(){
+        BDDMockito.when(batchRepository.findAllByAdsenseId(AdsenseUtils.newAdsense3ToSave().getId()))
+                .thenReturn(BatchUtils.BatchList());
+
+        List<BatchDto> batchDtosList = batchService
+                .returnBatchStock(AdsenseUtilsDto.generateAdsenseIdDtoList(), "Q");
+
+        Assertions.assertThat(batchDtosList.get(0)).isNotNull();
+    }
+
+    @Test
+    @DisplayName("Retorna uma lista de Batch ordenada por vencimento.")
+    public void returnBatchStockTestSortV(){
+        BDDMockito.when(batchRepository.findAllByAdsenseId(AdsenseUtils.newAdsense3ToSave().getId()))
+                .thenReturn(BatchUtils.BatchList());
+
+        List<BatchDto> batchDtosList = batchService
+                .returnBatchStock(AdsenseUtilsDto.generateAdsenseIdDtoList(), "V");
+
+        Assertions.assertThat(batchDtosList.get(0)).isNotNull();
     }
 }
