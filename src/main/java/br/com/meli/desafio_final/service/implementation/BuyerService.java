@@ -16,7 +16,7 @@ public class BuyerService implements IBuyerService {
     @Override
     public Buyer findById(Long id) {
         return buyerRepository.findById(id)
-                .orElseThrow(() -> { throw new NotFound("Anúncio não cadastrado."); } );
+                .orElseThrow(() -> { throw new NotFound("Comprador não cadastrado."); } );
     }
 
 }
