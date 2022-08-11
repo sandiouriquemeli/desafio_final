@@ -132,7 +132,6 @@ public class AdsenseControllerTest {
     }
 
     @Test
-    @DisplayName("Listar anúncios: Valida se retorna uma lista de anúncios.")
     void testGetByAdsenseByWarehouse() {
         long adsenseId = AdsenseUtils.newAdsense1ToSave().getId();
         BDDMockito.when(service.findAdsenseByWarehouseAndQuantity(adsenseId))
