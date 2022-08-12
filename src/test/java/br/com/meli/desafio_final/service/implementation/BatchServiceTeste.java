@@ -63,22 +63,6 @@ public class BatchServiceTeste {
     }
 
     @Test
-    public void testIfFindBatchByAdsenseIdThrowsException() {
-        Batch batch = BatchUtils.newBatch1ToSave();
-        Exception exceptionResponse = null;
-
-        BDDMockito.when(batchRepository.findAllByAdsenseId(batch.getBatchNumber()))
-                .thenReturn(BatchUtils.BatchListEmpty());
-        try {
-            batchService.findAllByAdsenseId(batch.getBatchNumber());
-        } catch (Exception exception) {
-            exceptionResponse = exception;
-        }
-
-        assertThat(exceptionResponse.getMessage()).isEqualTo("Lote do anúncio não encontrado!");
-    }
-
-    @Test
     public void testFindBatchById() {
         Batch batch = BatchUtils.newBatch1ToSave();
         BDDMockito.when(batchRepository.findBatchByBatchNumberAndInBoundOrderId(batch.getBatchNumber(), 1L))

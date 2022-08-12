@@ -70,8 +70,6 @@ public class InBoundOrderServiceTeste {
         BDDMockito.willDoNothing().given(sectionService).setAndUpdateCapacity(1500D, sectionFresh);
 
         // TODO: REMOVER COMENTÁRIO
-        //BDDMockito.when(batchService.findById(ArgumentMatchers.any(Long.class)))
-          //      .thenReturn(batch);
 
         BDDMockito.when(inboundOrderRepository.save(ArgumentMatchers.any(InBoundOrder.class)))
                 .thenReturn(inBoundOrder);

@@ -53,9 +53,6 @@ public class BatchService implements IBatchService {
     @Override
     public List<BatchDto> findAllByAdsenseId(Long adsenseId) {
         List<Batch> batchList = batchRepository.findAllByAdsenseId(adsenseId);
-//        if (batchList.isEmpty()) {
-//            throw new NotFound("Lote do anúncio não encontrado!");
-//        }
         List<Batch> newListBacthValid = validateBatch(batchList);
         return BatchDto.convertDto(newListBacthValid);
     }

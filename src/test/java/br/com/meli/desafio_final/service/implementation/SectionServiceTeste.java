@@ -16,6 +16,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -68,17 +70,17 @@ public class SectionServiceTeste {
         assertThat(sectionResponse).isEqualTo(section);
     }
 
-//    @Test
-//    public void testFindByCategory() {
-//        Section section = SectionUtils.newSectionRefrigerated();
-//        BDDMockito.when(sectionRepository.findByCategory(ArgumentMatchers.any(Category.class)))
-//                .thenReturn(section);
-//
-//        Section sectionResponse = sectionService.findByCategory(Category.REFRIGERATED);
-//
-//        assertThat(sectionResponse).isNotNull();
-//        Assertions.assertEquals(sectionResponse, section);
-//    }
+    @Test
+    public void testFindByCategory() {
+        Section section = SectionUtils.newSectionRefrigerated();
+        BDDMockito.when(sectionRepository.findByCategory(ArgumentMatchers.any(Category.class)))
+                .thenReturn(List.of(section));
+
+        List<Section> sectionResponse = sectionService.findByCategory(Category.REFRIGERATED);
+
+        assertThat(sectionResponse).isNotNull();
+        Assertions.assertEquals(sectionResponse.get(0).getId(), section.getId());
+    }
 
     @Test
     public void testFindByCategoryThrowsException() {
