@@ -65,7 +65,6 @@ public class BatchService implements IBatchService {
      * @param s
      * @return
      */
-
     @Override
     public List<BatchDto> returnBatchStock(List<AdsenseIdDto> adsenseList, String s) {
         List<BatchDto> result = new ArrayList<>();
@@ -93,6 +92,12 @@ public class BatchService implements IBatchService {
         }
     }
 
+    /**
+     * Esse metodo recebe uma lista de lotes e retorna uma lista de lotes filtrada
+     * por lotes que tem em estoque e não estão pra vencer nas próximas 3 semanas.
+     * @param batchList
+     * @return
+     */
     private List<Batch> validateBatch(List<Batch> batchList) {
         List<Batch> newListBatch = new ArrayList<>();
         for (Batch batch : batchList) {
@@ -117,8 +122,14 @@ public class BatchService implements IBatchService {
             throw new NotFound("Produto deste usuário já está cadastrado.");
     }
 
+    /**
+     * Esse metodo busca um lote pelo seu número e pelo seu inboundOrderId
+     * @param batchNumber
+     * @param inboundOrderId
+     * @return
+     */
     @Override
-    public Batch findById(Long batchNumber, Long inboundOrderId){
+    public Batch findByBatchNumberAndInboundOrderId(Long batchNumber, Long inboundOrderId){
         return batchRepository.findBatchByBatchNumberAndInBoundOrderId(batchNumber, inboundOrderId)
                 .orElseThrow(() -> {throw new NotFound("Lote não encontrado");});
     }

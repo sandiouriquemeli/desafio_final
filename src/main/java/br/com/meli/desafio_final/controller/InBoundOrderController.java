@@ -15,8 +15,8 @@ import java.util.List;
 public class InBoundOrderController {
 
 
-        @Autowired
-        private IInBoundOrderService service;
+    @Autowired
+    private IInBoundOrderService service;
 
     /**
      * Nesse método estamos criando (inserindo um produto) na classe InBoundOrder

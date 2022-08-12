@@ -38,7 +38,6 @@ public class AdsenseService implements IAdsenseService {
      * Nesse método consultamos uma lista de anúncios e retornamos lista caso existe, caso não exibimos uma mensagem de erro
      * @return
      */
-
     @Override
     public List<Adsense> findAll() {
         List<Adsense> adsenses = adsenseRepository.findAll();
@@ -65,7 +64,6 @@ public class AdsenseService implements IAdsenseService {
      * @param productId
      * @return
      */
-
     @Override
     public List<AdsenseIdDto> findByProductId(Long productId) {
         List<Adsense> adsenseList = findAll().stream().filter(a -> a.getProduct().getId().equals(productId))
@@ -78,8 +76,6 @@ public class AdsenseService implements IAdsenseService {
      * @param adsenseId
      * @return
      */
-
-
     @Override
     public List<AdsenseByWarehouseDto> findAdsenseByWarehouseAndQuantity(Long adsenseId) {
         return batchService.getAdsenseByWarehouseAndQuantity(adsenseId);

@@ -57,7 +57,6 @@ public class PurchaseOrderService implements IPurchaseOrderService {
      * @param purchaseOrder
      * @return
      */
-
     private boolean validationAdsense(PurchaseOrder purchaseOrder) {
         List<Item> itemList = purchaseOrder.getItemList();
         for (Item item : itemList) {
@@ -82,7 +81,6 @@ public class PurchaseOrderService implements IPurchaseOrderService {
      * Nesse método estamos salvando intem
      * @param purchaseOrder
      */
-
     private void saveItemByPurchase(PurchaseOrder purchaseOrder) {
         purchaseOrder.getItemList().forEach(item -> {
             item.setPurchaseOrder(purchaseOrder);
@@ -95,7 +93,6 @@ public class PurchaseOrderService implements IPurchaseOrderService {
      * @param itemList
      * @return
      */
-
     private Double totalPrice(List<Item> itemList) {
         return itemList.stream()
                 .map(item -> item.getCurrentPrice() * item.getQuantity())
@@ -107,7 +104,6 @@ public class PurchaseOrderService implements IPurchaseOrderService {
      * @param id
      * @return
      */
-
     @Override
     public PurchaseOrder findById(Long id) {
         return purchaseOrderRepository.findById(id)
@@ -134,7 +130,6 @@ public class PurchaseOrderService implements IPurchaseOrderService {
      * @param purchaseOrderId
      * @return
      */
-
     @Override
     public List<AdsenseDto> findAdsensesByPurchaseOrderId(Long purchaseOrderId) {
         List<Adsense> adsenseList = new ArrayList<>();

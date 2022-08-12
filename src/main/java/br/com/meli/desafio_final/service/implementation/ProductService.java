@@ -49,7 +49,6 @@ public class ProductService implements IProductService {
      * @param category
      * @return
      */
-
     @Override
     public List<Product> findByCategory(Category category) {
         List<Product> response = repository.findByCategory(category);
@@ -64,7 +63,6 @@ public class ProductService implements IProductService {
      * @param id
      * @return
      */
-
     @Override
     public Product findById(Long id) {
         return repository.findById(id).orElseThrow(() -> {
@@ -78,7 +76,6 @@ public class ProductService implements IProductService {
      * @param s
      * @return
      */
-
     @Override
     public BatchesByProductDto findBatchByProduct(Long id, String s) {
         Product product = findById(id);

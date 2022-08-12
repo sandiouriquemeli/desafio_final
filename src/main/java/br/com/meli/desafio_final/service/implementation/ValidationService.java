@@ -66,7 +66,6 @@ public class ValidationService {
      * @param id
      * @return
      */
-
     public Agent validateAgent(long id) {
         return agentRepository.findById(id)
                 .orElseThrow(() -> {

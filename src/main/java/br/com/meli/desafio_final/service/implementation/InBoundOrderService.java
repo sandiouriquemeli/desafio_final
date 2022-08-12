@@ -50,7 +50,6 @@ public class InBoundOrderService implements IInBoundOrderService {
      * @param agentId
      * @return
      */
-
     @Override
     public List<InBoundOrderDto> update(InBoundOrder inBoundOrder, long agentId) {
         if(inBoundOrder.getId() == null) throw new BadRequest("O 'id' do inboundOrder precisa ser informado.");
@@ -97,7 +96,6 @@ public class InBoundOrderService implements IInBoundOrderService {
      * @param agent
      * @return
      */
-
     private Section validateSection(InBoundOrder inBoundOrder, Agent agent){
 
         Section section = validationService.validateSection(inBoundOrder.getSection());
@@ -114,7 +112,6 @@ public class InBoundOrderService implements IInBoundOrderService {
      * @param inBoundOrder
      * @param section
      */
-
     private void validateBatchList(InBoundOrder inBoundOrder, Section section){
         inBoundOrder.getBatchStock().forEach((batch) -> {
             Adsense adsense = adsenseService.findById(batch.getAdsense().getId());
@@ -161,7 +158,7 @@ public class InBoundOrderService implements IInBoundOrderService {
      * @param section
      */
     private void validateAndUpdateCapacityInASector(Batch batch, InBoundOrder inBoundOrder, Adsense adsense, Section section) {
-        Batch oldBatch = batchService.findById(batch.getBatchNumber(), inBoundOrder.getId());
+        Batch oldBatch = batchService.findByBatchNumberAndInboundOrderId(batch.getBatchNumber(), inBoundOrder.getId());
         batch.setId(oldBatch.getId());
         batch.setInitialQuantity(batch.getInitialQuantity() + oldBatch.getInitialQuantity());
         if(oldBatch.getCurrentQuantity() > batch.getCurrentQuantity()){
@@ -181,7 +178,6 @@ public class InBoundOrderService implements IInBoundOrderService {
      * @param volumen
      * @return
      */
-
     private double batchVolume(int quantity, double volumen){
         return quantity * volumen;
     }
