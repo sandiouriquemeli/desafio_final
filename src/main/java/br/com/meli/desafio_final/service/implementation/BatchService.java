@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -143,6 +145,7 @@ public class BatchService implements IBatchService {
     public List<AdsenseBySectionAndDueDateDto> findAdsenseBySectionAndDueDate(long sectionId, int numberOfDays) {
         LocalDate initialDate = LocalDate.now();
         LocalDate finalDate = initialDate.plusDays(numberOfDays);
+
         return batchRepository.getAdsenseBySectionAndDate(sectionId, initialDate, finalDate).stream().map(
                 (obj) -> new AdsenseBySectionAndDueDateDto(obj[0], obj[1], obj[2], obj[3])
         ).collect(Collectors.toList());

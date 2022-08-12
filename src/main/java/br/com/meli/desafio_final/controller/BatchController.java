@@ -34,7 +34,7 @@ public class BatchController {
      * @param numberOfDays
      */
     @GetMapping("/due-date")
-    public ResponseEntity<List<AdsenseBySectionAndDueDateDto>> findAdsenseBySectionAndDueDate(@RequestParam Long sectionId, @RequestParam int numberOfDays) {
+    public ResponseEntity<List<AdsenseBySectionAndDueDateDto>> findAdsenseBySectionAndDueDate(@RequestParam long sectionId, @RequestParam int numberOfDays) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findAdsenseBySectionAndDueDate(sectionId, numberOfDays));
     }
 

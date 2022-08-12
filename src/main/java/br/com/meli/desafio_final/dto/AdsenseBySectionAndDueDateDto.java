@@ -15,6 +15,10 @@ public class AdsenseBySectionAndDueDateDto {
     Date dueDate;
 
     public AdsenseBySectionAndDueDateDto(Object batchNumber, Object adsenseId, Object quantity, Object dueDate) {
+        System.out.println(batchNumber.getClass());
+        System.out.println(adsenseId.getClass());
+        System.out.println(quantity.getClass());
+        System.out.println(dueDate.getClass());
 
         this.batchNumber = (BigInteger) batchNumber;
         this.adsenseId = (BigInteger) adsenseId;

@@ -53,7 +53,6 @@ public class AdsenseController {
      */
     @GetMapping("/warehouse/{adsenseId}")
     public ResponseEntity <List<AdsenseByWarehouseDto>> getByAdsenseByWarehouse(@PathVariable Long adsenseId) {
-
         return ResponseEntity.status(HttpStatus.OK).body(adsenseService.findAdsenseByWarehouseAndQuantity(adsenseId));
     }
 }
