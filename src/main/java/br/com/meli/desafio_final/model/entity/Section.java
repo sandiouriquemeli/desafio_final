@@ -2,14 +2,18 @@ package br.com.meli.desafio_final.model.entity;
 
 import br.com.meli.desafio_final.model.enums.Category;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
 
 @Entity
-@Setter @Getter
+@Setter
+@Getter
+@NoArgsConstructor
 public class Section {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,9 +22,11 @@ public class Section {
     @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
 
-    @DecimalMax(value = "300")
-    private Double capacity;
+    private Double totalCapacity;
 
+    @Enumerated(EnumType.STRING)
     private Category category;
+
+    private Double usedCapacity;
 
 }
