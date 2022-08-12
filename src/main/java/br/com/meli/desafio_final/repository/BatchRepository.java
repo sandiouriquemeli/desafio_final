@@ -58,7 +58,7 @@ public interface BatchRepository extends JpaRepository<Batch, Long> {
             " WHERE frescos.in_bound_order.id = frescos.batch.in_bound_order_id\n" +
             " AND frescos.in_bound_order.section_id = ?1\n" +
             " AND due_date BETWEEN ?2 AND ?3" +
-            "ORDER BY due_date", nativeQuery = true)
+            " ORDER BY due_date", nativeQuery = true)
     List<Object[]> getAdsenseBySectionAndDate(long id, LocalDate initialDate, LocalDate finalDate);
 
 
@@ -118,3 +118,4 @@ public interface BatchRepository extends JpaRepository<Batch, Long> {
             " ORDER BY current_quantity DESC", nativeQuery = true)
     List<Object[]> getAdsenseByDueDateAndCategoryDesc(LocalDate initialDate, LocalDate finalDate, String category);
 }
+
