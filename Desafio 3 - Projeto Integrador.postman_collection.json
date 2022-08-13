@@ -1,0 +1,527 @@
+{
+	"info": {
+		"_postman_id": "66392129-9838-4ba8-b335-c14133b103f3",
+		"name": "Desafio 3 - Projeto Integrador",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Adsense",
+			"item": [
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v2/adsenses",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v2",
+								"adsenses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByCategory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v2/adsenses/list?querytype=FROZEN",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v2",
+								"adsenses",
+								"list"
+							],
+							"query": [
+								{
+									"key": "querytype",
+									"value": "FRESH",
+									"description": "Listar todos os produtos FRECOS",
+									"disabled": true
+								},
+								{
+									"key": "querytype",
+									"value": "REFRIGERATED",
+									"description": "Listar todos os produtos REFRIGERADOS",
+									"disabled": true
+								},
+								{
+									"key": "querytype",
+									"value": "FROZEN",
+									"description": "Listar todos os produtos CONGELADOS"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByAdsenseByWarehouse",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v2/adsenses/warehouse/{{adsenseId_1}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v2",
+								"adsenses",
+								"warehouse",
+								"{{adsenseId_1}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Batch",
+			"item": [
+				{
+					"name": "findAllByAdsenseId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/batch/{{adsenseId_1}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"batch",
+								"{{adsenseId_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAdsenseBySectionAndDueDate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/batch/due-date?sectionId=1&numberOfDays=25",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"batch",
+								"due-date"
+							],
+							"query": [
+								{
+									"key": "sectionId",
+									"value": "1"
+								},
+								{
+									"key": "numberOfDays",
+									"value": "25"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAdsenseByDueDateAndCategory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/batch/due-date/list?numberOfDays=25&category=FRESH&order=ASC",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"batch",
+								"due-date",
+								"list"
+							],
+							"query": [
+								{
+									"key": "numberOfDays",
+									"value": "25",
+									"description": "Número de dias"
+								},
+								{
+									"key": "category",
+									"value": "FRESH",
+									"description": "Categoria"
+								},
+								{
+									"key": "order",
+									"value": "ASC",
+									"description": "Ordernação crescente pela quantidade"
+								},
+								{
+									"key": "order",
+									"value": "DESC",
+									"description": "Ordernação decrescente pela quantidade",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inbound Order",
+			"item": [
+				{
+					"name": "createInBoundOrder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"section\": {\n\t\t\"id\": 1,\n\t\t\"warehouseCode\": 1\n\t},\n\t\"batchStock\": [\n\t\t{\n\t\t\t\"batchNumber\": 1,\n\t\t\t\"adsense\": {\n\t\t\t\t\"id\": 1\n\t\t\t},\n\t\t\t\"currentTemperature\": 20,\n\t\t\t\"minimumTemperature\": 10,\n\t\t\t\"initialQuantity\": 10,\n\t\t\t\"currentQuantity\": 10,\n\t\t\t\"manufacturingDate\": \"2022-05-03\",\n\t\t\t\"manufacturingTime\": \"2022-01-03T10:15:30\",\n\t\t\t\"dueDate\": \"2022-09-05\"\n\t\t},\n\t\t{\n\t\t\t\"batchNumber\": 2,\n\t\t\t\"adsense\": {\n\t\t\t\t\"id\": 1\n\t\t\t},\n\t\t\t\"currentTemperature\": 15,\n\t\t\t\"minimumTemperature\": 5,\n\t\t\t\"initialQuantity\": 10,\n\t\t\t\"currentQuantity\": 10,\n\t\t\t\"manufacturingDate\": \"2022-05-03\",\n\t\t\t\"manufacturingTime\": \"2022-01-03T10:15:30\",\n\t\t\t\"dueDate\": \"2022-09-05\"\n\t\t}\n\t]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/fresh-products/inboundorder/{{agentId_1}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"inboundorder",
+								"{{agentId_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateInBoundOrder",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 1,\n\t\"section\": {\n\t\t\"id\": 1,\n\t\t\"warehouseCode\": 1\n\t},\n\t\"batchStock\": [\n\t\t{\n\t\t\t\"batchNumber\": 1,\n\t\t\t\"adsense\": {\n\t\t\t\t\"id\": 1\n\t\t\t},\n\t\t\t\"currentTemperature\": 20,\n\t\t\t\"minimumTemperature\": 10,\n\t\t\t\"initialQuantity\": 400,\n\t\t\t\"currentQuantity\": 400,\n\t\t\t\"manufacturingDate\": \"2022-05-03\",\n\t\t\t\"manufacturingTime\": \"2022-01-03T10:15:30\",\n\t\t\t\"dueDate\": \"2022-09-05\"\n\t\t},\n\t\t{\n\t\t\t\"batchNumber\": 2,\n\t\t\t\"adsense\": {\n\t\t\t\t\"id\": 1\n\t\t\t},\n\t\t\t\"currentTemperature\": 15,\n\t\t\t\"minimumTemperature\": 5,\n\t\t\t\"initialQuantity\": 1330,\n\t\t\t\"currentQuantity\": 1330,\n\t\t\t\"manufacturingDate\": \"2022-05-03\",\n\t\t\t\"manufacturingTime\": \"2022-01-03T10:15:30\",\n\t\t\t\"dueDate\": \"2022-09-05\"\n\t\t}\n\t]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v1/fresh-products/inboundorder/{{agentId_1}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"inboundorder",
+								"{{agentId_1}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v2/fresh-products",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v2",
+								"fresh-products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByCategory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v2/fresh-products/list?querytype=FROZEN",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v2",
+								"fresh-products",
+								"list"
+							],
+							"query": [
+								{
+									"key": "querytype",
+									"value": "FROZEN"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findBatchByProduct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v2/fresh-products/sortlist?productId=1&s=L",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v2",
+								"fresh-products",
+								"sortlist"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "1"
+								},
+								{
+									"key": "s",
+									"value": "L"
+								},
+								{
+									"key": "s",
+									"value": "Q",
+									"disabled": true
+								},
+								{
+									"key": "s",
+									"value": "V",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Purchase Order",
+			"item": [
+				{
+					"name": "Salva o carrinho",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"OPEN\",\n    \"date\": \"2022-08-10\",\n    \"buyer\": {\n        \"id\": 1\n    },\n    \"itemList\": [\n        {\n            \"currentPrice\": 0.50,\n            \"quantity\": 2000,\n            \"adsense\": {\n                \"id\": 5\n            }\n        },\n        {\n            \"currentPrice\": 0.80,\n            \"quantity\": 700,\n            \"adsense\": {\n                \"id\": 3\n            }\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v2/fresh-products/orders",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v2",
+								"fresh-products",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAdsensesByPurchaseOrderId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/v2/fresh-products/orders/{{orderId_1}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v2",
+								"fresh-products",
+								"orders",
+								"{{orderId_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Finaliza compra",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v2/fresh-products/orders/?purchaseOrderId={{purchaseOrderId_1}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v2",
+								"fresh-products",
+								"orders",
+								""
+							],
+							"query": [
+								{
+									"key": "purchaseOrderId",
+									"value": "{{purchaseOrderId_1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "Representante",
+			"value": "{agentId}"
+		},
+		{
+			"key": "agentId",
+			"value": "1"
+		},
+		{
+			"key": "id",
+			"value": "3"
+		},
+		{
+			"key": "agent_2",
+			"value": "2"
+		},
+		{
+			"key": "agent_1",
+			"value": "1"
+		},
+		{
+			"key": "adsenseId_1",
+			"value": "1"
+		},
+		{
+			"key": "agentId_1",
+			"value": "1"
+		},
+		{
+			"key": "orderId_1",
+			"value": "1"
+		},
+		{
+			"key": "purchaseOrderId_1",
+			"value": "1"
+		}
+	]
+}
