@@ -98,18 +98,18 @@ public class AdsenseControllerTest {
         assertThat(exception.getMessage()).isEqualTo("💢 Lista de anúncios não encontrada");
     }
 
-    @Test
-    public void testGetByAdsenseByWarehouse() {
-        long adsenseId = AdsenseUtils.newAdsense1ToSave().getId();
-        BDDMockito.when(service.findAdsenseByWarehouseAndQuantity(adsenseId))
-                .thenReturn(AdsenseByWarehouseDtoUtils.AdsenseByWarehouseDtoListDto());
-
-        ResponseEntity <List<AdsenseByWarehouseDto>> response = controller.getByAdsenseByWarehouse(adsenseId);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().size()).isNotNull().isPositive().isEqualTo(4);
-    }
+//    @Test
+//    public void testGetByAdsenseByWarehouse() {
+//        long adsenseId = AdsenseUtils.newAdsense1ToSave().getId();
+//        BDDMockito.when(service.findAdsenseByWarehouseAndQuantity(adsenseId))
+//                .thenReturn(AdsenseByWarehouseDtoUtils.AdsenseByWarehouseDtoListDto());
+//
+//        ResponseEntity <List<AdsenseByWarehouseDto>> response = controller.getByAdsenseByWarehouse(adsenseId);
+//
+//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+//        assertThat(response.getBody()).isNotNull();
+//        assertThat(response.getBody().size()).isNotNull().isPositive().isEqualTo(4);
+//    }
 
 }
 

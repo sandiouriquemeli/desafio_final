@@ -9,22 +9,22 @@ import java.util.List;
 
 public class AdsenseByWarehouseDtoUtils {
 
-    public static List<Object[]> AdsenseByWarehouseDtoList() {
-        List<Object[]> objects = new ArrayList<>();
-        objects.add(new Object[] { new BigDecimal(1), new BigInteger("30")});
-        objects.add(new Object[] { new BigDecimal(2), new BigInteger("30")});
-        objects.add(new Object[] { new BigDecimal(3), new BigInteger("30")});
-        objects.add(new Object[] { new BigDecimal(4), new BigInteger("30")});
-        return objects;
-    }
-
-    public static List<AdsenseByWarehouseDto> AdsenseByWarehouseDtoListDto() {
-        List<AdsenseByWarehouseDto> listDto = new ArrayList<>();
-        listDto.add(new AdsenseByWarehouseDto( new BigDecimal(1), new BigInteger("30")));
-        listDto.add(new AdsenseByWarehouseDto( new BigDecimal(2), new BigInteger("30")));
-        listDto.add(new AdsenseByWarehouseDto( new BigDecimal(3), new BigInteger("30")));
-        listDto.add(new AdsenseByWarehouseDto( new BigDecimal(4), new BigInteger("30")));
-        return listDto;
-    }
+//    public static List<Object[]> AdsenseByWarehouseDtoList() {
+//        List<Object[]> objects = new ArrayList<>();
+//        objects.add(new Object[] { new BigDecimal(1), new BigInteger("30")});
+//        objects.add(new Object[] { new BigDecimal(2), new BigInteger("30")});
+//        objects.add(new Object[] { new BigDecimal(3), new BigInteger("30")});
+//        objects.add(new Object[] { new BigDecimal(4), new BigInteger("30")});
+//        return objects;
+//    }
+//
+//    public static List<AdsenseByWarehouseDto> AdsenseByWarehouseDtoListDto() {
+//        List<AdsenseByWarehouseDto> listDto = new ArrayList<>();
+//        listDto.add(new AdsenseByWarehouseDto( new BigDecimal(1), new BigInteger("30")));
+//        listDto.add(new AdsenseByWarehouseDto( new BigDecimal(2), new BigInteger("30")));
+//        listDto.add(new AdsenseByWarehouseDto( new BigDecimal(3), new BigInteger("30")));
+//        listDto.add(new AdsenseByWarehouseDto( new BigDecimal(4), new BigInteger("30")));
+//        return listDto;
+//    }
 
 }

@@ -127,15 +127,15 @@ public class AdsenseServiceTest {
     }
 
 
-    @Test
-    public void testFindAdsenseByWarehouseAndQuantity() {
-        long adsenseId = AdsenseUtils.newAdsense1ToSave().getId();
-        BDDMockito.when(batchService.getAdsenseByWarehouseAndQuantity(adsenseId))
-                .thenReturn(AdsenseByWarehouseDtoUtils.AdsenseByWarehouseDtoListDto());
-
-        List<AdsenseByWarehouseDto> adsenseList = service.findAdsenseByWarehouseAndQuantity(adsenseId);
-
-        Assertions.assertThat(adsenseList).isNotNull();
-        Assertions.assertThat(adsenseList.size()).isEqualTo(4);
-    }
+//    @Test
+//    public void testFindAdsenseByWarehouseAndQuantity() {
+//        long adsenseId = AdsenseUtils.newAdsense1ToSave().getId();
+//        BDDMockito.when(batchService.getAdsenseByWarehouseAndQuantity(adsenseId))
+//                .thenReturn(AdsenseByWarehouseDtoUtils.AdsenseByWarehouseDtoListDto());
+//
+//        List<AdsenseByWarehouseDto> adsenseList = service.findAdsenseByWarehouseAndQuantity(adsenseId);
+//
+//        Assertions.assertThat(adsenseList).isNotNull();
+//        Assertions.assertThat(adsenseList.size()).isEqualTo(4);
+//    }
 }

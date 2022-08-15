@@ -141,8 +141,7 @@ public class BatchService implements IBatchService {
      */
     @Override
     public List<AdsenseByWarehouseDto> getAdsenseByWarehouseAndQuantity(long adsenseId) {
-        return batchRepository.getAdsenseByWarehouse(adsenseId).stream().map(
-                (obj) -> new AdsenseByWarehouseDto(obj[0], obj[1])).collect(Collectors.toList());
+        return batchRepository.getAdsenseByWarehouse(adsenseId);
     }
 
     /**
@@ -157,9 +156,7 @@ public class BatchService implements IBatchService {
         LocalDate initialDate = LocalDate.now();
         LocalDate finalDate = initialDate.plusDays(numberOfDays);
 
-        return batchRepository.getAdsenseBySectionAndDate(sectionId, initialDate, finalDate).stream().map(
-                (obj) -> new AdsenseBySectionAndDueDateDto(obj[0], obj[1], obj[2], obj[3])
-        ).collect(Collectors.toList());
+        return batchRepository.getAdsenseBySectionAndDate(sectionId, initialDate, finalDate);
     }
 
     /**
@@ -176,12 +173,9 @@ public class BatchService implements IBatchService {
         LocalDate finalDate = initialDate.plusDays(numberOfDays);
 
         return order.equalsIgnoreCase("asc")
-            ? batchRepository.getAdsenseByDueDateAndCategoryAsc(initialDate, finalDate, category).stream()
-                .map((obj) -> new AdsensByDueDateAndCategoryDto(obj[0], obj[1], obj[2], obj[3], obj[4], obj[5]))
-                .collect(Collectors.toList())
-            : batchRepository.getAdsenseByDueDateAndCategoryDesc(initialDate, finalDate, category).stream()
-                .map((obj) -> new AdsensByDueDateAndCategoryDto(obj[0], obj[1], obj[2], obj[3], obj[4], obj[5]))
-                .collect(Collectors.toList());
+            ? batchRepository.getAdsenseByDueDateAndCategoryAsc(initialDate, finalDate, category)
+            : batchRepository.getAdsenseByDueDateAndCategoryDesc(initialDate, finalDate, category);
+
     }
 
 }

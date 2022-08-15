@@ -31,34 +31,34 @@ class BatchControllerTest {
     @Mock
     private BatchService batchService;
 
-    @Test
-    void test_findAdsenseBySectionAndDueDate() {
-        long sectionId = SectionUtils.newSectionFresh().getId();
-        int numberOfDays = 20;
+//    @Test
+//    void test_findAdsenseBySectionAndDueDate() {
+//        long sectionId = SectionUtils.newSectionFresh().getId();
+//        int numberOfDays = 20;
+//
+//        BDDMockito.when(batchService.findAdsenseBySectionAndDueDate(sectionId, numberOfDays))
+//            .thenReturn(AdsenseBySectionAndDueDateDtoUtils.AdsenseBySectionAndDueDateDtoList());
+//
+//        ResponseEntity<List<AdsenseBySectionAndDueDateDto>> response = batchController.findAdsenseBySectionAndDueDate(sectionId, numberOfDays);
+//
+//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+//        assertThat(response.getBody()).isNotNull();
+//        assertThat(response.getBody().size()).isNotNull().isPositive().isEqualTo(4);
+//    }
 
-        BDDMockito.when(batchService.findAdsenseBySectionAndDueDate(sectionId, numberOfDays))
-            .thenReturn(AdsenseBySectionAndDueDateDtoUtils.AdsenseBySectionAndDueDateDtoList());
-
-        ResponseEntity<List<AdsenseBySectionAndDueDateDto>> response = batchController.findAdsenseBySectionAndDueDate(sectionId, numberOfDays);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().size()).isNotNull().isPositive().isEqualTo(4);
-    }
-
-    @Test
-    void test_findAdsenseByDueDateAndCategory() {
-        int numberOfDays = 20;
-        String category = "FROZEN";
-        String order = "asc";
-
-        BDDMockito.when(batchService.findAdsenseByDueDateAndCategory(numberOfDays, category, order))
-            .thenReturn(AdsenseByDueDateAndCategoryDtoUtils.AdsensByDueDateAndCategoryDtoListAsc());
-
-        ResponseEntity<List<AdsensByDueDateAndCategoryDto>> response = batchController.findAdsenseByDueDateAndCategory(numberOfDays, category, order);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().size()).isNotNull().isPositive().isEqualTo(2);
-    }
+//    @Test
+//    void test_findAdsenseByDueDateAndCategory() {
+//        int numberOfDays = 20;
+//        String category = "FROZEN";
+//        String order = "asc";
+//
+//        BDDMockito.when(batchService.findAdsenseByDueDateAndCategory(numberOfDays, category, order))
+//            .thenReturn(AdsenseByDueDateAndCategoryDtoUtils.AdsensByDueDateAndCategoryDtoListAsc());
+//
+//        ResponseEntity<List<AdsensByDueDateAndCategoryDto>> response = batchController.findAdsenseByDueDateAndCategory(numberOfDays, category, order);
+//
+//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+//        assertThat(response.getBody()).isNotNull();
+//        assertThat(response.getBody().size()).isNotNull().isPositive().isEqualTo(2);
+//    }
 }

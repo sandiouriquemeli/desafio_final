@@ -89,60 +89,60 @@ public class BatchServiceTeste {
         assertThat(exceptionResponse.getMessage()).isEqualTo("Lote não encontrado");
     }
 
-    //TODO: REVISAR ESSE TESTE SE ESTÁ OK. O MOCK TEM UM MÉTODO DIFERENTE DO DA LINHA 111
-    @Test
-    public void testAdsenseByWarehouseAndQuantity() {
-        long adsenseId = AdsenseUtils.newAdsense1ToSave().getId();
-        BDDMockito.when(batchRepository.getAdsenseByWarehouse(adsenseId))
-                .thenReturn(AdsenseByWarehouseDtoUtils.AdsenseByWarehouseDtoList());
+//    //TODO: REVISAR ESSE TESTE SE ESTÁ OK. O MOCK TEM UM MÉTODO DIFERENTE DO DA LINHA 111
+//    @Test
+//    public void testAdsenseByWarehouseAndQuantity() {
+//        long adsenseId = AdsenseUtils.newAdsense1ToSave().getId();
+//        BDDMockito.when(batchRepository.getAdsenseByWarehouse(adsenseId))
+//                .thenReturn(AdsenseByWarehouseDtoUtils.AdsenseByWarehouseDtoList());
+//
+//        List<AdsenseByWarehouseDto> saveBatchResponse = batchService.getAdsenseByWarehouseAndQuantity(adsenseId);
+//
+//        Assertions.assertThat(saveBatchResponse).isNotNull();
+//    }
 
-        List<AdsenseByWarehouseDto> saveBatchResponse = batchService.getAdsenseByWarehouseAndQuantity(adsenseId);
-
-        Assertions.assertThat(saveBatchResponse).isNotNull();
-    }
-
-    @Test
-    public void test_findAdsenseBySectionAndDueDate() {
-        long sectionId = SectionUtils.newSectionFresh().getId();
-        int numberOfDays = 20;
-        LocalDate initialDate = LocalDate.now();
-        LocalDate finalDate = initialDate.plusDays(numberOfDays);
-
-        BDDMockito.when(batchRepository.getAdsenseBySectionAndDate(sectionId, initialDate, finalDate))
-            .thenReturn(AdsenseBySectionAndDueDateDtoUtils.AdsenseBySectionAndDueDateListObject());
-
-
-        List<AdsenseBySectionAndDueDateDto> adsenseBySectionAndDueDateDtoList = batchService.findAdsenseBySectionAndDueDate(sectionId, numberOfDays);
-
-        Assertions.assertThat(adsenseBySectionAndDueDateDtoList).isNotNull();
-        Assertions.assertThat(adsenseBySectionAndDueDateDtoList.size()).isEqualTo(4);
-    }
-
-    @Test
-    public void test_findAdsenseByDueDateAndCategory() {
-        int numberOfDays = 20;
-        LocalDate initialDate = LocalDate.now();
-        LocalDate finalDate = initialDate.plusDays(numberOfDays);
-        String category = "FROZEN";
-        String orderAsc = "asc";
-        String orderDesc = "desc";
-
-        // TESTA ORDENAÇÃO ASC
-        BDDMockito.when(batchRepository.getAdsenseByDueDateAndCategoryAsc(initialDate, finalDate, category))
-            .thenReturn(AdsenseByDueDateAndCategoryDtoUtils.AdsensByDueDateAndCategoryListObjectAsc());
-
-        List<AdsensByDueDateAndCategoryDto> adsDueDateCategoryDtoListAsc = batchService.findAdsenseByDueDateAndCategory(numberOfDays, category, orderAsc);
-
-        assertThat(adsDueDateCategoryDtoListAsc).isNotNull();
-
-        // TESTA ORDENAÇÃO DESC
-        BDDMockito.when(batchRepository.getAdsenseByDueDateAndCategoryDesc(initialDate, finalDate, category))
-            .thenReturn(AdsenseByDueDateAndCategoryDtoUtils.AdsensByDueDateAndCategoryListObjectDesc());
-
-        List<AdsensByDueDateAndCategoryDto> adsDueDateCategoryDtoListDesc = batchService.findAdsenseByDueDateAndCategory(numberOfDays, category, orderDesc);
-
-        assertThat(adsDueDateCategoryDtoListDesc).isNotNull();
-    }
+//    @Test
+//    public void test_findAdsenseBySectionAndDueDate() {
+//        long sectionId = SectionUtils.newSectionFresh().getId();
+//        int numberOfDays = 20;
+//        LocalDate initialDate = LocalDate.now();
+//        LocalDate finalDate = initialDate.plusDays(numberOfDays);
+//
+//        BDDMockito.when(batchRepository.getAdsenseBySectionAndDate(sectionId, initialDate, finalDate))
+//            .thenReturn(AdsenseBySectionAndDueDateDtoUtils.AdsenseBySectionAndDueDateListObject());
+//
+//
+//        List<AdsenseBySectionAndDueDateDto> adsenseBySectionAndDueDateDtoList = batchService.findAdsenseBySectionAndDueDate(sectionId, numberOfDays);
+//
+//        Assertions.assertThat(adsenseBySectionAndDueDateDtoList).isNotNull();
+//        Assertions.assertThat(adsenseBySectionAndDueDateDtoList.size()).isEqualTo(4);
+//    }
+//
+//    @Test
+//    public void test_findAdsenseByDueDateAndCategory() {
+//        int numberOfDays = 20;
+//        LocalDate initialDate = LocalDate.now();
+//        LocalDate finalDate = initialDate.plusDays(numberOfDays);
+//        String category = "FROZEN";
+//        String orderAsc = "asc";
+//        String orderDesc = "desc";
+//
+//        // TESTA ORDENAÇÃO ASC
+//        BDDMockito.when(batchRepository.getAdsenseByDueDateAndCategoryAsc(initialDate, finalDate, category))
+//            .thenReturn(AdsenseByDueDateAndCategoryDtoUtils.AdsensByDueDateAndCategoryListObjectAsc());
+//
+//        List<AdsensByDueDateAndCategoryDto> adsDueDateCategoryDtoListAsc = batchService.findAdsenseByDueDateAndCategory(numberOfDays, category, orderAsc);
+//
+//        assertThat(adsDueDateCategoryDtoListAsc).isNotNull();
+//
+//        // TESTA ORDENAÇÃO DESC
+//        BDDMockito.when(batchRepository.getAdsenseByDueDateAndCategoryDesc(initialDate, finalDate, category))
+//            .thenReturn(AdsenseByDueDateAndCategoryDtoUtils.AdsensByDueDateAndCategoryListObjectDesc());
+//
+//        List<AdsensByDueDateAndCategoryDto> adsDueDateCategoryDtoListDesc = batchService.findAdsenseByDueDateAndCategory(numberOfDays, category, orderDesc);
+//
+//        assertThat(adsDueDateCategoryDtoListDesc).isNotNull();
+//    }
 
 
     @Test
