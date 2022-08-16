@@ -14,5 +14,5 @@ public interface IBatchService {
     List<BatchDto> returnBatchStock(List<AdsenseIdDto> adsenseList, String s);
     List<AdsenseByWarehouseDto> getAdsenseByWarehouseAndQuantity(long adsenseId);
     List<AdsenseBySectionAndDueDateDto> findAdsenseBySectionAndDueDate(long sectionId, int numberOfDays);
-    List<AdsensByDueDateAndCategoryDto> findAdsenseByDueDateAndCategory(int numberOfDays, String category, String order);
+    List<AdsenseByDueDateAndCategoryDto> findAdsenseByDueDateAndCategory(int numberOfDays, String category, String order);
 }

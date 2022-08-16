@@ -24,17 +24,17 @@ public class HandlerExceptions {
                         .build(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(BadRequest.class)
-    public ResponseEntity<ErrorResponseDetails> handlerBadRequest(BadRequest badRequest) {
-        return new ResponseEntity<>(
-                ErrorResponseDetails.builder()
-                        .title("Bad Request")
-                        .status(HttpStatus.BAD_REQUEST.value())
-                        .link("https://http.cat/400")
-                        .message(badRequest.getMessage())
-                        .timestamp(LocalDateTime.now())
-                        .build(), HttpStatus.BAD_REQUEST);
-    }
+//    @ExceptionHandler(BadRequest.class)
+//    public ResponseEntity<ErrorResponseDetails> handlerBadRequest(BadRequest badRequest) {
+//        return new ResponseEntity<>(
+//                ErrorResponseDetails.builder()
+//                        .title("Bad Request")
+//                        .status(HttpStatus.BAD_REQUEST.value())
+//                        .link("https://http.cat/400")
+//                        .message(badRequest.getMessage())
+//                        .timestamp(LocalDateTime.now())
+//                        .build(), HttpStatus.BAD_REQUEST);
+//    }
 
     @ExceptionHandler(Unauthorized.class)
     public ResponseEntity<ErrorResponseDetails> handlerUnauthorized(Unauthorized unauthorized) {

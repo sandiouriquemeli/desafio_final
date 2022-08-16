@@ -1,9 +1,8 @@
 package br.com.meli.desafio_final.controller;
 
-import br.com.meli.desafio_final.dto.AdsensByDueDateAndCategoryDto;
+import br.com.meli.desafio_final.dto.AdsenseByDueDateAndCategoryDto;
 import br.com.meli.desafio_final.dto.AdsenseBySectionAndDueDateDto;
 import br.com.meli.desafio_final.dto.BatchDto;
-import br.com.meli.desafio_final.repository.BatchRepository;
 import br.com.meli.desafio_final.service.implementation.BatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,7 +48,7 @@ public class BatchController {
      * @param order
      */
     @GetMapping("/due-date/list")
-    public ResponseEntity<List<AdsensByDueDateAndCategoryDto>> findAdsenseByDueDateAndCategory(@RequestParam int numberOfDays, @RequestParam String category, @RequestParam String order) {
+    public ResponseEntity<List<AdsenseByDueDateAndCategoryDto>> findAdsenseByDueDateAndCategory(@RequestParam int numberOfDays, @RequestParam String category, @RequestParam String order) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findAdsenseByDueDateAndCategory(numberOfDays, category, order));
     }
 

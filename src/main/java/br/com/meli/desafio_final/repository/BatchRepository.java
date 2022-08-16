@@ -1,5 +1,8 @@
 package br.com.meli.desafio_final.repository;
 
+import br.com.meli.desafio_final.dto.AdsenseByDueDateAndCategoryDto;
+import br.com.meli.desafio_final.dto.AdsenseBySectionAndDueDateDto;
+import br.com.meli.desafio_final.dto.AdsenseByWarehouseDto;
 import br.com.meli.desafio_final.model.entity.Batch;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -35,7 +38,7 @@ public interface BatchRepository extends JpaRepository<Batch, Long> {
             "AND batch.in_bound_order_id = inbound.id \n" +
             "AND inbound.section_id = section.id\n" +
             "GROUP BY warehouse_id, adsense_id;", nativeQuery = true)
-    List<Object[]> getAdsenseByWarehouse(long id);
+    List<AdsenseByWarehouseDto> getAdsenseByWarehouse(long id);
 
     /**
      * Essa query retorna uma lista de todos os lotes armazenados em um setor de um armazém,
@@ -47,15 +50,14 @@ public interface BatchRepository extends JpaRepository<Batch, Long> {
      * @param finalDate
      */
     @Query(value = "SELECT\n" +
-            " batch_number, adsense_id, current_quantity, due_date\n" +
+            " batch_number, adsense_id, current_quantity AS quantity, due_date\n" +
             " FROM batch\n" +
             " JOIN frescos.in_bound_order\n" +
             " WHERE frescos.in_bound_order.id = frescos.batch.in_bound_order_id\n" +
             " AND frescos.in_bound_order.section_id = ?1\n" +
             " AND due_date BETWEEN ?2 AND ?3" +
             " ORDER BY due_date", nativeQuery = true)
-    List<Object[]> getAdsenseBySectionAndDate(long id, LocalDate initialDate, LocalDate finalDate);
-
+    List<AdsenseBySectionAndDueDateDto> getAdsenseBySectionAndDate(long id, LocalDate initialDate, LocalDate finalDate);
 
     /**
      * Essa query retorna uma lista de lote dentro do prazo de validade solicitado,
@@ -69,9 +71,9 @@ public interface BatchRepository extends JpaRepository<Batch, Long> {
     @Query(value = "SELECT\n" +
             " batch_number, \n" +
             " adsense_id, \n" +
-            " current_quantity, \n" +
+            " current_quantity AS quantity, \n" +
             " due_date,\n" +
-            " frescos.product.category AS productType,\n" +
+            " frescos.product.category AS category,\n" +
             " frescos.in_bound_order.section_id AS section_id\n" +
             " FROM batch\n" +
             " JOIN frescos.in_bound_order\n" +
@@ -83,7 +85,7 @@ public interface BatchRepository extends JpaRepository<Batch, Long> {
             " AND product.id = adsense.product_id\n" +
             " AND product.category = ?3\n" +
             " ORDER BY current_quantity ASC", nativeQuery = true)
-    List<Object[]> getAdsenseByDueDateAndCategoryAsc(LocalDate initialDate, LocalDate finalDate, String category);
+    List<AdsenseByDueDateAndCategoryDto> getAdsenseByDueDateAndCategoryAsc(LocalDate initialDate, LocalDate finalDate, String category);
 
     /**
      * Essa query retorna uma lista de lote dentro do prazo de validade solicitado,
@@ -111,5 +113,5 @@ public interface BatchRepository extends JpaRepository<Batch, Long> {
             " AND product.id = adsense.product_id\n" +
             " AND product.category = ?3\n" +
             " ORDER BY current_quantity DESC", nativeQuery = true)
-    List<Object[]> getAdsenseByDueDateAndCategoryDesc(LocalDate initialDate, LocalDate finalDate, String category);
+    List<AdsenseByDueDateAndCategoryDto> getAdsenseByDueDateAndCategoryDesc(LocalDate initialDate, LocalDate finalDate, String category);
 }
