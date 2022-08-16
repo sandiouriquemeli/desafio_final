@@ -1,6 +1,6 @@
 package br.com.meli.desafio_final.repository;
 
-import br.com.meli.desafio_final.dto.AdsensByDueDateAndCategoryDto;
+import br.com.meli.desafio_final.dto.AdsenseByDueDateAndCategoryDto;
 import br.com.meli.desafio_final.dto.AdsenseBySectionAndDueDateDto;
 import br.com.meli.desafio_final.dto.AdsenseByWarehouseDto;
 import br.com.meli.desafio_final.model.entity.Batch;
@@ -85,7 +85,7 @@ public interface BatchRepository extends JpaRepository<Batch, Long> {
             " AND product.id = adsense.product_id\n" +
             " AND product.category = ?3\n" +
             " ORDER BY current_quantity ASC", nativeQuery = true)
-    List<AdsensByDueDateAndCategoryDto> getAdsenseByDueDateAndCategoryAsc(LocalDate initialDate, LocalDate finalDate, String category);
+    List<AdsenseByDueDateAndCategoryDto> getAdsenseByDueDateAndCategoryAsc(LocalDate initialDate, LocalDate finalDate, String category);
 
     /**
      * Essa query retorna uma lista de lote dentro do prazo de validade solicitado,
@@ -113,5 +113,5 @@ public interface BatchRepository extends JpaRepository<Batch, Long> {
             " AND product.id = adsense.product_id\n" +
             " AND product.category = ?3\n" +
             " ORDER BY current_quantity DESC", nativeQuery = true)
-    List<AdsensByDueDateAndCategoryDto> getAdsenseByDueDateAndCategoryDesc(LocalDate initialDate, LocalDate finalDate, String category);
+    List<AdsenseByDueDateAndCategoryDto> getAdsenseByDueDateAndCategoryDesc(LocalDate initialDate, LocalDate finalDate, String category);
 }

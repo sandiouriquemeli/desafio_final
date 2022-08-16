@@ -2,7 +2,7 @@ package br.com.meli.desafio_final.dto;
 import java.util.Date;
 
 
-public interface AdsensByDueDateAndCategoryDto {
+public interface AdsenseByDueDateAndCategoryDto {
     Long getBatch_number();
     Long getAdsense_id();
     Integer getQuantity();
